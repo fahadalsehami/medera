@@ -679,48 +679,97 @@ export default function ProcessSection() {
                                   <div className="w-full h-full flex items-center justify-center relative">
                                     {(currentSubItem === 1 && scrollProgressValue > 0.85) ? (
                                       <div 
-                                        className="perspective-distant relative w-full h-full flex items-center justify-center"
+                                        className="perspective-distant relative w-full h-full flex items-center justify-center overflow-hidden"
                                         style={{ 
-                                          transform: 'translate(0vw, 10vh) scale(0.8)',
+                                          transform: 'translate(0vw, 5vh) scale(0.6)',
                                           perspective: '1000px'
                                         }}
                                       >
                                         <motion.div 
-                                          className="relative transform-3d"
+                                          className="relative w-full max-w-[400px] select-none transform-3d"
                                           animate={{
                                             rotateX: 5,
                                             rotateY: -30,
-                                            scale: 0.8 + (0.2 * ((scrollProgressValue - 0.85) / 0.15))
                                           }}
                                           transition={{ duration: 0.5 }}
-                                          style={{ transformStyle: 'preserve-3d' }}
+                                          style={{ transform: 'rotateX(5deg) rotateY(-30deg)' }}
                                         >
-                                          {/* 3D Text Effect */}
-                                          <div className="text-center space-y-2">
-                                            <div className="inline-block transform-3d">
+                                          <div 
+                                            className="atlas-product-base -rotate-x-6 -rotate-y-12 break-words whitespace-pre-line transform-3d text-xs"
+                                            style={{ 
+                                              transition: 'transform 2s cubic-bezier(0.16, 1, 0.3, 1)',
+                                              transform: 'rotateX(1.36deg) rotateY(11.8deg)',
+                                              transformStyle: 'preserve-3d'
+                                            }}
+                                          >
+                                            <span style={{ opacity: 0.5 }}>You are a customer service </span>
+                                            <span className="relative inline-block transform-3d">
                                               <span 
-                                                className="text-[#70a2bc] bg-[#70a2bc]/10 px-2 py-1 rounded inline-block"
-                                                style={{ 
-                                                  transform: 'translateZ(50px)',
-                                                  fontSize: '14px'
-                                                }}
+                                                className="bg-gray-100 text-gray-400 inline-block h-[21px] line-through"
+                                                style={{ opacity: 1, transform: 'translateZ(20px)' }}
                                               >
-                                                Agent
+                                                <span className="bg-gray-50">representative </span>
                                               </span>
-                                            </div>
-                                            <div className="relative">
                                               <span 
-                                                className="line-through text-gray-400 absolute"
+                                                className="absolute inset-0"
                                                 style={{ 
-                                                  transform: 'translateZ(20px)',
-                                                  fontSize: '12px',
+                                                  backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)',
                                                   opacity: 0.5
                                                 }}
+                                              />
+                                            </span>
+                                            <span style={{ opacity: 0.5 }}> </span>
+                                            <span className="inline-block transform-3d">
+                                              <span 
+                                                className="text-[#70a2bc] bg-[#70a2bc]/10 inline-block h-[21px] px-1"
+                                                style={{ opacity: 1, transform: 'translateZ(50px)' }}
                                               >
-                                                representative
+                                                agent 
                                               </span>
-                                            </div>
-                                            <div className="text-[#F59E0B] font-bold text-2xl mt-4">
+                                              <span 
+                                                className="absolute inset-0"
+                                                style={{ 
+                                                  backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)',
+                                                  opacity: 0.5
+                                                }}
+                                              />
+                                            </span>
+                                            <span style={{ opacity: 0.5 }}> for healthcare, </span>
+                                            <span className="relative inline-block transform-3d">
+                                              <span 
+                                                className="bg-gray-100 text-gray-400 inline-block h-[21px] line-through"
+                                                style={{ opacity: 1, transform: 'translateZ(20px)' }}
+                                              >
+                                                <span className="bg-gray-50">tasked </span>
+                                              </span>
+                                            </span>
+                                            <span className="relative inline-block transform-3d">
+                                              <span 
+                                                className="bg-gray-100 text-gray-400 inline-block h-[21px] line-through"
+                                                style={{ opacity: 1, transform: 'translateZ(20px)' }}
+                                              >
+                                                <span className="bg-gray-50">with </span>
+                                              </span>
+                                            </span>
+                                            <span className="inline-block transform-3d">
+                                              <span 
+                                                className="text-[#70a2bc] bg-[#70a2bc]/10 inline-block h-[21px] px-1"
+                                                style={{ opacity: 1, transform: 'translateZ(50px)' }}
+                                              >
+                                                responsible 
+                                              </span>
+                                            </span>
+                                            <span className="inline-block transform-3d">
+                                              <span 
+                                                className="text-[#70a2bc] bg-[#70a2bc]/10 inline-block h-[21px] px-1"
+                                                style={{ opacity: 1, transform: 'translateZ(50px)' }}
+                                              >
+                                                for 
+                                              </span>
+                                            </span>
+                                            <span style={{ opacity: 0.5 }}> referrals</span>
+                                            
+                                            <div className="text-[#F59E0B] font-bold text-3xl mt-6 text-center">
                                               1.4
                                             </div>
                                           </div>
