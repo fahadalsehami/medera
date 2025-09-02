@@ -438,30 +438,32 @@ export default function ProcessSection() {
                                 // State 2: Fit to cell (30-60%)
                                 verticalPos = [0, 70, 80, 85, 90, 100];
                                 horizontalPos = [0, 70, 80, 85, 90, 100];
-                              } else if (scrollProg < 0.8) {
-                                // State 3: Zoom in to smaller size (60-80%)
-                                const zoomProgress = (scrollProg - 0.6) / 0.2;
+                              } else if (scrollProg < 0.75) {
+                                // State 3: Zoom in to smaller size (60-75%)
+                                const zoomProgress = (scrollProg - 0.6) / 0.15;
                                 // Target size is 35% (smaller than current)
                                 verticalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
                                 horizontalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
                               } else {
-                                // State 4: Keep small and expand cell 1.4 (80-100%)
+                                // State 4: Keep small and expand cell 1.4 (75-100%)
                                 // Cell 1.1 stays at 35% size
                                 verticalPos = [0, 35, 60, 70, 80, 100];
                                 horizontalPos = [0, 35, 60, 70, 80, 100];
                                 
-                                // Also expand cell 1.4 during this phase
-                                if (scrollProg > 0.85) {
-                                  const expandProgress = (scrollProg - 0.85) / 0.15;
+                                // Also expand cell 1.4 during this phase - slower expansion
+                                if (scrollProg > 0.75) {
+                                  const expandProgress = Math.min((scrollProg - 0.75) / 0.25, 1);
+                                  // Smooth easing for expansion
+                                  const easedProgress = expandProgress * expandProgress * (3 - 2 * expandProgress);
                                   // Adjust for cell 1.4 expansion to fill entire visual area
-                                  verticalPos[1] = 35 - (35 * expandProgress);  // Move to 0%
-                                  verticalPos[2] = 60 - (60 * expandProgress);  // Move to 0%
-                                  verticalPos[3] = 70 + (30 * expandProgress);  // Move to 100%
-                                  verticalPos[4] = 80 + (20 * expandProgress);  // Move to 100%
-                                  horizontalPos[1] = 35 - (35 * expandProgress);  // Move to 0%
-                                  horizontalPos[2] = 60 - (60 * expandProgress);  // Move to 0%
-                                  horizontalPos[3] = 70 + (30 * expandProgress);  // Move to 100%
-                                  horizontalPos[4] = 80 + (20 * expandProgress);  // Move to 100%
+                                  verticalPos[1] = 35 - (35 * easedProgress);  // Move to 0%
+                                  verticalPos[2] = 60 - (60 * easedProgress);  // Move to 0%
+                                  verticalPos[3] = 70 + (30 * easedProgress);  // Move to 100%
+                                  verticalPos[4] = 80 + (20 * easedProgress);  // Move to 100%
+                                  horizontalPos[1] = 35 - (35 * easedProgress);  // Move to 0%
+                                  horizontalPos[2] = 60 - (60 * easedProgress);  // Move to 0%
+                                  horizontalPos[3] = 70 + (30 * easedProgress);  // Move to 100%
+                                  horizontalPos[4] = 80 + (20 * easedProgress);  // Move to 100%
                                 }
                               }
                             } else if (subItem === 2) {
@@ -491,7 +493,7 @@ export default function ProcessSection() {
                                   key={`v-line-${index}`}
                                   className="absolute top-0 h-full pointer-events-none"
                                   animate={{ left: `${pos}%` }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <svg 
                                     className="h-full opacity-30" 
@@ -518,7 +520,7 @@ export default function ProcessSection() {
                                   key={`h-line-${index}`}
                                   className="absolute left-0 w-full pointer-events-none"
                                   animate={{ top: `${pos}%` }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <svg 
                                     className="w-full opacity-30" 
@@ -550,16 +552,16 @@ export default function ProcessSection() {
                                     width: currentSubItem === 1 ? 
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
-                                       scrollProgressValue < 0.8 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.2))}%` :
+                                       scrollProgressValue < 0.75 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.15))}%` :
                                        '35%') : '20%',
                                     height: currentSubItem === 1 ? 
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
-                                       scrollProgressValue < 0.8 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.2))}%` :
+                                       scrollProgressValue < 0.75 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.15))}%` :
                                        '35%') : '20%',
                                     zIndex: currentSubItem === 1 ? 10 : 1
                                   }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center relative">
                                     {currentSubItem === 1 ? (
@@ -575,14 +577,14 @@ export default function ProcessSection() {
                                               ? 1.5 - (0.5 * (scrollProgressValue / 0.3))  // Zoom out from 1.5x to 1x
                                               : scrollProgressValue < 0.6 
                                               ? 1  // Stay at 1x
-                                              : scrollProgressValue < 0.8
-                                              ? 1 - (0.3 * ((scrollProgressValue - 0.6) / 0.2))  // Zoom in smaller to 0.7x
+                                              : scrollProgressValue < 0.75
+                                              ? 1 - (0.3 * ((scrollProgressValue - 0.6) / 0.15))  // Zoom in smaller to 0.7x
                                               : 0.7,  // Keep at 0.7x
-                                            opacity: scrollProgressValue < 0.9 ? 1 : 1 - ((scrollProgressValue - 0.9) / 0.1),
+                                            opacity: scrollProgressValue < 0.82 ? 1 : Math.max(0.3, 1 - ((scrollProgressValue - 0.82) / 0.08)),
                                             width: '90%',
                                             height: '90%'
                                           }}
-                                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                                          transition={{ duration: 0.6, ease: "easeInOut" }}
                                         />
                                         
                                         {/* Number overlay - shows after image fades */}
@@ -590,9 +592,9 @@ export default function ProcessSection() {
                                           className="text-[#70a2bc] font-light absolute"
                                           animate={{ 
                                             fontSize: '72px',
-                                            opacity: scrollProgressValue > 0.9 ? (scrollProgressValue - 0.9) * 10 : 0
+                                            opacity: scrollProgressValue > 0.85 ? Math.min(1, (scrollProgressValue - 0.85) / 0.05) : 0
                                           }}
-                                          transition={{ duration: 0.3 }}
+                                          transition={{ duration: 0.6 }}
                                         >
                                           1.1
                                         </motion.span>
@@ -621,7 +623,7 @@ export default function ProcessSection() {
                                     height: currentSubItem === 2 ? '70%' : '20%',
                                     zIndex: currentSubItem === 2 ? 10 : 1
                                   }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
                                     <motion.span 
@@ -646,7 +648,7 @@ export default function ProcessSection() {
                                     height: currentSubItem === 3 ? '70%' : '20%',
                                     zIndex: currentSubItem === 3 ? 10 : 1
                                   }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
                                     <motion.span 
@@ -666,22 +668,22 @@ export default function ProcessSection() {
                                   className="absolute overflow-hidden"
                                   animate={{
                                     left: currentSubItem === 4 ? '0%' : 
-                                           (currentSubItem === 1 && scrollProgressValue > 0.85) ? '0%' : '0%',
+                                           (currentSubItem === 1 && scrollProgressValue > 0.75) ? '0%' : '0%',
                                     top: currentSubItem === 4 ? '15%' : 
-                                          (currentSubItem === 1 && scrollProgressValue > 0.85) ? '0%' : '40%',
+                                          (currentSubItem === 1 && scrollProgressValue > 0.75) ? '0%' : '40%',
                                     width: currentSubItem === 4 ? '70%' : 
-                                            (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
-                                            `${20 + (80 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                            (currentSubItem === 1 && scrollProgressValue > 0.75) ? 
+                                            `${20 + (80 * Math.min((scrollProgressValue - 0.75) / 0.25, 1))}%` : '20%',
                                     height: currentSubItem === 4 ? '70%' : 
-                                             (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
-                                             `${20 + (80 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                             (currentSubItem === 1 && scrollProgressValue > 0.75) ? 
+                                             `${20 + (80 * Math.min((scrollProgressValue - 0.75) / 0.25, 1))}%` : '20%',
                                     zIndex: currentSubItem === 4 ? 10 : 
-                                            (currentSubItem === 1 && scrollProgressValue > 0.85) ? 8 : 1
+                                            (currentSubItem === 1 && scrollProgressValue > 0.75) ? 8 : 1
                                   }}
-                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center relative">
-                                    {(currentSubItem === 1 && scrollProgressValue > 0.85) ? (
+                                    {(currentSubItem === 1 && scrollProgressValue > 0.75) ? (
                                       <div 
                                         className="relative w-full h-full p-8 overflow-hidden"
                                         style={{ 
@@ -691,10 +693,10 @@ export default function ProcessSection() {
                                         <motion.div 
                                           className="relative w-full h-full"
                                           animate={{
-                                            rotateX: 2 + (3 * ((scrollProgressValue - 0.85) / 0.15)),
-                                            rotateY: -10 - (10 * ((scrollProgressValue - 0.85) / 0.15)),
+                                            rotateX: 2 + (3 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                            rotateY: -10 - (10 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
                                           }}
-                                          transition={{ duration: 0.3 }}
+                                          transition={{ duration: 0.6 }}
                                           style={{ transformStyle: 'preserve-3d' }}
                                         >
                                           <div 
@@ -707,10 +709,10 @@ export default function ProcessSection() {
                                             <motion.div 
                                               className="space-y-2"
                                               animate={{ 
-                                                opacity: scrollProgressValue > 0.86 ? 1 : 0,
-                                                y: scrollProgressValue > 0.86 ? 0 : 20
+                                                opacity: scrollProgressValue > 0.78 ? 1 : 0,
+                                                y: scrollProgressValue > 0.78 ? 0 : 20
                                               }}
-                                              transition={{ duration: 0.3 }}
+                                              transition={{ duration: 0.6 }}
                                             >
                                               <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
                                               <p className="text-gray-600">
@@ -718,19 +720,19 @@ export default function ProcessSection() {
                                                 <motion.span 
                                                   className="relative inline-block transform-3d"
                                                   animate={{
-                                                    scale: scrollProgressValue > 0.88 ? 1.1 : 1
+                                                    scale: scrollProgressValue > 0.80 ? 1.1 : 1
                                                   }}
                                                 >
                                                   <span 
                                                     className="text-red-600 bg-red-50 px-1 rounded inline-block font-semibold"
                                                     style={{ 
-                                                      transform: scrollProgressValue > 0.88 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.3s'
+                                                      transform: scrollProgressValue > 0.80 ? 'translateZ(40px)' : 'translateZ(0px)',
+                                                      transition: 'transform 0.5s ease-out'
                                                     }}
                                                   >
                                                     left chest pain
                                                   </span>
-                                                  {scrollProgressValue > 0.89 && (
+                                                  {scrollProgressValue > 0.82 && (
                                                     <span 
                                                       className="absolute -top-6 left-0 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-lg"
                                                       style={{ transform: 'translateZ(60px)' }}
@@ -743,19 +745,19 @@ export default function ProcessSection() {
                                                 <motion.span 
                                                   className="relative inline-block transform-3d"
                                                   animate={{
-                                                    scale: scrollProgressValue > 0.90 ? 1.1 : 1
+                                                    scale: scrollProgressValue > 0.84 ? 1.1 : 1
                                                   }}
                                                 >
                                                   <span 
                                                     className="text-blue-600 bg-blue-50 px-1 rounded inline-block font-semibold"
                                                     style={{ 
-                                                      transform: scrollProgressValue > 0.90 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.3s'
+                                                      transform: scrollProgressValue > 0.84 ? 'translateZ(40px)' : 'translateZ(0px)',
+                                                      transition: 'transform 0.5s ease-out'
                                                     }}
                                                   >
                                                     diabetes
                                                   </span>
-                                                  {scrollProgressValue > 0.91 && (
+                                                  {scrollProgressValue > 0.86 && (
                                                     <span 
                                                       className="absolute -top-6 left-0 text-xs text-blue-500 bg-white px-2 py-1 rounded shadow-lg"
                                                       style={{ transform: 'translateZ(60px)' }}
@@ -768,19 +770,19 @@ export default function ProcessSection() {
                                                 <motion.span 
                                                   className="relative inline-block transform-3d"
                                                   animate={{
-                                                    scale: scrollProgressValue > 0.92 ? 1.1 : 1
+                                                    scale: scrollProgressValue > 0.88 ? 1.1 : 1
                                                   }}
                                                 >
                                                   <span 
                                                     className="text-purple-600 bg-purple-50 px-1 rounded inline-block font-semibold"
                                                     style={{ 
-                                                      transform: scrollProgressValue > 0.92 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.3s'
+                                                      transform: scrollProgressValue > 0.88 ? 'translateZ(40px)' : 'translateZ(0px)',
+                                                      transition: 'transform 0.5s ease-out'
                                                     }}
                                                   >
                                                     foot swelling
                                                   </span>
-                                                  {scrollProgressValue > 0.93 && (
+                                                  {scrollProgressValue > 0.90 && (
                                                     <span 
                                                       className="absolute -top-6 left-0 text-xs text-purple-500 bg-white px-2 py-1 rounded shadow-lg"
                                                       style={{ transform: 'translateZ(60px)' }}
@@ -793,19 +795,19 @@ export default function ProcessSection() {
                                                 <motion.span 
                                                   className="relative inline-block transform-3d"
                                                   animate={{
-                                                    scale: scrollProgressValue > 0.94 ? 1.1 : 1
+                                                    scale: scrollProgressValue > 0.92 ? 1.1 : 1
                                                   }}
                                                 >
                                                   <span 
                                                     className="text-green-600 bg-green-50 px-1 rounded inline-block font-semibold"
                                                     style={{ 
-                                                      transform: scrollProgressValue > 0.94 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.3s'
+                                                      transform: scrollProgressValue > 0.92 ? 'translateZ(40px)' : 'translateZ(0px)',
+                                                      transition: 'transform 0.5s ease-out'
                                                     }}
                                                   >
                                                     insomnia
                                                   </span>
-                                                  {scrollProgressValue > 0.95 && (
+                                                  {scrollProgressValue > 0.94 && (
                                                     <span 
                                                       className="absolute -top-6 left-0 text-xs text-green-500 bg-white px-2 py-1 rounded shadow-lg"
                                                       style={{ transform: 'translateZ(60px)' }}
@@ -822,10 +824,10 @@ export default function ProcessSection() {
                                             <motion.div 
                                               className="space-y-2"
                                               animate={{ 
-                                                opacity: scrollProgressValue > 0.96 ? 1 : 0,
-                                                y: scrollProgressValue > 0.96 ? 0 : 20
+                                                opacity: scrollProgressValue > 0.95 ? 1 : 0,
+                                                y: scrollProgressValue > 0.95 ? 0 : 20
                                               }}
-                                              transition={{ duration: 0.3 }}
+                                              transition={{ duration: 0.6 }}
                                             >
                                               <p className="font-semibold text-gray-700">Dr. Martinez:</p>
                                               <p className="text-gray-600">
@@ -837,10 +839,10 @@ export default function ProcessSection() {
                                             <motion.div 
                                               className="space-y-2"
                                               animate={{ 
-                                                opacity: scrollProgressValue > 0.98 ? 1 : 0,
-                                                y: scrollProgressValue > 0.98 ? 0 : 20
+                                                opacity: scrollProgressValue > 0.97 ? 1 : 0,
+                                                y: scrollProgressValue > 0.97 ? 0 : 20
                                               }}
-                                              transition={{ duration: 0.3 }}
+                                              transition={{ duration: 0.6 }}
                                             >
                                               <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
                                               <p className="text-gray-600">
@@ -860,7 +862,7 @@ export default function ProcessSection() {
                                             <motion.div 
                                               className="absolute bottom-4 right-4"
                                               animate={{ 
-                                                opacity: scrollProgressValue > 0.85 ? 0.3 : 0
+                                                opacity: scrollProgressValue > 0.75 ? 0.3 : 0
                                               }}
                                             >
                                               <span className="text-[#F59E0B] font-bold text-4xl">
