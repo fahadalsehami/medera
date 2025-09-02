@@ -152,28 +152,23 @@ export default function ProcessSection() {
           // SPECIAL CASE: Step 1, Care Agent with 4 sub-items
           if (newActiveStep === 0) {
             // Step 1 has 4 sub-items now (1.1, 1.2, 1.3, 1.4)
-            // Extended handling for step 1.2 to allow more scroll attempts
-            if (localStepProgress >= 1.0 && localStepProgress < 2.5) {
+            // Extended handling for each sub-step with proper transitions
+            if (localStepProgress < 1.0) {
+              // Step 1.1: 0-1 range
+              newCurrentSubItem = 1;
+              visualAnimationProgress = localStepProgress; // 0.0 to 1.0 for sub-item 1.1 animation
+            } else if (localStepProgress >= 1.0 && localStepProgress < 2.5) {
               // Step 1.2 extended range - requires 1.5x more scrolling than normal
               newCurrentSubItem = 2;
               visualAnimationProgress = Math.min((localStepProgress - 1.0) / 1.5, 1.0); // 0.0 to 1.0 over 1.5 units
-            } else if (localStepProgress >= 2.5) {
-              // After extended step 1.2, proceed normally
-              const adjustedProgress = localStepProgress - 1.5; // Adjust for the extended 1.2
-              newCurrentSubItem = Math.floor(adjustedProgress) + 3; // Start from step 3
-              newCurrentSubItem = Math.max(3, Math.min(newCurrentSubItem, stepSubItemCount));
-              visualAnimationProgress = 1.0;
-            } else {
-              // Normal handling for step 1.1
-              newCurrentSubItem = Math.floor(localStepProgress) + 1;
-              newCurrentSubItem = Math.max(1, Math.min(newCurrentSubItem, stepSubItemCount));
-              
-              // Special animation progress for sub-item 1.1
-              if (newCurrentSubItem === 1) {
-                visualAnimationProgress = localStepProgress; // 0.0 to 1.0 for sub-item 1.1 animation
-              } else {
-                visualAnimationProgress = 1.0; // Animation fully complete for other sub-items
-              }
+            } else if (localStepProgress >= 2.5 && localStepProgress < 3.0) {
+              // Step 1.3: 2.5-3.0 range with smooth transition
+              newCurrentSubItem = 3;
+              visualAnimationProgress = (localStepProgress - 2.5) / 0.5; // 0.0 to 1.0 over 0.5 units
+            } else if (localStepProgress >= 3.0) {
+              // Step 1.4: 3.0+ range
+              newCurrentSubItem = 4;
+              visualAnimationProgress = Math.min((localStepProgress - 3.0) / 1.0, 1.0); // 0.0 to 1.0 over 1 unit
             }
           } else if (newActiveStep === 1) {
             // SPECIAL CASE: Step 2 (Smart Bundling) - needs full animation
@@ -201,6 +196,10 @@ export default function ProcessSection() {
         setScrollProgressValue(visualAnimationProgress); // Exact 0-1 progress for animations
       } else if (newActiveStep === 0 && newCurrentSubItem === 2) {
         setScrollProgressValue(visualAnimationProgress); // Extended 0-1 progress for step 1.2 animations
+      } else if (newActiveStep === 0 && newCurrentSubItem === 3) {
+        setScrollProgressValue(visualAnimationProgress); // 0-1 progress for step 1.3 animations
+      } else if (newActiveStep === 0 && newCurrentSubItem === 4) {
+        setScrollProgressValue(visualAnimationProgress); // 0-1 progress for step 1.4 animations
       } else {
         setScrollProgressValue(latest); // Regular scroll progress for others
       }
@@ -969,7 +968,7 @@ export default function ProcessSection() {
                                                 </div>
                                               </div>
                                               <div className="flex items-center gap-2">
-                                                <span className="text-xs text-[#70a2bc] font-medium">Live Session</span>
+                                                <span className="text-xs text-[#70a2bc] font-medium"></span>
                                               </div>
                                             </div>
                                           </div>
@@ -1443,16 +1442,337 @@ export default function ProcessSection() {
                                 <motion.div
                                   className="absolute"
                                   animate={{
-                                    left: currentSubItem === 3 ? '30%' : '80%',
-                                    top: currentSubItem === 3 ? '0%' : '0%',
-                                    width: currentSubItem === 3 ? '70%' : '20%',
-                                    height: currentSubItem === 3 ? '70%' : '20%',
+                                    left: currentSubItem === 3 ? '15%' : '80%',
+                                    top: currentSubItem === 3 ? '5%' : '0%',
+                                    width: currentSubItem === 3 ? '80%' : '20%',
+                                    height: currentSubItem === 3 ? '85%' : '20%',
                                     zIndex: currentSubItem === 3 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
-                                    {/* Debug number 1.3 removed */}
+                                    {currentSubItem === 3 ? (
+                                      <motion.div 
+                                        className="w-full h-full flex items-center justify-center"
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ 
+                                          opacity: scrollProgressValue > 0.3 ? 1 : scrollProgressValue * 3.3,
+                                          scale: scrollProgressValue > 0.3 ? 1 : 0.8 + (scrollProgressValue * 0.67)
+                                        }}
+                                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                                      >
+                                        {/* Step 1.3 - Follow-up Agent Visualization */}
+                                        <div className="relative w-full h-full">
+                                          
+                                          {/* Transcript Card - Adjusted Position */}
+                                          <motion.div 
+                                            className="absolute w-[70%] h-[70%]"
+                                            style={{
+                                              top: '0px',
+                                              right: '20px'
+                                            }}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ 
+                                              opacity: currentSubItem === 3 ? 1 : 0,
+                                              y: currentSubItem === 3 ? 0 : 20
+                                            }}
+                                            transition={{ duration: 1.2, ease: "easeInOut" }}
+                                          >
+                                            <div className="w-full h-full bg-transparent border border-[#70a2bc]/20 flex flex-col">
+                                              
+                                              {/* Minimalist Header - Compact */}
+                                              <div className="bg-white/50 border-b border-[#70a2bc]/20 px-3 py-1.5">
+                                                <div className="flex items-center gap-3">
+                                                  <div className="flex items-center gap-1">
+                                                    <div className="w-1 h-1 bg-[#70a2bc] rounded-full"></div>
+                                                    <span className="text-[10px] font-medium text-[#70a2bc]">Transcript</span>
+                                                  </div>
+                                                  <span className="text-[10px] text-[#6c757d]/60">Prior Note</span>
+                                                </div>
+                                              </div>
+                                              
+                                              {/* Transcript Content - Compact */}
+                                              <div className="flex-1 p-3 space-y-2 overflow-y-auto bg-transparent">
+                                                
+                                                {/* Live Status - Smaller */}
+                                                <motion.div 
+                                                  className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px]"
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ 
+                                                    opacity: currentSubItem === 3 && scrollProgressValue > 0.2 ? 1 : 0
+                                                  }}
+                                                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                                                >
+                                                  <motion.div
+                                                    className="w-1.5 h-1.5 bg-green-500 rounded-full"
+                                                    animate={{ 
+                                                      scale: [1, 1.2, 1],
+                                                      opacity: [1, 0.6, 1]
+                                                    }}
+                                                    transition={{ duration: 2, repeat: Infinity }}
+                                                  />
+                                                  <span className="text-[#6c757d]">Live Transcribing</span>
+                                                </motion.div>
+                                                
+                                                {/* Conversation Messages with Scroll Animation */}
+                                                <motion.div 
+                                                  className="space-y-2"
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  transition={{ duration: 0.5, delay: 0.3 }}
+                                                >
+                                                  {/* Agent Question */}
+                                                  <motion.div 
+                                                    className="border-l border-[#70a2bc]/30 pl-2"
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ 
+                                                      opacity: currentSubItem === 3 && scrollProgressValue > 0.3 ? 1 : 0,
+                                                      y: currentSubItem === 3 && scrollProgressValue > 0.3 ? 0 : 8
+                                                    }}
+                                                    transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
+                                                  >
+                                                    <span className="text-[10px] text-[#70a2bc] font-medium">Agent</span>
+                                                    <p className="text-xs text-[#2f2f2f] mt-0.5">
+                                                      Do you feel like that discomfort or shortness of breath is worse with activity?
+                                                    </p>
+                                                  </motion.div>
+                                                  
+                                                  {/* Patient Response */}
+                                                  <motion.div 
+                                                    className="border-l border-[#a8998a]/30 pl-2 ml-6"
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ 
+                                                      opacity: currentSubItem === 3 && scrollProgressValue > 0.35 ? 1 : 0,
+                                                      y: currentSubItem === 3 && scrollProgressValue > 0.35 ? 0 : 8
+                                                    }}
+                                                    transition={{ duration: 0.8, delay: 0.5, ease: "easeInOut" }}
+                                                  >
+                                                    <span className="text-[10px] text-[#a8998a] font-medium">Patient</span>
+                                                    <p className="text-xs text-[#2f2f2f] mt-0.5">
+                                                      Yes, when I'm walking up the stairs, all of that is worse.
+                                                    </p>
+                                                  </motion.div>
+                                                  
+                                                  {/* Agent Follow-up */}
+                                                  <motion.div 
+                                                    className="border-l border-[#70a2bc]/30 pl-2"
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ 
+                                                      opacity: currentSubItem === 3 && scrollProgressValue > 0.4 ? 1 : 0,
+                                                      y: currentSubItem === 3 && scrollProgressValue > 0.4 ? 0 : 8
+                                                    }}
+                                                    transition={{ duration: 0.8, delay: 0.7, ease: "easeInOut" }}
+                                                  >
+                                                    <span className="text-[10px] text-[#70a2bc] font-medium">Agent</span>
+                                                    <p className="text-xs text-[#2f2f2f] mt-0.5">
+                                                      Have you noticed any chest pain or pressure at the same time?
+                                                    </p>
+                                                  </motion.div>
+                                                  
+                                                  {/* Patient Final Response */}
+                                                  <motion.div 
+                                                    className="border-l border-[#a8998a]/30 pl-2 ml-6"
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ 
+                                                      opacity: currentSubItem === 3 && scrollProgressValue > 0.45 ? 1 : 0,
+                                                      y: currentSubItem === 3 && scrollProgressValue > 0.45 ? 0 : 8
+                                                    }}
+                                                    transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+                                                  >
+                                                    <span className="text-[10px] text-[#a8998a] font-medium">Patient</span>
+                                                    <p className="text-xs text-[#2f2f2f] mt-0.5">
+                                                      Very mildly the last couple of days, that's why I came in.
+                                                    </p>
+                                                  </motion.div>
+                                                </motion.div>
+                                              </div>
+                                              
+                                            </div>
+                                          </motion.div>
+                                          
+                                          {/* Phone with Recording - Adjusted Position */}
+                                          <motion.div 
+                                            className="absolute z-10"
+                                            style={{ 
+                                              right: '-20px', 
+                                              bottom: '70px'
+                                            }}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ 
+                                              opacity: currentSubItem === 3 && scrollProgressValue > 0.25 ? 1 : 0,
+                                              scale: currentSubItem === 3 && scrollProgressValue > 0.25 ? 1 : 0.9
+                                            }}
+                                            transition={{ duration: 1.0, ease: "easeInOut", delay: 0.2 }}
+                                          >
+                                            <svg 
+                                              viewBox="0 0 200 400" 
+                                              className="w-[150px] h-[270px]"
+                                              style={{ filter: 'drop-shadow(0 10px 25px rgba(112, 162, 188, 0.25))' }}
+                                            >
+                                              {/* Phone Body with Primary Color Background - Tiny Rounded */}
+                                              <rect
+                                                x="10"
+                                                y="10"
+                                                width="180"
+                                                height="380"
+                                                rx="8"
+                                                fill="#70a2bc"
+                                                stroke="#000000"
+                                                strokeWidth="2"
+                                              />
+                                              
+                                              {/* Status Bar */}
+                                              <text
+                                                x="30"
+                                                y="40"
+                                                fontSize="11"
+                                                fill="white"
+                                                fontFamily="system-ui"
+                                                fontWeight="500"
+                                              >
+                                                11:41
+                                              </text>
+                                              
+                                              {/* Signal and Battery Icons */}
+                                              <g transform="translate(140, 28)">
+                                                <circle cx="0" cy="0" r="1.5" fill="white" opacity="0.9"/>
+                                                <circle cx="5" cy="-2" r="1.5" fill="white" opacity="0.9"/>
+                                                <circle cx="10" cy="-4" r="1.5" fill="white" opacity="0.9"/>
+                                                <circle cx="15" cy="-6" r="1.5" fill="white" opacity="0.9"/>
+                                                <rect x="25" y="-6" width="20" height="10" rx="2" fill="none" stroke="white" strokeWidth="1.5" opacity="0.9"/>
+                                                <rect x="27" y="-4" width="14" height="6" rx="1" fill="white" opacity="0.9"/>
+                                              </g>
+                                              
+                                              {/* Header */}
+                                              <text
+                                                x="100"
+                                                y="80"
+                                                fontSize="14"
+                                                fill="white"
+                                                fontFamily="system-ui"
+                                                fontWeight="600"
+                                                textAnchor="middle"
+                                              >
+                                                Sarah Johnson
+                                              </text>
+                                              
+                                              {/* Voice Waveform Animation */}
+                                              <g transform="translate(100, 180)">
+                                                {[-30, -20, -10, 0, 10, 20, 30].map((offset, i) => (
+                                                  <motion.rect
+                                                    key={i}
+                                                    x={offset - 2}
+                                                    y={-20}
+                                                    width="4"
+                                                    height="40"
+                                                    fill="white"
+                                                    opacity="0.8"
+                                                    animate={{
+                                                      height: [20 + Math.random() * 20, 40 + Math.random() * 20, 20 + Math.random() * 20],
+                                                      y: [-10 - Math.random() * 10, -20 - Math.random() * 10, -10 - Math.random() * 10]
+                                                    }}
+                                                    transition={{
+                                                      duration: 1.5 + Math.random() * 0.5,
+                                                      repeat: Infinity,
+                                                      delay: i * 0.1,
+                                                      ease: "easeInOut"
+                                                    }}
+                                                  />
+                                                ))}
+                                              </g>
+                                              
+                                              {/* Bottom Text */}
+                                              <text
+                                                x="100"
+                                                y="280"
+                                                fontSize="11"
+                                                fill="white"
+                                                fontFamily="system-ui"
+                                                textAnchor="middle"
+                                                opacity="0.9"
+                                              >
+                                              </text>
+                                              
+                                              {/* Recording Button */}
+                                              <g transform="translate(100, 320)">
+                                                {/* Outer Circle */}
+                                                <circle
+                                                  cx="0"
+                                                  cy="0"
+                                                  r="30"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  strokeWidth="3"
+                                                  opacity="0.9"
+                                                />
+                                                
+                                                {/* Recording Icon - Red */}
+                                                <circle
+                                                  cx="0"
+                                                  cy="0"
+                                                  r="12"
+                                                  fill="#ef4444"
+                                                />
+                                                
+                                                {/* Red Pulsing Effect */}
+                                                <motion.circle
+                                                  cx="0"
+                                                  cy="0"
+                                                  r="12"
+                                                  fill="#ef4444"
+                                                  opacity="0.4"
+                                                  animate={{
+                                                    r: [12, 18, 12],
+                                                    opacity: [0.4, 0, 0.4]
+                                                  }}
+                                                  transition={{
+                                                    duration: 1.5,
+                                                    repeat: Infinity,
+                                                    ease: "easeOut"
+                                                  }}
+                                                />
+                                                
+                                                {/* Pulsing Animation */}
+                                                <motion.circle
+                                                  cx="0"
+                                                  cy="0"
+                                                  r="30"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  strokeWidth="2"
+                                                  opacity="0.5"
+                                                  animate={{
+                                                    r: [30, 35, 30],
+                                                    opacity: [0.5, 0.2, 0.5]
+                                                  }}
+                                                  transition={{
+                                                    duration: 2,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                  }}
+                                                />
+                                              </g>
+                                              
+                                              {/* Timer */}
+                                              <text
+                                                x="100"
+                                                y="365"
+                                                fontSize="12"
+                                                fill="white"
+                                                fontFamily="system-ui"
+                                                fontWeight="500"
+                                                textAnchor="middle"
+                                              >
+                                                12:24
+                                              </text>
+                                            </svg>
+                                          </motion.div>
+                                          
+                                        </div>
+                                      </motion.div>
+                                    ) : ( 
+                                      <div className="text-xs text-[#70a2bc] opacity-50">1.3</div>
+                                    )}
                                   </div>
                                 </motion.div>
                                 
