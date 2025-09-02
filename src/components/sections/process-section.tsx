@@ -836,6 +836,7 @@ export default function ProcessSection() {
                                               </motion.div>
                                             </div>
                                           </motion.div>
+                                          </motion.div>
                                         )}
                                         
                                         {/* Number overlay - always visible but faint */}
