@@ -953,8 +953,7 @@ export default function ProcessSection() {
                                                 </div>
                                               </div>
                                               <div className="flex items-center gap-2">
-                                                <span className="text-xs text-[#a8998a]">00:42</span>
-                                                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                                                <span className="text-xs text-[#70a2bc] font-medium">Live Session</span>
                                               </div>
                                             </div>
                                           </div>
@@ -962,133 +961,175 @@ export default function ProcessSection() {
                                           {/* Main Content Area - Split View */}
                                           <div className="flex-1 flex overflow-hidden">
                                             
-                                            {/* Left Side - Realistic Voice Conversation */}
-                                            <div className="w-1/2 p-4 overflow-y-auto border-r border-[#70a2bc]/20">
-                                              <div className="space-y-3">
-                                                {/* Conversation Message 1 - AI Greeting */}
-                                                <motion.div 
-                                                  className="flex gap-2"
-                                                  initial={{ opacity: 0, x: -10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 0.3 }}
-                                                >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
-                                                  </div>
-                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
-                                                    <p className="text-xs text-[#2f2f2f]">Hi Sarah, I'm here to help with your intake today. What brings you in?</p>
-                                                  </div>
-                                                </motion.div>
+                                            {/* Left Side - Scroll-Driven Voice Conversation */}
+                                            <div className="w-1/2 p-4 border-r border-[#70a2bc]/20">
+                                              <div className="space-y-3 h-full">
+                                                {/* Scroll-driven conversation messages */}
                                                 
-                                                {/* Conversation Message 2 - Patient Initial Complaint */}
-                                                <motion.div 
-                                                  className="flex gap-2 justify-end"
-                                                  initial={{ opacity: 0, x: 10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 0.7 }}
-                                                >
-                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
-                                                    <p className="text-xs text-[#2f2f2f]">Um, hi. I've been having these really bad headaches for like three months now, and they're just not going away.</p>
-                                                  </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 1 - AI Greeting (0-10% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0 ? Math.min(scrollProgressValue * 10, 1) : 0,
+                                                      x: scrollProgressValue > 0 ? 0 : -10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                    </div>
+                                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                      <p className="text-xs text-[#2f2f2f]">Hi Sarah, I'm here to help with your intake today. What brings you in?</p>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 3 - AI Follow-up */}
-                                                <motion.div 
-                                                  className="flex gap-2"
-                                                  initial={{ opacity: 0, x: -10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 1.2 }}
-                                                >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
-                                                  </div>
-                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
-                                                    <p className="text-xs text-[#2f2f2f]">I'm sorry to hear that. Can you tell me more about these headaches?</p>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 2 - Patient Chief Complaint (10-25% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2 justify-end"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.1 ? Math.min((scrollProgressValue - 0.1) * 6.67, 1) : 0,
+                                                      x: scrollProgressValue > 0.1 ? 0 : 10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                      <p className="text-xs text-[#2f2f2f]">I've been having these really bad headaches for three months now, and they're just not going away.</p>
+                                                    </div>
+                                                    <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 4 - Patient Detailed Response */}
-                                                <motion.div 
-                                                  className="flex gap-2 justify-end"
-                                                  initial={{ opacity: 0, x: 10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 1.7 }}
-                                                >
-                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
-                                                    <p className="text-xs text-[#2f2f2f]">They're way worse than normal headaches. Like an 8 out of 10 pain, and I get dizzy and nauseous too.</p>
-                                                  </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 3 - AI Follow-up (25-35% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.25 ? Math.min((scrollProgressValue - 0.25) * 10, 1) : 0,
+                                                      x: scrollProgressValue > 0.25 ? 0 : -10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                    </div>
+                                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                      <p className="text-xs text-[#2f2f2f]">I'm sorry to hear that. Can you tell me more about these headaches?</p>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 5 - AI Frequency Question */}
-                                                <motion.div 
-                                                  className="flex gap-2"
-                                                  initial={{ opacity: 0, x: -10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 2.3 }}
-                                                >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
-                                                  </div>
-                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
-                                                    <p className="text-xs text-[#2f2f2f]">How often are you getting them?</p>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 4 - Patient Pain Details (35-50% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2 justify-end"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.35 ? Math.min((scrollProgressValue - 0.35) * 6.67, 1) : 0,
+                                                      x: scrollProgressValue > 0.35 ? 0 : 10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                      <p className="text-xs text-[#2f2f2f]">They're way worse than normal headaches. Like an 8 out of 10 pain, and I get dizzy and nauseous too.</p>
+                                                    </div>
+                                                    <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 6 - Patient Frequency Response */}
-                                                <motion.div 
-                                                  className="flex gap-2 justify-end"
-                                                  initial={{ opacity: 0, x: 10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 2.7 }}
-                                                >
-                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
-                                                    <p className="text-xs text-[#2f2f2f]">Maybe three or four times a week? And I'm taking Advil constantly.</p>
-                                                  </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 5 - AI Frequency Question (50-60% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.5 ? Math.min((scrollProgressValue - 0.5) * 10, 1) : 0,
+                                                      x: scrollProgressValue > 0.5 ? 0 : -10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                    </div>
+                                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                      <p className="text-xs text-[#2f2f2f]">How often are you getting them?</p>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 7 - AI Symptoms Question */}
-                                                <motion.div 
-                                                  className="flex gap-2"
-                                                  initial={{ opacity: 0, x: -10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 3.2 }}
-                                                >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
-                                                  </div>
-                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
-                                                    <p className="text-xs text-[#2f2f2f]">Are you experiencing any other symptoms?</p>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 6 - Patient Frequency Response (60-75% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2 justify-end"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.6 ? Math.min((scrollProgressValue - 0.6) * 6.67, 1) : 0,
+                                                      x: scrollProgressValue > 0.6 ? 0 : 10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                      <p className="text-xs text-[#2f2f2f]">Maybe three or four times a week? And I'm taking Advil constantly.</p>
+                                                    </div>
+                                                    <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                                 
-                                                {/* Conversation Message 8 - Patient Additional Symptoms */}
-                                                <motion.div 
-                                                  className="flex gap-2 justify-end"
-                                                  initial={{ opacity: 0, x: 10 }}
-                                                  animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 3.7 }}
-                                                >
-                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
-                                                    <p className="text-xs text-[#2f2f2f]">Yeah, I've been super anxious lately and can't sleep. I wake up at like 3 AM every night.</p>
-                                                  </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
-                                                  </div>
-                                                </motion.div>
+                                                {/* Message 7 - AI Symptoms Question (75-85% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.75 ? Math.min((scrollProgressValue - 0.75) * 10, 1) : 0,
+                                                      x: scrollProgressValue > 0.75 ? 0 : -10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                    </div>
+                                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                      <p className="text-xs text-[#2f2f2f]">Are you experiencing any other symptoms?</p>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
+                                                
+                                                {/* Message 8 - Patient Additional Symptoms (85-100% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    className="flex gap-2 justify-end"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.85 ? Math.min((scrollProgressValue - 0.85) * 6.67, 1) : 0,
+                                                      x: scrollProgressValue > 0.85 ? 0 : 10
+                                                    }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
+                                                    <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                      <p className="text-xs text-[#2f2f2f]">Yeah, I've been super anxious lately and can't sleep. I wake up at like 3 AM every night.</p>
+                                                    </div>
+                                                    <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                      <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                    </div>
+                                                  </motion.div>
+                                                )}
                                               </div>
                                             </div>
                                             
-                                            {/* Right Side - Real-time Auto-filling Intake Form */}
-                                            <div className="w-1/2 p-4 overflow-y-auto">
+                                            {/* Right Side - Scroll-Driven Auto-filling Intake Form */}
+                                            <div className="w-1/2 p-4">
                                               <div className="space-y-3">
                                                 <div className="flex items-center justify-between mb-3">
                                                   <h4 className="text-sm font-semibold text-[#2f2f2f]">Clinical Intake Form</h4>
@@ -1102,56 +1143,63 @@ export default function ProcessSection() {
                                                   </div>
                                                 </div>
                                                 
-                                                {/* Patient Demographics */}
-                                                <motion.div 
-                                                  initial={{ opacity: 0 }}
-                                                  animate={{ opacity: 1 }}
-                                                  transition={{ delay: 0.3 }}
-                                                >
+                                                {/* Patient Demographics - Appears immediately */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: scrollProgressValue > 0 ? 1 : 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Patient Information</label>
                                                   <motion.div 
                                                     className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
                                                     initial={{ borderColor: '#e5e7eb' }}
-                                                    animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
-                                                    transition={{ duration: 1, delay: 0.5 }}
+                                                    animate={{ borderColor: scrollProgressValue > 0 ? ['#e5e7eb', '#70a2bc', '#e5e7eb'] : '#e5e7eb' }}
+                                                    transition={{ duration: 1 }}
                                                   >
                                                     <motion.p 
                                                       className="text-xs text-[#2f2f2f] font-medium"
                                                       initial={{ opacity: 0 }}
-                                                      animate={{ opacity: 1 }}
-                                                      transition={{ delay: 0.7 }}
+                                                      animate={{ opacity: scrollProgressValue > 0 ? 1 : 0 }}
+                                                      transition={{ duration: 0.3 }}
                                                     >
                                                       Sarah, Age 44
                                                     </motion.p>
                                                   </motion.div>
                                                 </motion.div>
+                                                )}
                                                 
-                                                {/* Chief Complaint - Fills after first patient response */}
-                                                <motion.div 
-                                                  initial={{ opacity: 0 }}
-                                                  animate={{ opacity: 1 }}
-                                                  transition={{ delay: 0.8 }}
-                                                >
+                                                {/* Chief Complaint - Fills when patient mentions headaches (10% scroll) */}
+                                                {currentSubItem === 2 && (
+                                                  <motion.div 
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: scrollProgressValue > 0.1 ? 1 : 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                  >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Chief Complaint</label>
                                                   <motion.div 
                                                     className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
                                                     initial={{ borderColor: '#e5e7eb', scale: 1 }}
                                                     animate={{ 
-                                                      borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'],
-                                                      scale: [1, 1.02, 1]
+                                                      borderColor: scrollProgressValue > 0.1 ? ['#e5e7eb', '#70a2bc', '#e5e7eb'] : '#e5e7eb',
+                                                      scale: scrollProgressValue > 0.1 ? [1, 1.02, 1] : 1
                                                     }}
-                                                    transition={{ duration: 1, delay: 0.9 }}
+                                                    transition={{ duration: 1 }}
                                                   >
                                                     <motion.p 
                                                       className="text-xs text-[#2f2f2f]"
                                                       initial={{ opacity: 0, width: 0 }}
-                                                      animate={{ opacity: 1, width: 'auto' }}
-                                                      transition={{ delay: 1.1, duration: 0.8 }}
+                                                      animate={{ 
+                                                        opacity: scrollProgressValue > 0.15 ? 1 : 0,
+                                                        width: scrollProgressValue > 0.15 ? 'auto' : 0
+                                                      }}
+                                                      transition={{ duration: 0.8 }}
                                                     >
                                                       Severe headaches x3 months, persistent
                                                     </motion.p>
                                                   </motion.div>
                                                 </motion.div>
+                                                )}
                                                 
                                                 {/* Duration - Fills after headache complaint */}
                                                 <motion.div 
