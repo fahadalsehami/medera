@@ -584,30 +584,41 @@ export default function ProcessSection() {
                                         {/* Second Visual: Medical Conversation - show after 75% */}
                                         {scrollProgressValue >= 0.75 && (
                                           <motion.div 
-                                            className="absolute inset-0 p-6 overflow-hidden"
+                                            className="absolute inset-0 p-4 overflow-hidden"
                                             initial={{ opacity: 0 }}
                                             animate={{ 
                                               opacity: 1,
-                                              scale: 1 + (0.2 * ((scrollProgressValue - 0.75) / 0.25))
+                                              scale: 1 + (0.1 * ((scrollProgressValue - 0.75) / 0.25))
                                             }}
                                             transition={{ duration: 0.8 }}
                                           >
-                                            <div 
-                                              className="w-full h-full"
-                                              style={{ 
-                                                perspective: '1000px',
-                                                transformStyle: 'preserve-3d'
+                                            {/* Modern Card Frame */}
+                                            <motion.div 
+                                              className="w-full h-full bg-white/95 backdrop-blur-sm rounded-xl border border-[#70a2bc]/20 shadow-lg overflow-hidden"
+                                              animate={{
+                                                borderColor: scrollProgressValue > 0.85 ? 'rgba(112, 162, 188, 0.3)' : 'rgba(112, 162, 188, 0.2)',
+                                                boxShadow: scrollProgressValue > 0.85 
+                                                  ? '0 20px 25px -5px rgba(112, 162, 188, 0.1), 0 10px 10px -5px rgba(112, 162, 188, 0.04)'
+                                                  : '0 10px 15px -3px rgba(112, 162, 188, 0.1), 0 4px 6px -2px rgba(112, 162, 188, 0.05)'
                                               }}
+                                              transition={{ duration: 0.6 }}
                                             >
-                                              <motion.div 
-                                                className="relative w-full h-full"
-                                                animate={{
-                                                  rotateX: 2 + (3 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
-                                                  rotateY: -10 - (10 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                              <div 
+                                                className="w-full h-full p-4 flex flex-col"
+                                                style={{ 
+                                                  perspective: '1000px',
+                                                  transformStyle: 'preserve-3d'
                                                 }}
-                                                transition={{ duration: 0.6 }}
-                                                style={{ transformStyle: 'preserve-3d' }}
                                               >
+                                                <motion.div 
+                                                  className="relative flex-1 overflow-auto"
+                                                  animate={{
+                                                    rotateX: 1 + (2 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                                    rotateY: -5 - (5 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                                  }}
+                                                  transition={{ duration: 0.6 }}
+                                                  style={{ transformStyle: 'preserve-3d' }}
+                                                >
                                                 {/* Medical conversation content */}
                                                 <div className="space-y-3 text-[11px] leading-relaxed">
                                                   {/* Patient Message Part 1 */}
@@ -619,8 +630,8 @@ export default function ProcessSection() {
                                                     }}
                                                     transition={{ duration: 0.5 }}
                                                   >
-                                                    <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
-                                                    <p className="text-gray-600">
+                                                    <p className="font-semibold text-[#2f2f2f]">Mrs. Johnson:</p>
+                                                    <p className="text-[#6c757d]">
                                                       I have persistent{' '}
                                                       <motion.span 
                                                         className="relative inline-block transform-3d"
@@ -629,7 +640,7 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-red-600 bg-red-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#70a2bc] bg-[#70a2bc]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
                                                             transform: scrollProgressValue > 0.78 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
@@ -639,7 +650,7 @@ export default function ProcessSection() {
                                                         </span>
                                                         {scrollProgressValue > 0.79 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-red-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#70a2bc] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#70a2bc]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Cardiovascular
@@ -654,7 +665,7 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-blue-600 bg-blue-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#a8998a] bg-[#a8998a]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
                                                             transform: scrollProgressValue > 0.81 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
@@ -664,7 +675,7 @@ export default function ProcessSection() {
                                                         </span>
                                                         {scrollProgressValue > 0.82 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-blue-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#a8998a] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#a8998a]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Endocrine
@@ -679,7 +690,7 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-purple-600 bg-purple-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#70a2bc] bg-[#70a2bc]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
                                                             transform: scrollProgressValue > 0.84 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
@@ -689,7 +700,7 @@ export default function ProcessSection() {
                                                         </span>
                                                         {scrollProgressValue > 0.85 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-purple-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#70a2bc] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#70a2bc]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Vascular
@@ -704,7 +715,7 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-green-600 bg-green-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#a8998a] bg-[#a8998a]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
                                                             transform: scrollProgressValue > 0.87 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
@@ -714,7 +725,7 @@ export default function ProcessSection() {
                                                         </span>
                                                         {scrollProgressValue > 0.88 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-green-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#a8998a] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#a8998a]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Neurological
@@ -729,13 +740,13 @@ export default function ProcessSection() {
                                                   <motion.div 
                                                     className="space-y-1"
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.90 ? 1 : 0,
-                                                      y: scrollProgressValue > 0.90 ? 0 : 20
+                                                      opacity: scrollProgressValue > 0.88 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.88 ? 0 : 20
                                                     }}
                                                     transition={{ duration: 0.5 }}
                                                   >
-                                                    <p className="font-semibold text-gray-700">Dr. Martinez:</p>
-                                                    <p className="text-gray-600">
+                                                    <p className="font-semibold text-[#2f2f2f]">Dr. Martinez:</p>
+                                                    <p className="text-[#6c757d]">
                                                       Tell me about the chest pain and swelling.
                                                     </p>
                                                   </motion.div>
@@ -744,13 +755,13 @@ export default function ProcessSection() {
                                                   <motion.div 
                                                     className="space-y-1"
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.93 ? 1 : 0,
-                                                      y: scrollProgressValue > 0.93 ? 0 : 20
+                                                      opacity: scrollProgressValue > 0.90 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.90 ? 0 : 20
                                                     }}
                                                     transition={{ duration: 0.5 }}
                                                   >
-                                                    <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
-                                                    <p className="text-gray-600">
+                                                    <p className="font-semibold text-[#2f2f2f]">Mrs. Johnson:</p>
+                                                    <p className="text-[#6c757d]">
                                                       The pain{' '}
                                                       <motion.span 
                                                         className="relative inline-block transform-3d"
@@ -759,17 +770,17 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-orange-600 bg-orange-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#70a2bc] bg-[#70a2bc]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
-                                                            transform: scrollProgressValue > 0.95 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transform: scrollProgressValue > 0.92 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
                                                           }}
                                                         >
                                                           radiates to my left arm
                                                         </span>
-                                                        {scrollProgressValue > 0.96 && (
+                                                        {scrollProgressValue > 0.93 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-orange-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#70a2bc] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#70a2bc]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Cardiac symptom
@@ -780,21 +791,21 @@ export default function ProcessSection() {
                                                       <motion.span 
                                                         className="relative inline-block transform-3d"
                                                         animate={{
-                                                          scale: scrollProgressValue > 0.97 ? 1.1 : 1
+                                                          scale: scrollProgressValue > 0.94 ? 1.1 : 1
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-indigo-600 bg-indigo-50 px-0.5 rounded inline-block font-semibold"
+                                                          className="text-[#a8998a] bg-[#a8998a]/10 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
-                                                            transform: scrollProgressValue > 0.97 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transform: scrollProgressValue > 0.94 ? 'translateZ(30px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
                                                           }}
                                                         >
                                                           ankles swell
                                                         </span>
-                                                        {scrollProgressValue > 0.98 && (
+                                                        {scrollProgressValue > 0.95 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-indigo-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#a8998a] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#a8998a]/20"
                                                             style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Edema
@@ -805,6 +816,23 @@ export default function ProcessSection() {
                                                     </p>
                                                   </motion.div>
                                                 </div>
+                                              </motion.div>
+                                              
+                                              {/* Action Buttons - appear after conversation */}
+                                              <motion.div 
+                                                className="flex gap-2 pt-3 border-t border-[#70a2bc]/10"
+                                                animate={{
+                                                  opacity: scrollProgressValue > 0.96 ? 1 : 0,
+                                                  y: scrollProgressValue > 0.96 ? 0 : 10
+                                                }}
+                                                transition={{ duration: 0.5 }}
+                                              >
+                                                <button className="flex-1 px-3 py-1.5 bg-[#70a2bc] text-white text-[10px] font-medium rounded-lg hover:bg-[#5a8ca6] transition-colors">
+                                                  Generate Summary
+                                                </button>
+                                                <button className="flex-1 px-3 py-1.5 bg-[#a8998a]/20 text-[#a8998a] text-[10px] font-medium rounded-lg hover:bg-[#a8998a]/30 transition-colors">
+                                                  View Full Report
+                                                </button>
                                               </motion.div>
                                             </div>
                                           </motion.div>
