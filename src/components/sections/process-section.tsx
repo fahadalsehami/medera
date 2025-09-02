@@ -438,12 +438,27 @@ export default function ProcessSection() {
                                 // State 2: Fit to cell (30-60%)
                                 verticalPos = [0, 70, 80, 85, 90, 100];
                                 horizontalPos = [0, 70, 80, 85, 90, 100];
+                              } else if (scrollProg < 0.8) {
+                                // State 3: Zoom in to smaller size (60-80%)
+                                const zoomProgress = (scrollProg - 0.6) / 0.2;
+                                // Target size is 35% (smaller than current)
+                                verticalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
+                                horizontalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
                               } else {
-                                // State 3: Zoom in to 3/4 size (60-100%)
-                                const zoomProgress = (scrollProg - 0.6) / 0.4;
-                                // Target size is 52.5% (70% * 0.75)
-                                verticalPos = [0, 70 - (17.5 * zoomProgress), 80 - (10 * zoomProgress), 85 - (7.5 * zoomProgress), 90 - (5 * zoomProgress), 100];
-                                horizontalPos = [0, 70 - (17.5 * zoomProgress), 80 - (10 * zoomProgress), 85 - (7.5 * zoomProgress), 90 - (5 * zoomProgress), 100];
+                                // State 4: Keep small and expand cell 1.4 (80-100%)
+                                // Cell 1.1 stays at 35% size
+                                verticalPos = [0, 35, 60, 70, 80, 100];
+                                horizontalPos = [0, 35, 60, 70, 80, 100];
+                                
+                                // Also expand cell 1.4 during this phase
+                                if (scrollProg > 0.85) {
+                                  const expandProgress = (scrollProg - 0.85) / 0.15;
+                                  // Adjust for cell 1.4 expansion
+                                  verticalPos[1] = 35 - (10 * expandProgress);
+                                  verticalPos[2] = 60 - (10 * expandProgress);
+                                  horizontalPos[3] = 70 + (15 * expandProgress);
+                                  horizontalPos[4] = 80 + (10 * expandProgress);
+                                }
                               }
                             } else if (subItem === 2) {
                               // Cell 1.2 (r1c2) expands - top-center
@@ -531,11 +546,13 @@ export default function ProcessSection() {
                                     width: currentSubItem === 1 ? 
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
-                                       `${70 - (17.5 * ((scrollProgressValue - 0.6) / 0.4))}%`) : '20%',
+                                       scrollProgressValue < 0.8 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.2))}%` :
+                                       '35%') : '20%',
                                     height: currentSubItem === 1 ? 
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
-                                       `${70 - (17.5 * ((scrollProgressValue - 0.6) / 0.4))}%`) : '20%',
+                                       scrollProgressValue < 0.8 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.2))}%` :
+                                       '35%') : '20%',
                                     zIndex: currentSubItem === 1 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -554,7 +571,9 @@ export default function ProcessSection() {
                                               ? 1.5 - (0.5 * (scrollProgressValue / 0.3))  // Zoom out from 1.5x to 1x
                                               : scrollProgressValue < 0.6 
                                               ? 1  // Stay at 1x
-                                              : 1 + (0.25 * ((scrollProgressValue - 0.6) / 0.4)),  // Zoom in to 1.25x
+                                              : scrollProgressValue < 0.8
+                                              ? 1 - (0.3 * ((scrollProgressValue - 0.6) / 0.2))  // Zoom in smaller to 0.7x
+                                              : 0.7,  // Keep at 0.7x
                                             opacity: scrollProgressValue < 0.9 ? 1 : 1 - ((scrollProgressValue - 0.9) / 0.1),
                                             width: '90%',
                                             height: '90%'
@@ -640,26 +659,84 @@ export default function ProcessSection() {
                                 
                                 {/* Cell 1.4 - Referral Agent (r2c1) */}
                                 <motion.div
-                                  className="absolute"
+                                  className="absolute overflow-hidden"
                                   animate={{
-                                    left: currentSubItem === 4 ? '0%' : '0%',
-                                    top: currentSubItem === 4 ? '15%' : '40%',
-                                    width: currentSubItem === 4 ? '70%' : '20%',
-                                    height: currentSubItem === 4 ? '70%' : '20%',
-                                    zIndex: currentSubItem === 4 ? 10 : 1
+                                    left: currentSubItem === 4 ? '0%' : 
+                                           (currentSubItem === 1 && scrollProgressValue > 0.85) ? '35%' : '0%',
+                                    top: currentSubItem === 4 ? '15%' : 
+                                          (currentSubItem === 1 && scrollProgressValue > 0.85) ? '35%' : '40%',
+                                    width: currentSubItem === 4 ? '70%' : 
+                                            (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
+                                            `${50 + (15 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                    height: currentSubItem === 4 ? '70%' : 
+                                             (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
+                                             `${50 + (15 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                    zIndex: currentSubItem === 4 ? 10 : 
+                                            (currentSubItem === 1 && scrollProgressValue > 0.85) ? 8 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
                                 >
-                                  <div className="w-full h-full flex items-center justify-center">
-                                    <motion.span 
-                                      className="text-[#F59E0B] font-light"
-                                      animate={{ 
-                                        fontSize: currentSubItem === 4 ? '48px' : '24px',
-                                        opacity: currentSubItem === 4 ? 1 : 0.4
-                                      }}
-                                    >
-                                      1.4
-                                    </motion.span>
+                                  <div className="w-full h-full flex items-center justify-center relative">
+                                    {(currentSubItem === 1 && scrollProgressValue > 0.85) ? (
+                                      <div 
+                                        className="perspective-distant relative w-full h-full flex items-center justify-center"
+                                        style={{ 
+                                          transform: 'translate(0vw, 10vh) scale(0.8)',
+                                          perspective: '1000px'
+                                        }}
+                                      >
+                                        <motion.div 
+                                          className="relative transform-3d"
+                                          animate={{
+                                            rotateX: 5,
+                                            rotateY: -30,
+                                            scale: 0.8 + (0.2 * ((scrollProgressValue - 0.85) / 0.15))
+                                          }}
+                                          transition={{ duration: 0.5 }}
+                                          style={{ transformStyle: 'preserve-3d' }}
+                                        >
+                                          {/* 3D Text Effect */}
+                                          <div className="text-center space-y-2">
+                                            <div className="inline-block transform-3d">
+                                              <span 
+                                                className="text-[#70a2bc] bg-[#70a2bc]/10 px-2 py-1 rounded inline-block"
+                                                style={{ 
+                                                  transform: 'translateZ(50px)',
+                                                  fontSize: '14px'
+                                                }}
+                                              >
+                                                Agent
+                                              </span>
+                                            </div>
+                                            <div className="relative">
+                                              <span 
+                                                className="line-through text-gray-400 absolute"
+                                                style={{ 
+                                                  transform: 'translateZ(20px)',
+                                                  fontSize: '12px',
+                                                  opacity: 0.5
+                                                }}
+                                              >
+                                                representative
+                                              </span>
+                                            </div>
+                                            <div className="text-[#F59E0B] font-bold text-2xl mt-4">
+                                              1.4
+                                            </div>
+                                          </div>
+                                        </motion.div>
+                                      </div>
+                                    ) : (
+                                      <motion.span 
+                                        className="text-[#F59E0B] font-light"
+                                        animate={{ 
+                                          fontSize: currentSubItem === 4 ? '48px' : '24px',
+                                          opacity: currentSubItem === 4 ? 1 : 0.4
+                                        }}
+                                      >
+                                        1.4
+                                      </motion.span>
+                                    )}
                                   </div>
                                 </motion.div>
                                 
