@@ -152,14 +152,28 @@ export default function ProcessSection() {
           // SPECIAL CASE: Step 1, Care Agent with 4 sub-items
           if (newActiveStep === 0) {
             // Step 1 has 4 sub-items now (1.1, 1.2, 1.3, 1.4)
-            newCurrentSubItem = Math.floor(localStepProgress) + 1;
-            newCurrentSubItem = Math.max(1, Math.min(newCurrentSubItem, stepSubItemCount));
-            
-            // Special animation progress for sub-item 1.1
-            if (newCurrentSubItem === 1) {
-              visualAnimationProgress = localStepProgress; // 0.0 to 1.0 for sub-item 1.1 animation
+            // Extended handling for step 1.2 to allow more scroll attempts
+            if (localStepProgress >= 1.0 && localStepProgress < 2.5) {
+              // Step 1.2 extended range - requires 1.5x more scrolling than normal
+              newCurrentSubItem = 2;
+              visualAnimationProgress = Math.min((localStepProgress - 1.0) / 1.5, 1.0); // 0.0 to 1.0 over 1.5 units
+            } else if (localStepProgress >= 2.5) {
+              // After extended step 1.2, proceed normally
+              const adjustedProgress = localStepProgress - 1.5; // Adjust for the extended 1.2
+              newCurrentSubItem = Math.floor(adjustedProgress) + 3; // Start from step 3
+              newCurrentSubItem = Math.max(3, Math.min(newCurrentSubItem, stepSubItemCount));
+              visualAnimationProgress = 1.0;
             } else {
-              visualAnimationProgress = 1.0; // Animation fully complete for other sub-items
+              // Normal handling for step 1.1
+              newCurrentSubItem = Math.floor(localStepProgress) + 1;
+              newCurrentSubItem = Math.max(1, Math.min(newCurrentSubItem, stepSubItemCount));
+              
+              // Special animation progress for sub-item 1.1
+              if (newCurrentSubItem === 1) {
+                visualAnimationProgress = localStepProgress; // 0.0 to 1.0 for sub-item 1.1 animation
+              } else {
+                visualAnimationProgress = 1.0; // Animation fully complete for other sub-items
+              }
             }
           } else if (newActiveStep === 1) {
             // SPECIAL CASE: Step 2 (Smart Bundling) - needs full animation
@@ -185,6 +199,8 @@ export default function ProcessSection() {
       // Pass the precise visual progress to the component
       if ((newActiveStep === 0 || newActiveStep === 1) && newCurrentSubItem === 1) {
         setScrollProgressValue(visualAnimationProgress); // Exact 0-1 progress for animations
+      } else if (newActiveStep === 0 && newCurrentSubItem === 2) {
+        setScrollProgressValue(visualAnimationProgress); // Extended 0-1 progress for step 1.2 animations
       } else {
         setScrollProgressValue(latest); // Regular scroll progress for others
       }
@@ -972,10 +988,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2"
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0 ? Math.min(scrollProgressValue * 10, 1) : 0,
+                                                      opacity: scrollProgressValue > 0 ? Math.min(scrollProgressValue * 5, 1) : 0,
                                                       x: scrollProgressValue > 0 ? 0 : -10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
                                                       <span className="text-xs text-[#70a2bc] font-medium">AI</span>
@@ -992,10 +1008,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2 justify-end"
                                                     initial={{ opacity: 0, x: 10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.1 ? Math.min((scrollProgressValue - 0.1) * 6.67, 1) : 0,
-                                                      x: scrollProgressValue > 0.1 ? 0 : 10
+                                                      opacity: scrollProgressValue > 0.05 ? Math.min((scrollProgressValue - 0.05) * 3.33, 1) : 0,
+                                                      x: scrollProgressValue > 0.05 ? 0 : 10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
                                                       <p className="text-xs text-[#2f2f2f]">I've been having these really bad headaches for three months now, and they're just not going away.</p>
@@ -1012,10 +1028,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2"
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.25 ? Math.min((scrollProgressValue - 0.25) * 10, 1) : 0,
-                                                      x: scrollProgressValue > 0.25 ? 0 : -10
+                                                      opacity: scrollProgressValue > 0.15 ? Math.min((scrollProgressValue - 0.15) * 3.33, 1) : 0,
+                                                      x: scrollProgressValue > 0.15 ? 0 : -10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
                                                       <span className="text-xs text-[#70a2bc] font-medium">AI</span>
@@ -1032,10 +1048,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2 justify-end"
                                                     initial={{ opacity: 0, x: 10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.35 ? Math.min((scrollProgressValue - 0.35) * 6.67, 1) : 0,
-                                                      x: scrollProgressValue > 0.35 ? 0 : 10
+                                                      opacity: scrollProgressValue > 0.25 ? Math.min((scrollProgressValue - 0.25) * 2.5, 1) : 0,
+                                                      x: scrollProgressValue > 0.25 ? 0 : 10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
                                                       <p className="text-xs text-[#2f2f2f]">They're way worse than normal headaches. Like an 8 out of 10 pain, and I get dizzy and nauseous too.</p>
@@ -1052,10 +1068,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2"
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.5 ? Math.min((scrollProgressValue - 0.5) * 10, 1) : 0,
-                                                      x: scrollProgressValue > 0.5 ? 0 : -10
+                                                      opacity: scrollProgressValue > 0.35 ? Math.min((scrollProgressValue - 0.35) * 2.5, 1) : 0,
+                                                      x: scrollProgressValue > 0.35 ? 0 : -10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
                                                       <span className="text-xs text-[#70a2bc] font-medium">AI</span>
@@ -1072,10 +1088,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2 justify-end"
                                                     initial={{ opacity: 0, x: 10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.6 ? Math.min((scrollProgressValue - 0.6) * 6.67, 1) : 0,
-                                                      x: scrollProgressValue > 0.6 ? 0 : 10
+                                                      opacity: scrollProgressValue > 0.45 ? Math.min((scrollProgressValue - 0.45) * 2, 1) : 0,
+                                                      x: scrollProgressValue > 0.45 ? 0 : 10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
                                                       <p className="text-xs text-[#2f2f2f]">Maybe three or four times a week? And I'm taking Advil constantly.</p>
@@ -1092,10 +1108,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2"
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.75 ? Math.min((scrollProgressValue - 0.75) * 10, 1) : 0,
-                                                      x: scrollProgressValue > 0.75 ? 0 : -10
+                                                      opacity: scrollProgressValue > 0.55 ? Math.min((scrollProgressValue - 0.55) * 2, 1) : 0,
+                                                      x: scrollProgressValue > 0.55 ? 0 : -10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
                                                       <span className="text-xs text-[#70a2bc] font-medium">AI</span>
@@ -1112,10 +1128,10 @@ export default function ProcessSection() {
                                                     className="flex gap-2 justify-end"
                                                     initial={{ opacity: 0, x: 10 }}
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.85 ? Math.min((scrollProgressValue - 0.85) * 6.67, 1) : 0,
-                                                      x: scrollProgressValue > 0.85 ? 0 : 10
+                                                      opacity: scrollProgressValue > 0.65 ? Math.min((scrollProgressValue - 0.65) * 1.43, 1) : 0,
+                                                      x: scrollProgressValue > 0.65 ? 0 : 10
                                                     }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                     <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
                                                       <p className="text-xs text-[#2f2f2f]">Yeah, I've been super anxious lately and can't sleep. I wake up at like 3 AM every night.</p>
@@ -1148,7 +1164,7 @@ export default function ProcessSection() {
                                                   <motion.div 
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: scrollProgressValue > 0 ? 1 : 0 }}
-                                                    transition={{ duration: 0.3 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Patient Information</label>
                                                   <motion.div 
@@ -1173,8 +1189,8 @@ export default function ProcessSection() {
                                                 {currentSubItem === 2 && (
                                                   <motion.div 
                                                     initial={{ opacity: 0 }}
-                                                    animate={{ opacity: scrollProgressValue > 0.1 ? 1 : 0 }}
-                                                    transition={{ duration: 0.3 }}
+                                                    animate={{ opacity: scrollProgressValue > 0.05 ? 1 : 0 }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                                   >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Chief Complaint</label>
                                                   <motion.div 
@@ -1190,10 +1206,10 @@ export default function ProcessSection() {
                                                       className="text-xs text-[#2f2f2f]"
                                                       initial={{ opacity: 0, width: 0 }}
                                                       animate={{ 
-                                                        opacity: scrollProgressValue > 0.15 ? 1 : 0,
-                                                        width: scrollProgressValue > 0.15 ? 'auto' : 0
+                                                        opacity: scrollProgressValue > 0.1 ? 1 : 0,
+                                                        width: scrollProgressValue > 0.1 ? 'auto' : 0
                                                       }}
-                                                      transition={{ duration: 0.8 }}
+                                                      transition={{ duration: 1.2, ease: "easeOut" }}
                                                     >
                                                       Severe headaches x3 months, persistent
                                                     </motion.p>
