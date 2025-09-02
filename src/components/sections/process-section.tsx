@@ -609,15 +609,15 @@ export default function ProcessSection() {
                                                 style={{ transformStyle: 'preserve-3d' }}
                                               >
                                                 {/* Medical conversation content */}
-                                                <div className="space-y-4 text-xs leading-relaxed">
-                                                  {/* Patient Message */}
+                                                <div className="space-y-3 text-[11px] leading-relaxed">
+                                                  {/* Patient Message Part 1 */}
                                                   <motion.div 
                                                     className="space-y-1"
                                                     animate={{ 
                                                       opacity: scrollProgressValue > 0.76 ? 1 : 0,
                                                       y: scrollProgressValue > 0.76 ? 0 : 20
                                                     }}
-                                                    transition={{ duration: 0.6 }}
+                                                    transition={{ duration: 0.5 }}
                                                   >
                                                     <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
                                                     <p className="text-gray-600">
@@ -625,53 +625,103 @@ export default function ProcessSection() {
                                                       <motion.span 
                                                         className="relative inline-block transform-3d"
                                                         animate={{
-                                                          scale: scrollProgressValue > 0.80 ? 1.1 : 1
+                                                          scale: scrollProgressValue > 0.78 ? 1.1 : 1
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-red-600 bg-red-50 px-1 rounded inline-block font-semibold"
+                                                          className="text-red-600 bg-red-50 px-0.5 rounded inline-block font-semibold"
                                                           style={{ 
-                                                            transform: scrollProgressValue > 0.80 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                            transition: 'transform 0.5s ease-out'
+                                                            transform: scrollProgressValue > 0.78 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
                                                           }}
                                                         >
                                                           left chest pain
                                                         </span>
-                                                        {scrollProgressValue > 0.82 && (
+                                                        {scrollProgressValue > 0.79 && (
                                                           <span 
-                                                            className="absolute -top-5 left-0 text-[10px] text-red-500 bg-white px-1 py-0.5 rounded shadow-lg"
-                                                            style={{ transform: 'translateZ(60px)' }}
+                                                            className="absolute -top-4 left-0 text-[9px] text-red-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
                                                           >
                                                             → Cardiovascular
                                                           </span>
                                                         )}
                                                       </motion.span>
-                                                      {' '}for three weeks.
-                                                    </p>
-                                                  </motion.div>
-
-                                                  {/* More content appears progressively */}
-                                                  <motion.div 
-                                                    animate={{ 
-                                                      opacity: scrollProgressValue > 0.85 ? 1 : 0,
-                                                      y: scrollProgressValue > 0.85 ? 0 : 20
-                                                    }}
-                                                    transition={{ duration: 0.6 }}
-                                                  >
-                                                    <p className="text-gray-600">
-                                                      I also have{' '}
-                                                      <span className="text-blue-600 bg-blue-50 px-1 rounded inline-block font-semibold">
-                                                        diabetes
-                                                      </span>
+                                                      {' '}for three weeks. It's dull, aching, worse with stress. I also have{' '}
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.81 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-blue-600 bg-blue-50 px-0.5 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.81 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
+                                                          }}
+                                                        >
+                                                          diabetes
+                                                        </span>
+                                                        {scrollProgressValue > 0.82 && (
+                                                          <span 
+                                                            className="absolute -top-4 left-0 text-[9px] text-blue-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
+                                                          >
+                                                            → Endocrine
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
                                                       ,{' '}
-                                                      <span className="text-purple-600 bg-purple-50 px-1 rounded inline-block font-semibold">
-                                                        foot swelling
-                                                      </span>
-                                                      , and{' '}
-                                                      <span className="text-green-600 bg-green-50 px-1 rounded inline-block font-semibold">
-                                                        insomnia
-                                                      </span>
-                                                      .
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.84 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-purple-600 bg-purple-50 px-0.5 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.84 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
+                                                          }}
+                                                        >
+                                                          foot swelling
+                                                        </span>
+                                                        {scrollProgressValue > 0.85 && (
+                                                          <span 
+                                                            className="absolute -top-4 left-0 text-[9px] text-purple-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
+                                                          >
+                                                            → Vascular
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
+                                                      , terrible nightmares, and{' '}
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.87 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-green-600 bg-green-50 px-0.5 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.87 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
+                                                          }}
+                                                        >
+                                                          insomnia
+                                                        </span>
+                                                        {scrollProgressValue > 0.88 && (
+                                                          <span 
+                                                            className="absolute -top-4 left-0 text-[9px] text-green-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
+                                                          >
+                                                            → Neurological
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
+                                                      . I'm scared.
                                                     </p>
                                                   </motion.div>
 
@@ -679,14 +729,79 @@ export default function ProcessSection() {
                                                   <motion.div 
                                                     className="space-y-1"
                                                     animate={{ 
-                                                      opacity: scrollProgressValue > 0.92 ? 1 : 0,
-                                                      y: scrollProgressValue > 0.92 ? 0 : 20
+                                                      opacity: scrollProgressValue > 0.90 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.90 ? 0 : 20
                                                     }}
-                                                    transition={{ duration: 0.6 }}
+                                                    transition={{ duration: 0.5 }}
                                                   >
                                                     <p className="font-semibold text-gray-700">Dr. Martinez:</p>
                                                     <p className="text-gray-600">
                                                       Tell me about the chest pain and swelling.
+                                                    </p>
+                                                  </motion.div>
+
+                                                  {/* Patient Follow-up */}
+                                                  <motion.div 
+                                                    className="space-y-1"
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.93 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.93 ? 0 : 20
+                                                    }}
+                                                    transition={{ duration: 0.5 }}
+                                                  >
+                                                    <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
+                                                    <p className="text-gray-600">
+                                                      The pain{' '}
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.95 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-orange-600 bg-orange-50 px-0.5 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.95 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
+                                                          }}
+                                                        >
+                                                          radiates to my left arm
+                                                        </span>
+                                                        {scrollProgressValue > 0.96 && (
+                                                          <span 
+                                                            className="absolute -top-4 left-0 text-[9px] text-orange-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
+                                                          >
+                                                            → Cardiac symptom
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
+                                                      {' '}sometimes. My{' '}
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.97 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-indigo-600 bg-indigo-50 px-0.5 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.97 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.4s ease-out'
+                                                          }}
+                                                        >
+                                                          ankles swell
+                                                        </span>
+                                                        {scrollProgressValue > 0.98 && (
+                                                          <span 
+                                                            className="absolute -top-4 left-0 text-[9px] text-indigo-500 bg-white px-1 py-0.5 rounded shadow"
+                                                            style={{ transform: 'translateZ(50px)' }}
+                                                          >
+                                                            → Edema
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
+                                                      , especially evenings. My blood sugar's been high due to stress and poor sleep.
                                                     </p>
                                                   </motion.div>
                                                 </div>
