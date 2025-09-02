@@ -412,7 +412,7 @@ export default function ProcessSection() {
                     {/* Minimalist Grid Animation for Step 1 - Care Agent */}
                     {currentSubItem >= 1 && currentSubItem <= 4 && (
                       <motion.div 
-                        className="relative w-full max-w-md h-[500px] mx-auto"
+                        className="relative w-full h-full"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
@@ -421,27 +421,28 @@ export default function ProcessSection() {
                         {(() => {
                           // Calculate grid line positions based on active cell
                           const getGridLines = (subItem: number) => {
-                            const basePositions = [0, 33.33, 66.66, 100];
+                            // Create a 5x5 grid for better coverage
+                            const basePositions = [0, 20, 40, 60, 80, 100];
                             let verticalPos = [...basePositions];
                             let horizontalPos = [...basePositions];
                             
                             // Adjust grid lines based on active sub-item
                             if (subItem === 1) {
-                              // Cell 1.1 (r1c1) expands
-                              verticalPos = [0, 80, 90, 100];
-                              horizontalPos = [0, 80, 90, 100];
+                              // Cell 1.1 (r1c1) expands - top-left
+                              verticalPos = [0, 70, 80, 85, 90, 100];
+                              horizontalPos = [0, 70, 80, 85, 90, 100];
                             } else if (subItem === 2) {
-                              // Cell 1.2 (r1c2) expands  
-                              verticalPos = [0, 10, 90, 100];
-                              horizontalPos = [0, 80, 90, 100];
+                              // Cell 1.2 (r1c2) expands - top-center
+                              verticalPos = [0, 10, 15, 85, 90, 100];
+                              horizontalPos = [0, 70, 80, 85, 90, 100];
                             } else if (subItem === 3) {
-                              // Cell 1.3 (r1c3) expands
-                              verticalPos = [0, 10, 20, 100];
-                              horizontalPos = [0, 80, 90, 100];
+                              // Cell 1.3 (r1c3) expands - top-right
+                              verticalPos = [0, 10, 15, 20, 30, 100];
+                              horizontalPos = [0, 70, 80, 85, 90, 100];
                             } else if (subItem === 4) {
-                              // Cell 1.4 (r2c1) expands
-                              verticalPos = [0, 80, 90, 100];
-                              horizontalPos = [0, 10, 90, 100];
+                              // Cell 1.4 (r2c1) expands - middle-left
+                              verticalPos = [0, 70, 80, 85, 90, 100];
+                              horizontalPos = [0, 10, 15, 85, 90, 100];
                             }
                             
                             return { verticalPos, horizontalPos };
@@ -513,8 +514,8 @@ export default function ProcessSection() {
                                   animate={{
                                     left: currentSubItem === 1 ? '0%' : '0%',
                                     top: currentSubItem === 1 ? '0%' : '0%',
-                                    width: currentSubItem === 1 ? '80%' : '33.33%',
-                                    height: currentSubItem === 1 ? '80%' : '33.33%',
+                                    width: currentSubItem === 1 ? '70%' : '20%',
+                                    height: currentSubItem === 1 ? '70%' : '20%',
                                     zIndex: currentSubItem === 1 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -523,8 +524,8 @@ export default function ProcessSection() {
                                     <motion.span 
                                       className="text-[#70a2bc] font-light"
                                       animate={{ 
-                                        fontSize: currentSubItem === 1 ? '48px' : '24px',
-                                        opacity: currentSubItem === 1 ? 1 : 0.4
+                                        fontSize: currentSubItem === 1 ? '72px' : '28px',
+                                        opacity: currentSubItem === 1 ? 1 : 0.3
                                       }}
                                     >
                                       1.1
@@ -536,10 +537,10 @@ export default function ProcessSection() {
                                 <motion.div
                                   className="absolute"
                                   animate={{
-                                    left: currentSubItem === 2 ? '10%' : '33.33%',
+                                    left: currentSubItem === 2 ? '15%' : '40%',
                                     top: currentSubItem === 2 ? '0%' : '0%',
-                                    width: currentSubItem === 2 ? '80%' : '33.33%',
-                                    height: currentSubItem === 2 ? '80%' : '33.33%',
+                                    width: currentSubItem === 2 ? '70%' : '20%',
+                                    height: currentSubItem === 2 ? '70%' : '20%',
                                     zIndex: currentSubItem === 2 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -548,8 +549,8 @@ export default function ProcessSection() {
                                     <motion.span 
                                       className="text-[#10B981] font-light"
                                       animate={{ 
-                                        fontSize: currentSubItem === 2 ? '48px' : '24px',
-                                        opacity: currentSubItem === 2 ? 1 : 0.4
+                                        fontSize: currentSubItem === 2 ? '72px' : '28px',
+                                        opacity: currentSubItem === 2 ? 1 : 0.3
                                       }}
                                     >
                                       1.2
@@ -561,10 +562,10 @@ export default function ProcessSection() {
                                 <motion.div
                                   className="absolute"
                                   animate={{
-                                    left: currentSubItem === 3 ? '20%' : '66.66%',
+                                    left: currentSubItem === 3 ? '30%' : '80%',
                                     top: currentSubItem === 3 ? '0%' : '0%',
-                                    width: currentSubItem === 3 ? '80%' : '33.33%',
-                                    height: currentSubItem === 3 ? '80%' : '33.33%',
+                                    width: currentSubItem === 3 ? '70%' : '20%',
+                                    height: currentSubItem === 3 ? '70%' : '20%',
                                     zIndex: currentSubItem === 3 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -573,8 +574,8 @@ export default function ProcessSection() {
                                     <motion.span 
                                       className="text-[#8B5CF6] font-light"
                                       animate={{ 
-                                        fontSize: currentSubItem === 3 ? '48px' : '24px',
-                                        opacity: currentSubItem === 3 ? 1 : 0.4
+                                        fontSize: currentSubItem === 3 ? '72px' : '28px',
+                                        opacity: currentSubItem === 3 ? 1 : 0.3
                                       }}
                                     >
                                       1.3
@@ -587,9 +588,9 @@ export default function ProcessSection() {
                                   className="absolute"
                                   animate={{
                                     left: currentSubItem === 4 ? '0%' : '0%',
-                                    top: currentSubItem === 4 ? '10%' : '33.33%',
-                                    width: currentSubItem === 4 ? '80%' : '33.33%',
-                                    height: currentSubItem === 4 ? '80%' : '33.33%',
+                                    top: currentSubItem === 4 ? '15%' : '40%',
+                                    width: currentSubItem === 4 ? '70%' : '20%',
+                                    height: currentSubItem === 4 ? '70%' : '20%',
                                     zIndex: currentSubItem === 4 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -607,26 +608,47 @@ export default function ProcessSection() {
                                   </div>
                                 </motion.div>
                                 
-                                {/* Remaining cells (inactive) - just dots */}
+                                {/* Remaining cells (inactive) - just dots for 5x5 grid */}
                                 {[
+                                  // Row 1 (remaining after 1.1, 1.2, 1.3)
+                                  { row: 1, col: 2, label: '·' },
+                                  { row: 1, col: 4, label: '·' },
+                                  // Row 2 (1.4 is at col 1)
                                   { row: 2, col: 2, label: '·' },
                                   { row: 2, col: 3, label: '·' },
+                                  { row: 2, col: 4, label: '·' },
+                                  { row: 2, col: 5, label: '·' },
+                                  // Row 3
                                   { row: 3, col: 1, label: '·' },
                                   { row: 3, col: 2, label: '·' },
-                                  { row: 3, col: 3, label: '·' }
+                                  { row: 3, col: 3, label: '·' },
+                                  { row: 3, col: 4, label: '·' },
+                                  { row: 3, col: 5, label: '·' },
+                                  // Row 4
+                                  { row: 4, col: 1, label: '·' },
+                                  { row: 4, col: 2, label: '·' },
+                                  { row: 4, col: 3, label: '·' },
+                                  { row: 4, col: 4, label: '·' },
+                                  { row: 4, col: 5, label: '·' },
+                                  // Row 5
+                                  { row: 5, col: 1, label: '·' },
+                                  { row: 5, col: 2, label: '·' },
+                                  { row: 5, col: 3, label: '·' },
+                                  { row: 5, col: 4, label: '·' },
+                                  { row: 5, col: 5, label: '·' }
                                 ].map((cell) => (
                                   <motion.div
                                     key={`cell-${cell.row}-${cell.col}`}
                                     className="absolute"
                                     style={{
-                                      left: `${(cell.col - 1) * 33.33}%`,
-                                      top: `${(cell.row - 1) * 33.33}%`,
-                                      width: '33.33%',
-                                      height: '33.33%'
+                                      left: `${(cell.col - 1) * 20}%`,
+                                      top: `${(cell.row - 1) * 20}%`,
+                                      width: '20%',
+                                      height: '20%'
                                     }}
                                   >
                                     <div className="w-full h-full flex items-center justify-center">
-                                      <span className="text-[#9aa0a6] text-2xl font-light opacity-20">
+                                      <span className="text-[#9aa0a6] text-3xl font-light opacity-15">
                                         {cell.label}
                                       </span>
                                     </div>
