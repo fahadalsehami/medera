@@ -928,12 +928,11 @@ export default function ProcessSection() {
                                         animate={{ opacity: 1 }}
                                         transition={{ duration: 0.5, delay: 0.3 }}
                                       >
-                                        {/* Voice Agent Interface Container */}
-                                        <div className="w-full h-full bg-white/95 backdrop-blur-sm rounded-lg shadow-xl flex flex-col" 
-                                             style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8fafb 100%)' }}>
+                                        {/* Voice Agent Interface Container - Transparent Background */}
+                                        <div className="w-full h-full bg-transparent backdrop-blur-none flex flex-col">
                                           
-                                          {/* Header Section */}
-                                          <div className="p-4 border-b border-[#e5e7eb]">
+                                          {/* Header Section - Transparent */}
+                                          <div className="p-4 border-b border-[#70a2bc]/20">
                                             <div className="flex items-center justify-between">
                                               <div className="flex items-center gap-3">
                                                 <div className="relative">
@@ -963,193 +962,395 @@ export default function ProcessSection() {
                                           {/* Main Content Area - Split View */}
                                           <div className="flex-1 flex overflow-hidden">
                                             
-                                            {/* Left Side - Conversation */}
-                                            <div className="w-1/2 p-4 overflow-y-auto border-r border-[#e5e7eb]">
+                                            {/* Left Side - Realistic Voice Conversation */}
+                                            <div className="w-1/2 p-4 overflow-y-auto border-r border-[#70a2bc]/20">
                                               <div className="space-y-3">
-                                                {/* AI Message */}
+                                                {/* Conversation Message 1 - AI Greeting */}
                                                 <motion.div 
                                                   className="flex gap-2"
                                                   initial={{ opacity: 0, x: -10 }}
                                                   animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 0.5 }}
+                                                  transition={{ delay: 0.3 }}
                                                 >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc]">AI</span>
+                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
                                                   </div>
-                                                  <div className="bg-[#f0f5f7] rounded-lg p-2 max-w-[80%]">
+                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
                                                     <p className="text-xs text-[#2f2f2f]">Hi Sarah, I'm here to help with your intake today. What brings you in?</p>
                                                   </div>
                                                 </motion.div>
                                                 
-                                                {/* Patient Message */}
+                                                {/* Conversation Message 2 - Patient Initial Complaint */}
                                                 <motion.div 
                                                   className="flex gap-2 justify-end"
                                                   initial={{ opacity: 0, x: 10 }}
                                                   animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 0.8 }}
+                                                  transition={{ delay: 0.7 }}
                                                 >
-                                                  <div className="bg-[#70a2bc]/10 rounded-lg p-2 max-w-[80%]">
-                                                    <p className="text-xs text-[#2f2f2f]">I've been having these really bad headaches for like three months now</p>
+                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                    <p className="text-xs text-[#2f2f2f]">Um, hi. I've been having these really bad headaches for like three months now, and they're just not going away.</p>
                                                   </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a]">S</span>
+                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
                                                   </div>
                                                 </motion.div>
                                                 
-                                                {/* More conversation messages with progressive animation */}
+                                                {/* Conversation Message 3 - AI Follow-up */}
                                                 <motion.div 
                                                   className="flex gap-2"
                                                   initial={{ opacity: 0, x: -10 }}
                                                   animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 1.1 }}
+                                                  transition={{ delay: 1.2 }}
                                                 >
-                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#70a2bc]">AI</span>
+                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
                                                   </div>
-                                                  <div className="bg-[#f0f5f7] rounded-lg p-2 max-w-[80%]">
-                                                    <p className="text-xs text-[#2f2f2f]">Can you tell me more about these headaches?</p>
+                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                    <p className="text-xs text-[#2f2f2f]">I'm sorry to hear that. Can you tell me more about these headaches?</p>
                                                   </div>
                                                 </motion.div>
                                                 
+                                                {/* Conversation Message 4 - Patient Detailed Response */}
                                                 <motion.div 
                                                   className="flex gap-2 justify-end"
                                                   initial={{ opacity: 0, x: 10 }}
                                                   animate={{ opacity: 1, x: 0 }}
-                                                  transition={{ delay: 1.4 }}
+                                                  transition={{ delay: 1.7 }}
                                                 >
-                                                  <div className="bg-[#70a2bc]/10 rounded-lg p-2 max-w-[80%]">
-                                                    <p className="text-xs text-[#2f2f2f]">They're way worse than normal headaches. Like an 8 out of 10 pain, and I get dizzy and nauseous too</p>
+                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                    <p className="text-xs text-[#2f2f2f]">They're way worse than normal headaches. Like an 8 out of 10 pain, and I get dizzy and nauseous too.</p>
                                                   </div>
-                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <span className="text-xs text-[#a8998a]">S</span>
+                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                  </div>
+                                                </motion.div>
+                                                
+                                                {/* Conversation Message 5 - AI Frequency Question */}
+                                                <motion.div 
+                                                  className="flex gap-2"
+                                                  initial={{ opacity: 0, x: -10 }}
+                                                  animate={{ opacity: 1, x: 0 }}
+                                                  transition={{ delay: 2.3 }}
+                                                >
+                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                  </div>
+                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                    <p className="text-xs text-[#2f2f2f]">How often are you getting them?</p>
+                                                  </div>
+                                                </motion.div>
+                                                
+                                                {/* Conversation Message 6 - Patient Frequency Response */}
+                                                <motion.div 
+                                                  className="flex gap-2 justify-end"
+                                                  initial={{ opacity: 0, x: 10 }}
+                                                  animate={{ opacity: 1, x: 0 }}
+                                                  transition={{ delay: 2.7 }}
+                                                >
+                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                    <p className="text-xs text-[#2f2f2f]">Maybe three or four times a week? And I'm taking Advil constantly.</p>
+                                                  </div>
+                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
+                                                  </div>
+                                                </motion.div>
+                                                
+                                                {/* Conversation Message 7 - AI Symptoms Question */}
+                                                <motion.div 
+                                                  className="flex gap-2"
+                                                  initial={{ opacity: 0, x: -10 }}
+                                                  animate={{ opacity: 1, x: 0 }}
+                                                  transition={{ delay: 3.2 }}
+                                                >
+                                                  <div className="w-6 h-6 rounded-full bg-[#70a2bc]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#70a2bc] font-medium">AI</span>
+                                                  </div>
+                                                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#70a2bc]/10">
+                                                    <p className="text-xs text-[#2f2f2f]">Are you experiencing any other symptoms?</p>
+                                                  </div>
+                                                </motion.div>
+                                                
+                                                {/* Conversation Message 8 - Patient Additional Symptoms */}
+                                                <motion.div 
+                                                  className="flex gap-2 justify-end"
+                                                  initial={{ opacity: 0, x: 10 }}
+                                                  animate={{ opacity: 1, x: 0 }}
+                                                  transition={{ delay: 3.7 }}
+                                                >
+                                                  <div className="bg-[#70a2bc]/10 backdrop-blur-sm rounded-lg p-2 max-w-[85%] shadow-sm border border-[#a8998a]/20">
+                                                    <p className="text-xs text-[#2f2f2f]">Yeah, I've been super anxious lately and can't sleep. I wake up at like 3 AM every night.</p>
+                                                  </div>
+                                                  <div className="w-6 h-6 rounded-full bg-[#a8998a]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                                    <span className="text-xs text-[#a8998a] font-medium">S</span>
                                                   </div>
                                                 </motion.div>
                                               </div>
                                             </div>
                                             
-                                            {/* Right Side - Auto-filling Intake Form */}
+                                            {/* Right Side - Real-time Auto-filling Intake Form */}
                                             <div className="w-1/2 p-4 overflow-y-auto">
-                                              <div className="space-y-4">
+                                              <div className="space-y-3">
                                                 <div className="flex items-center justify-between mb-3">
                                                   <h4 className="text-sm font-semibold text-[#2f2f2f]">Clinical Intake Form</h4>
                                                   <div className="flex items-center gap-1">
-                                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                                    <span className="text-xs text-[#6c757d]">Auto-filling</span>
+                                                    <motion.div 
+                                                      className="w-2 h-2 bg-green-500 rounded-full"
+                                                      animate={{ opacity: [0.5, 1, 0.5] }}
+                                                      transition={{ duration: 1.5, repeat: Infinity }}
+                                                    />
+                                                    <span className="text-xs text-[#6c757d]">Live Processing</span>
                                                   </div>
                                                 </div>
                                                 
-                                                {/* Chief Complaint */}
+                                                {/* Patient Demographics */}
                                                 <motion.div 
                                                   initial={{ opacity: 0 }}
                                                   animate={{ opacity: 1 }}
-                                                  transition={{ delay: 0.9 }}
+                                                  transition={{ delay: 0.3 }}
+                                                >
+                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Patient Information</label>
+                                                  <motion.div 
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
+                                                    initial={{ borderColor: '#e5e7eb' }}
+                                                    animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
+                                                    transition={{ duration: 1, delay: 0.5 }}
+                                                  >
+                                                    <motion.p 
+                                                      className="text-xs text-[#2f2f2f] font-medium"
+                                                      initial={{ opacity: 0 }}
+                                                      animate={{ opacity: 1 }}
+                                                      transition={{ delay: 0.7 }}
+                                                    >
+                                                      Sarah, Age 44
+                                                    </motion.p>
+                                                  </motion.div>
+                                                </motion.div>
+                                                
+                                                {/* Chief Complaint - Fills after first patient response */}
+                                                <motion.div 
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  transition={{ delay: 0.8 }}
                                                 >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Chief Complaint</label>
                                                   <motion.div 
-                                                    className="border border-[#e5e7eb] rounded p-2 bg-white"
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
+                                                    initial={{ borderColor: '#e5e7eb', scale: 1 }}
+                                                    animate={{ 
+                                                      borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'],
+                                                      scale: [1, 1.02, 1]
+                                                    }}
+                                                    transition={{ duration: 1, delay: 0.9 }}
+                                                  >
+                                                    <motion.p 
+                                                      className="text-xs text-[#2f2f2f]"
+                                                      initial={{ opacity: 0, width: 0 }}
+                                                      animate={{ opacity: 1, width: 'auto' }}
+                                                      transition={{ delay: 1.1, duration: 0.8 }}
+                                                    >
+                                                      Severe headaches x3 months, persistent
+                                                    </motion.p>
+                                                  </motion.div>
+                                                </motion.div>
+                                                
+                                                {/* Duration - Fills after headache complaint */}
+                                                <motion.div 
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  transition={{ delay: 1.3 }}
+                                                >
+                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Duration</label>
+                                                  <motion.div 
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
                                                     initial={{ borderColor: '#e5e7eb' }}
                                                     animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
-                                                    transition={{ duration: 1, delay: 1 }}
+                                                    transition={{ duration: 1, delay: 1.4 }}
                                                   >
                                                     <motion.p 
                                                       className="text-xs text-[#2f2f2f]"
                                                       initial={{ opacity: 0 }}
                                                       animate={{ opacity: 1 }}
-                                                      transition={{ delay: 1.2 }}
+                                                      transition={{ delay: 1.6 }}
                                                     >
-                                                      Severe headaches x3 months
+                                                      3 months, ongoing
                                                     </motion.p>
                                                   </motion.div>
                                                 </motion.div>
                                                 
-                                                {/* Pain Scale */}
+                                                {/* Pain Scale - Fills after patient mentions "8 out of 10" */}
                                                 <motion.div 
                                                   initial={{ opacity: 0 }}
                                                   animate={{ opacity: 1 }}
-                                                  transition={{ delay: 1.5 }}
+                                                  transition={{ delay: 1.9 }}
                                                 >
-                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Pain Scale</label>
+                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Pain Scale (0-10)</label>
                                                   <motion.div 
-                                                    className="border border-[#e5e7eb] rounded p-2 bg-white flex items-center justify-between"
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
                                                     initial={{ borderColor: '#e5e7eb' }}
-                                                    animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
-                                                    transition={{ duration: 1, delay: 1.6 }}
+                                                    animate={{ 
+                                                      borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'],
+                                                      scale: [1, 1.05, 1]
+                                                    }}
+                                                    transition={{ duration: 1, delay: 2.0 }}
                                                   >
-                                                    <div className="flex gap-1">
+                                                    <div className="flex gap-1 items-center">
                                                       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                                         <motion.div
                                                           key={num}
-                                                          className={`w-6 h-6 rounded text-xs flex items-center justify-center ${
-                                                            num <= 8 ? 'bg-gradient-to-r from-[#70a2bc] to-[#5a8ca6] text-white' : 'bg-gray-100 text-gray-400'
+                                                          className={`w-4 h-4 rounded text-xs flex items-center justify-center ${
+                                                            num <= 8 ? 'bg-gradient-to-r from-[#70a2bc] to-[#5a8ca6] text-white' : 'bg-gray-200 text-gray-400'
                                                           }`}
-                                                          initial={{ scale: num === 8 ? 1 : 0.9 }}
-                                                          animate={{ scale: num === 8 ? 1.1 : 0.9 }}
-                                                          transition={{ delay: 1.7 + (num * 0.05) }}
+                                                          initial={{ scale: 0.8, opacity: 0.3 }}
+                                                          animate={{ 
+                                                            scale: num === 8 ? 1.2 : (num <= 8 ? 1 : 0.8),
+                                                            opacity: num === 8 ? 1 : (num <= 8 ? 0.8 : 0.3)
+                                                          }}
+                                                          transition={{ delay: 2.1 + (num * 0.05), duration: 0.3 }}
                                                         >
                                                           {num}
                                                         </motion.div>
                                                       ))}
+                                                      <motion.span 
+                                                        className="ml-2 text-xs font-semibold text-[#70a2bc]"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{ delay: 2.6 }}
+                                                      >
+                                                        8/10 Severe
+                                                      </motion.span>
                                                     </div>
                                                   </motion.div>
                                                 </motion.div>
                                                 
-                                                {/* Associated Symptoms */}
+                                                {/* Associated Symptoms - Fills as patient mentions each symptom */}
                                                 <motion.div 
                                                   initial={{ opacity: 0 }}
                                                   animate={{ opacity: 1 }}
-                                                  transition={{ delay: 1.8 }}
+                                                  transition={{ delay: 2.0 }}
                                                 >
                                                   <label className="text-xs font-medium text-[#6c757d] block mb-1">Associated Symptoms</label>
                                                   <motion.div 
-                                                    className="border border-[#e5e7eb] rounded p-2 bg-white space-y-1"
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm space-y-1"
                                                     initial={{ borderColor: '#e5e7eb' }}
                                                     animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
-                                                    transition={{ duration: 1, delay: 1.9 }}
+                                                    transition={{ duration: 1, delay: 2.1 }}
                                                   >
+                                                    {/* Dizziness - appears when mentioned */}
                                                     <motion.div 
                                                       className="flex items-center gap-2"
-                                                      initial={{ opacity: 0, x: -5 }}
-                                                      animate={{ opacity: 1, x: 0 }}
-                                                      transition={{ delay: 2 }}
-                                                    >
-                                                      <div className="w-3 h-3 rounded bg-[#70a2bc]" />
-                                                      <span className="text-xs text-[#2f2f2f]">Dizziness</span>
-                                                    </motion.div>
-                                                    <motion.div 
-                                                      className="flex items-center gap-2"
-                                                      initial={{ opacity: 0, x: -5 }}
-                                                      animate={{ opacity: 1, x: 0 }}
-                                                      transition={{ delay: 2.1 }}
-                                                    >
-                                                      <div className="w-3 h-3 rounded bg-[#70a2bc]" />
-                                                      <span className="text-xs text-[#2f2f2f]">Nausea</span>
-                                                    </motion.div>
-                                                    <motion.div 
-                                                      className="flex items-center gap-2"
-                                                      initial={{ opacity: 0, x: -5 }}
+                                                      initial={{ opacity: 0, x: -10 }}
                                                       animate={{ opacity: 1, x: 0 }}
                                                       transition={{ delay: 2.2 }}
                                                     >
-                                                      <div className="w-3 h-3 rounded bg-[#70a2bc]" />
-                                                      <span className="text-xs text-[#2f2f2f]">Anxiety</span>
+                                                      <motion.div 
+                                                        className="w-2 h-2 rounded bg-[#70a2bc]"
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ delay: 2.3, type: "spring" }}
+                                                      />
+                                                      <span className="text-xs text-[#2f2f2f]">Dizziness</span>
                                                     </motion.div>
+                                                    {/* Nausea - appears when mentioned */}
                                                     <motion.div 
                                                       className="flex items-center gap-2"
-                                                      initial={{ opacity: 0, x: -5 }}
+                                                      initial={{ opacity: 0, x: -10 }}
                                                       animate={{ opacity: 1, x: 0 }}
-                                                      transition={{ delay: 2.3 }}
+                                                      transition={{ delay: 2.4 }}
                                                     >
-                                                      <div className="w-3 h-3 rounded bg-[#70a2bc]" />
+                                                      <motion.div 
+                                                        className="w-2 h-2 rounded bg-[#70a2bc]"
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ delay: 2.5, type: "spring" }}
+                                                      />
+                                                      <span className="text-xs text-[#2f2f2f]">Nausea</span>
+                                                    </motion.div>
+                                                    {/* Anxiety - appears when mentioned later */}
+                                                    <motion.div 
+                                                      className="flex items-center gap-2"
+                                                      initial={{ opacity: 0, x: -10 }}
+                                                      animate={{ opacity: 1, x: 0 }}
+                                                      transition={{ delay: 3.9 }}
+                                                    >
+                                                      <motion.div 
+                                                        className="w-2 h-2 rounded bg-[#a8998a]"
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ delay: 4.0, type: "spring" }}
+                                                      />
+                                                      <span className="text-xs text-[#2f2f2f]">Anxiety</span>
+                                                    </motion.div>
+                                                    {/* Sleep disruption - appears when mentioned */}
+                                                    <motion.div 
+                                                      className="flex items-center gap-2"
+                                                      initial={{ opacity: 0, x: -10 }}
+                                                      animate={{ opacity: 1, x: 0 }}
+                                                      transition={{ delay: 4.1 }}
+                                                    >
+                                                      <motion.div 
+                                                        className="w-2 h-2 rounded bg-[#a8998a]"
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={{ delay: 4.2, type: "spring" }}
+                                                      />
                                                       <span className="text-xs text-[#2f2f2f]">Sleep disruption</span>
                                                     </motion.div>
+                                                  </motion.div>
+                                                </motion.div>
+                                                
+                                                {/* Frequency - Fills when patient mentions frequency */}
+                                                <motion.div 
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  transition={{ delay: 2.9 }}
+                                                >
+                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Frequency</label>
+                                                  <motion.div 
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
+                                                    initial={{ borderColor: '#e5e7eb' }}
+                                                    animate={{ borderColor: ['#e5e7eb', '#70a2bc', '#e5e7eb'] }}
+                                                    transition={{ duration: 1, delay: 3.0 }}
+                                                  >
+                                                    <motion.p 
+                                                      className="text-xs text-[#2f2f2f]"
+                                                      initial={{ opacity: 0 }}
+                                                      animate={{ opacity: 1 }}
+                                                      transition={{ delay: 3.2 }}
+                                                    >
+                                                      3-4 times per week
+                                                    </motion.p>
+                                                  </motion.div>
+                                                </motion.div>
+                                                
+                                                {/* Current Medications - Fills when patient mentions Advil */}
+                                                <motion.div 
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  transition={{ delay: 3.0 }}
+                                                >
+                                                  <label className="text-xs font-medium text-[#6c757d] block mb-1">Current Medications</label>
+                                                  <motion.div 
+                                                    className="border border-[#e5e7eb] rounded p-2 bg-white/60 backdrop-blur-sm"
+                                                    initial={{ borderColor: '#e5e7eb' }}
+                                                    animate={{ borderColor: ['#e5e7eb', '#a8998a', '#e5e7eb'] }}
+                                                    transition={{ duration: 1, delay: 3.1 }}
+                                                  >
+                                                    <motion.p 
+                                                      className="text-xs text-[#2f2f2f]"
+                                                      initial={{ opacity: 0 }}
+                                                      animate={{ opacity: 1 }}
+                                                      transition={{ delay: 3.3 }}
+                                                    >
+                                                      Ibuprofen (Advil) - frequent use
+                                                    </motion.p>
                                                   </motion.div>
                                                 </motion.div>
                                               </div>
                                             </div>
                                           </div>
                                           
-                                          {/* Audio Waveform Visualization */}
-                                          <div className="h-16 border-t border-[#e5e7eb] flex items-center justify-center px-4 bg-gradient-to-r from-[#f8fafb] to-[#f0f5f7]">
+                                          {/* Audio Waveform Visualization - Transparent */}
+                                          <div className="h-16 border-t border-[#70a2bc]/20 flex items-center justify-center px-4 bg-transparent">
                                             <div className="flex items-center gap-1 h-full">
                                               {Array.from({ length: 40 }).map((_, i) => (
                                                 <motion.div
