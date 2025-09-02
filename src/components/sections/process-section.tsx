@@ -453,11 +453,14 @@ export default function ProcessSection() {
                                 // Also expand cell 1.4 during this phase
                                 if (scrollProg > 0.85) {
                                   const expandProgress = (scrollProg - 0.85) / 0.15;
-                                  // Adjust for cell 1.4 expansion
-                                  verticalPos[1] = 35 - (10 * expandProgress);
-                                  verticalPos[2] = 60 - (10 * expandProgress);
-                                  horizontalPos[3] = 70 + (15 * expandProgress);
-                                  horizontalPos[4] = 80 + (10 * expandProgress);
+                                  // Adjust for cell 1.4 expansion to 80% size
+                                  verticalPos[1] = 35 - (15 * expandProgress);  // Move to 20%
+                                  verticalPos[2] = 60 - (40 * expandProgress);  // Move to 20%
+                                  verticalPos[3] = 70 + (10 * expandProgress);  // Move to 80%
+                                  verticalPos[4] = 80;  // Keep at 80%
+                                  horizontalPos[2] = 60 + (20 * expandProgress);  // Move to 80%
+                                  horizontalPos[3] = 70 + (10 * expandProgress);  // Move to 80%
+                                  horizontalPos[4] = 80;  // Keep at 80%
                                 }
                               }
                             } else if (subItem === 2) {
@@ -662,15 +665,17 @@ export default function ProcessSection() {
                                   className="absolute overflow-hidden"
                                   animate={{
                                     left: currentSubItem === 4 ? '0%' : 
-                                           (currentSubItem === 1 && scrollProgressValue > 0.85) ? '35%' : '0%',
+                                           (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
+                                           `${35 - (35 * ((scrollProgressValue - 0.85) / 0.15))}%` : '0%',
                                     top: currentSubItem === 4 ? '15%' : 
-                                          (currentSubItem === 1 && scrollProgressValue > 0.85) ? '35%' : '40%',
+                                          (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
+                                          `${35 - (15 * ((scrollProgressValue - 0.85) / 0.15))}%` : '40%',
                                     width: currentSubItem === 4 ? '70%' : 
                                             (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
-                                            `${50 + (15 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                            `${20 + (60 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
                                     height: currentSubItem === 4 ? '70%' : 
                                              (currentSubItem === 1 && scrollProgressValue > 0.85) ? 
-                                             `${50 + (15 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
+                                             `${20 + (60 * ((scrollProgressValue - 0.85) / 0.15))}%` : '20%',
                                     zIndex: currentSubItem === 4 ? 10 : 
                                             (currentSubItem === 1 && scrollProgressValue > 0.85) ? 8 : 1
                                   }}
@@ -681,7 +686,7 @@ export default function ProcessSection() {
                                       <div 
                                         className="perspective-distant relative w-full h-full flex items-center justify-center overflow-hidden"
                                         style={{ 
-                                          transform: 'translate(0vw, 5vh) scale(0.6)',
+                                          transform: 'scale(1.2)',
                                           perspective: '1000px'
                                         }}
                                       >
@@ -695,7 +700,7 @@ export default function ProcessSection() {
                                           style={{ transform: 'rotateX(5deg) rotateY(-30deg)' }}
                                         >
                                           <div 
-                                            className="atlas-product-base -rotate-x-6 -rotate-y-12 break-words whitespace-pre-line transform-3d text-xs"
+                                            className="atlas-product-base -rotate-x-6 -rotate-y-12 break-words whitespace-pre-line transform-3d text-base"
                                             style={{ 
                                               transition: 'transform 2s cubic-bezier(0.16, 1, 0.3, 1)',
                                               transform: 'rotateX(1.36deg) rotateY(11.8deg)',
