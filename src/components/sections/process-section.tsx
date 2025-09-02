@@ -445,25 +445,17 @@ export default function ProcessSection() {
                                 verticalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
                                 horizontalPos = [0, 70 - (35 * zoomProgress), 80 - (20 * zoomProgress), 85 - (15 * zoomProgress), 90 - (10 * zoomProgress), 100];
                               } else {
-                                // State 4: Keep small and expand cell 1.4 (75-100%)
-                                // Cell 1.1 stays at 35% size
-                                verticalPos = [0, 35, 60, 70, 80, 100];
-                                horizontalPos = [0, 35, 60, 70, 80, 100];
-                                
-                                // Also expand cell 1.4 during this phase - slower expansion
-                                if (scrollProg > 0.75) {
-                                  const expandProgress = Math.min((scrollProg - 0.75) / 0.25, 1);
-                                  // Smooth easing for expansion
-                                  const easedProgress = expandProgress * expandProgress * (3 - 2 * expandProgress);
-                                  // Adjust for cell 1.4 expansion to fill entire visual area
-                                  verticalPos[1] = 35 - (35 * easedProgress);  // Move to 0%
-                                  verticalPos[2] = 60 - (60 * easedProgress);  // Move to 0%
-                                  verticalPos[3] = 70 + (30 * easedProgress);  // Move to 100%
-                                  verticalPos[4] = 80 + (20 * easedProgress);  // Move to 100%
-                                  horizontalPos[1] = 35 - (35 * easedProgress);  // Move to 0%
-                                  horizontalPos[2] = 60 - (60 * easedProgress);  // Move to 0%
-                                  horizontalPos[3] = 70 + (30 * easedProgress);  // Move to 100%
-                                  horizontalPos[4] = 80 + (20 * easedProgress);  // Move to 100%
+                                // State 4: Keep cell 1.1 expanded for second visual (75-100%)
+                                // Cell 1.1 expands back to show medical conversation
+                                if (scrollProg < 0.78) {
+                                  // Transition phase: expand cell 1.1 back
+                                  const expandProgress = (scrollProg - 0.75) / 0.03;
+                                  verticalPos = [0, 35 + (35 * expandProgress), 60 + (20 * expandProgress), 70 + (15 * expandProgress), 80 + (10 * expandProgress), 100];
+                                  horizontalPos = [0, 35 + (35 * expandProgress), 60 + (20 * expandProgress), 70 + (15 * expandProgress), 80 + (10 * expandProgress), 100];
+                                } else {
+                                  // Full expansion for medical conversation
+                                  verticalPos = [0, 70, 80, 85, 90, 100];
+                                  horizontalPos = [0, 70, 80, 85, 90, 100];
                                 }
                               }
                             } else if (subItem === 2) {
@@ -553,12 +545,14 @@ export default function ProcessSection() {
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
                                        scrollProgressValue < 0.75 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.15))}%` :
-                                       '35%') : '20%',
+                                       scrollProgressValue < 0.78 ? `${35 + (35 * ((scrollProgressValue - 0.75) / 0.03))}%` :
+                                       '70%') : '20%',
                                     height: currentSubItem === 1 ? 
                                       (scrollProgressValue < 0.3 ? `${20 + (50 * (scrollProgressValue / 0.3))}%` :
                                        scrollProgressValue < 0.6 ? '70%' :
                                        scrollProgressValue < 0.75 ? `${70 - (35 * ((scrollProgressValue - 0.6) / 0.15))}%` :
-                                       '35%') : '20%',
+                                       scrollProgressValue < 0.78 ? `${35 + (35 * ((scrollProgressValue - 0.75) / 0.03))}%` :
+                                       '70%') : '20%',
                                     zIndex: currentSubItem === 1 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -566,33 +560,147 @@ export default function ProcessSection() {
                                   <div className="w-full h-full flex items-center justify-center relative">
                                     {currentSubItem === 1 ? (
                                       <>
-                                        {/* Video Session Image with zoom animation */}
-                                        <motion.img
-                                          src="/video-session.png"
-                                          alt="Virtual Care Session"
-                                          className="absolute object-contain"
-                                          animate={{
-                                            // Zoom animation states
-                                            scale: scrollProgressValue < 0.3 
-                                              ? 1.5 - (0.5 * (scrollProgressValue / 0.3))  // Zoom out from 1.5x to 1x
-                                              : scrollProgressValue < 0.6 
-                                              ? 1  // Stay at 1x
-                                              : scrollProgressValue < 0.75
-                                              ? 1 - (0.3 * ((scrollProgressValue - 0.6) / 0.15))  // Zoom in smaller to 0.7x
-                                              : 0.7,  // Keep at 0.7x
-                                            opacity: scrollProgressValue < 0.82 ? 1 : Math.max(0.3, 1 - ((scrollProgressValue - 0.82) / 0.08)),
-                                            width: '90%',
-                                            height: '90%'
-                                          }}
-                                          transition={{ duration: 0.6, ease: "easeInOut" }}
-                                        />
+                                        {/* First Visual: Video Session Image - only show until 75% */}
+                                        {scrollProgressValue < 0.75 && (
+                                          <motion.img
+                                            src="/video-session.png"
+                                            alt="Virtual Care Session"
+                                            className="absolute object-contain"
+                                            animate={{
+                                              // Zoom animation states
+                                              scale: scrollProgressValue < 0.3 
+                                                ? 1.5 - (0.5 * (scrollProgressValue / 0.3))  // Zoom out from 1.5x to 1x
+                                                : scrollProgressValue < 0.6 
+                                                ? 1  // Stay at 1x
+                                                : 1 - (0.4 * ((scrollProgressValue - 0.6) / 0.15)),  // Zoom smaller to 0.6x
+                                              opacity: scrollProgressValue < 0.7 ? 1 : 1 - ((scrollProgressValue - 0.7) / 0.05),
+                                              width: '90%',
+                                              height: '90%'
+                                            }}
+                                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                                          />
+                                        )}
                                         
-                                        {/* Number overlay - shows after image fades */}
+                                        {/* Second Visual: Medical Conversation - show after 75% */}
+                                        {scrollProgressValue >= 0.75 && (
+                                          <motion.div 
+                                            className="absolute inset-0 p-6 overflow-hidden"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ 
+                                              opacity: 1,
+                                              scale: 1 + (0.2 * ((scrollProgressValue - 0.75) / 0.25))
+                                            }}
+                                            transition={{ duration: 0.8 }}
+                                          >
+                                            <div 
+                                              className="w-full h-full"
+                                              style={{ 
+                                                perspective: '1000px',
+                                                transformStyle: 'preserve-3d'
+                                              }}
+                                            >
+                                              <motion.div 
+                                                className="relative w-full h-full"
+                                                animate={{
+                                                  rotateX: 2 + (3 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                                  rotateY: -10 - (10 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                                }}
+                                                transition={{ duration: 0.6 }}
+                                                style={{ transformStyle: 'preserve-3d' }}
+                                              >
+                                                {/* Medical conversation content */}
+                                                <div className="space-y-4 text-xs leading-relaxed">
+                                                  {/* Patient Message */}
+                                                  <motion.div 
+                                                    className="space-y-1"
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.76 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.76 ? 0 : 20
+                                                    }}
+                                                    transition={{ duration: 0.6 }}
+                                                  >
+                                                    <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
+                                                    <p className="text-gray-600">
+                                                      I have persistent{' '}
+                                                      <motion.span 
+                                                        className="relative inline-block transform-3d"
+                                                        animate={{
+                                                          scale: scrollProgressValue > 0.80 ? 1.1 : 1
+                                                        }}
+                                                      >
+                                                        <span 
+                                                          className="text-red-600 bg-red-50 px-1 rounded inline-block font-semibold"
+                                                          style={{ 
+                                                            transform: scrollProgressValue > 0.80 ? 'translateZ(40px)' : 'translateZ(0px)',
+                                                            transition: 'transform 0.5s ease-out'
+                                                          }}
+                                                        >
+                                                          left chest pain
+                                                        </span>
+                                                        {scrollProgressValue > 0.82 && (
+                                                          <span 
+                                                            className="absolute -top-5 left-0 text-[10px] text-red-500 bg-white px-1 py-0.5 rounded shadow-lg"
+                                                            style={{ transform: 'translateZ(60px)' }}
+                                                          >
+                                                            → Cardiovascular
+                                                          </span>
+                                                        )}
+                                                      </motion.span>
+                                                      {' '}for three weeks.
+                                                    </p>
+                                                  </motion.div>
+
+                                                  {/* More content appears progressively */}
+                                                  <motion.div 
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.85 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.85 ? 0 : 20
+                                                    }}
+                                                    transition={{ duration: 0.6 }}
+                                                  >
+                                                    <p className="text-gray-600">
+                                                      I also have{' '}
+                                                      <span className="text-blue-600 bg-blue-50 px-1 rounded inline-block font-semibold">
+                                                        diabetes
+                                                      </span>
+                                                      ,{' '}
+                                                      <span className="text-purple-600 bg-purple-50 px-1 rounded inline-block font-semibold">
+                                                        foot swelling
+                                                      </span>
+                                                      , and{' '}
+                                                      <span className="text-green-600 bg-green-50 px-1 rounded inline-block font-semibold">
+                                                        insomnia
+                                                      </span>
+                                                      .
+                                                    </p>
+                                                  </motion.div>
+
+                                                  {/* Doctor Response */}
+                                                  <motion.div 
+                                                    className="space-y-1"
+                                                    animate={{ 
+                                                      opacity: scrollProgressValue > 0.92 ? 1 : 0,
+                                                      y: scrollProgressValue > 0.92 ? 0 : 20
+                                                    }}
+                                                    transition={{ duration: 0.6 }}
+                                                  >
+                                                    <p className="font-semibold text-gray-700">Dr. Martinez:</p>
+                                                    <p className="text-gray-600">
+                                                      Tell me about the chest pain and swelling.
+                                                    </p>
+                                                  </motion.div>
+                                                </div>
+                                              </motion.div>
+                                            </div>
+                                          </motion.div>
+                                        )}
+                                        
+                                        {/* Number overlay - always visible but faint */}
                                         <motion.span 
-                                          className="text-[#70a2bc] font-light absolute"
+                                          className="text-[#70a2bc] font-light absolute bottom-2 right-2 z-10"
                                           animate={{ 
-                                            fontSize: '72px',
-                                            opacity: scrollProgressValue > 0.85 ? Math.min(1, (scrollProgressValue - 0.85) / 0.05) : 0
+                                            fontSize: '36px',
+                                            opacity: 0.2
                                           }}
                                           transition={{ duration: 0.6 }}
                                         >
@@ -665,224 +773,26 @@ export default function ProcessSection() {
                                 
                                 {/* Cell 1.4 - Referral Agent (r2c1) */}
                                 <motion.div
-                                  className="absolute overflow-hidden"
+                                  className="absolute"
                                   animate={{
-                                    left: currentSubItem === 4 ? '0%' : 
-                                           (currentSubItem === 1 && scrollProgressValue > 0.75) ? '0%' : '0%',
-                                    top: currentSubItem === 4 ? '15%' : 
-                                          (currentSubItem === 1 && scrollProgressValue > 0.75) ? '0%' : '40%',
-                                    width: currentSubItem === 4 ? '70%' : 
-                                            (currentSubItem === 1 && scrollProgressValue > 0.75) ? 
-                                            `${20 + (80 * Math.min((scrollProgressValue - 0.75) / 0.25, 1))}%` : '20%',
-                                    height: currentSubItem === 4 ? '70%' : 
-                                             (currentSubItem === 1 && scrollProgressValue > 0.75) ? 
-                                             `${20 + (80 * Math.min((scrollProgressValue - 0.75) / 0.25, 1))}%` : '20%',
-                                    zIndex: currentSubItem === 4 ? 10 : 
-                                            (currentSubItem === 1 && scrollProgressValue > 0.75) ? 8 : 1
+                                    left: currentSubItem === 4 ? '0%' : '0%',
+                                    top: currentSubItem === 4 ? '15%' : '40%',
+                                    width: currentSubItem === 4 ? '70%' : '20%',
+                                    height: currentSubItem === 4 ? '70%' : '20%',
+                                    zIndex: currentSubItem === 4 ? 10 : 1
                                   }}
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
-                                  <div className="w-full h-full flex items-center justify-center relative">
-                                    {(currentSubItem === 1 && scrollProgressValue > 0.75) ? (
-                                      <div 
-                                        className="relative w-full h-full p-8 overflow-hidden"
-                                        style={{ 
-                                          perspective: '1000px'
-                                        }}
-                                      >
-                                        <motion.div 
-                                          className="relative w-full h-full"
-                                          animate={{
-                                            rotateX: 2 + (3 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
-                                            rotateY: -10 - (10 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
-                                          }}
-                                          transition={{ duration: 0.6 }}
-                                          style={{ transformStyle: 'preserve-3d' }}
-                                        >
-                                          <div 
-                                            className="space-y-6 text-sm leading-relaxed"
-                                            style={{ 
-                                              transformStyle: 'preserve-3d'
-                                            }}
-                                          >
-                                            {/* Patient Message */}
-                                            <motion.div 
-                                              className="space-y-2"
-                                              animate={{ 
-                                                opacity: scrollProgressValue > 0.78 ? 1 : 0,
-                                                y: scrollProgressValue > 0.78 ? 0 : 20
-                                              }}
-                                              transition={{ duration: 0.6 }}
-                                            >
-                                              <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
-                                              <p className="text-gray-600">
-                                                I have persistent{' '}
-                                                <motion.span 
-                                                  className="relative inline-block transform-3d"
-                                                  animate={{
-                                                    scale: scrollProgressValue > 0.80 ? 1.1 : 1
-                                                  }}
-                                                >
-                                                  <span 
-                                                    className="text-red-600 bg-red-50 px-1 rounded inline-block font-semibold"
-                                                    style={{ 
-                                                      transform: scrollProgressValue > 0.80 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.5s ease-out'
-                                                    }}
-                                                  >
-                                                    left chest pain
-                                                  </span>
-                                                  {scrollProgressValue > 0.82 && (
-                                                    <span 
-                                                      className="absolute -top-6 left-0 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-lg"
-                                                      style={{ transform: 'translateZ(60px)' }}
-                                                    >
-                                                      → Cardiovascular
-                                                    </span>
-                                                  )}
-                                                </motion.span>
-                                                {' '}for three weeks. It's dull, aching, worse with stress. I also have{' '}
-                                                <motion.span 
-                                                  className="relative inline-block transform-3d"
-                                                  animate={{
-                                                    scale: scrollProgressValue > 0.84 ? 1.1 : 1
-                                                  }}
-                                                >
-                                                  <span 
-                                                    className="text-blue-600 bg-blue-50 px-1 rounded inline-block font-semibold"
-                                                    style={{ 
-                                                      transform: scrollProgressValue > 0.84 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.5s ease-out'
-                                                    }}
-                                                  >
-                                                    diabetes
-                                                  </span>
-                                                  {scrollProgressValue > 0.86 && (
-                                                    <span 
-                                                      className="absolute -top-6 left-0 text-xs text-blue-500 bg-white px-2 py-1 rounded shadow-lg"
-                                                      style={{ transform: 'translateZ(60px)' }}
-                                                    >
-                                                      → Endocrine
-                                                    </span>
-                                                  )}
-                                                </motion.span>
-                                                ,{' '}
-                                                <motion.span 
-                                                  className="relative inline-block transform-3d"
-                                                  animate={{
-                                                    scale: scrollProgressValue > 0.88 ? 1.1 : 1
-                                                  }}
-                                                >
-                                                  <span 
-                                                    className="text-purple-600 bg-purple-50 px-1 rounded inline-block font-semibold"
-                                                    style={{ 
-                                                      transform: scrollProgressValue > 0.88 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.5s ease-out'
-                                                    }}
-                                                  >
-                                                    foot swelling
-                                                  </span>
-                                                  {scrollProgressValue > 0.90 && (
-                                                    <span 
-                                                      className="absolute -top-6 left-0 text-xs text-purple-500 bg-white px-2 py-1 rounded shadow-lg"
-                                                      style={{ transform: 'translateZ(60px)' }}
-                                                    >
-                                                      → Vascular
-                                                    </span>
-                                                  )}
-                                                </motion.span>
-                                                , terrible nightmares, and{' '}
-                                                <motion.span 
-                                                  className="relative inline-block transform-3d"
-                                                  animate={{
-                                                    scale: scrollProgressValue > 0.92 ? 1.1 : 1
-                                                  }}
-                                                >
-                                                  <span 
-                                                    className="text-green-600 bg-green-50 px-1 rounded inline-block font-semibold"
-                                                    style={{ 
-                                                      transform: scrollProgressValue > 0.92 ? 'translateZ(40px)' : 'translateZ(0px)',
-                                                      transition: 'transform 0.5s ease-out'
-                                                    }}
-                                                  >
-                                                    insomnia
-                                                  </span>
-                                                  {scrollProgressValue > 0.94 && (
-                                                    <span 
-                                                      className="absolute -top-6 left-0 text-xs text-green-500 bg-white px-2 py-1 rounded shadow-lg"
-                                                      style={{ transform: 'translateZ(60px)' }}
-                                                    >
-                                                      → Neurological
-                                                    </span>
-                                                  )}
-                                                </motion.span>
-                                                . I'm scared.
-                                              </p>
-                                            </motion.div>
-
-                                            {/* Doctor Response */}
-                                            <motion.div 
-                                              className="space-y-2"
-                                              animate={{ 
-                                                opacity: scrollProgressValue > 0.95 ? 1 : 0,
-                                                y: scrollProgressValue > 0.95 ? 0 : 20
-                                              }}
-                                              transition={{ duration: 0.6 }}
-                                            >
-                                              <p className="font-semibold text-gray-700">Dr. Martinez:</p>
-                                              <p className="text-gray-600">
-                                                Tell me about the chest pain and swelling.
-                                              </p>
-                                            </motion.div>
-
-                                            {/* Patient Follow-up */}
-                                            <motion.div 
-                                              className="space-y-2"
-                                              animate={{ 
-                                                opacity: scrollProgressValue > 0.97 ? 1 : 0,
-                                                y: scrollProgressValue > 0.97 ? 0 : 20
-                                              }}
-                                              transition={{ duration: 0.6 }}
-                                            >
-                                              <p className="font-semibold text-gray-700">Mrs. Johnson:</p>
-                                              <p className="text-gray-600">
-                                                The pain{' '}
-                                                <span className="text-orange-600 bg-orange-50 px-1 rounded inline-block font-semibold">
-                                                  radiates to my left arm
-                                                </span>
-                                                {' '}sometimes. My{' '}
-                                                <span className="text-indigo-600 bg-indigo-50 px-1 rounded inline-block font-semibold">
-                                                  ankles swell
-                                                </span>
-                                                , especially evenings. My blood sugar's been high due to stress and poor sleep.
-                                              </p>
-                                            </motion.div>
-
-                                            {/* Cell Number */}
-                                            <motion.div 
-                                              className="absolute bottom-4 right-4"
-                                              animate={{ 
-                                                opacity: scrollProgressValue > 0.75 ? 0.3 : 0
-                                              }}
-                                            >
-                                              <span className="text-[#F59E0B] font-bold text-4xl">
-                                                1.4
-                                              </span>
-                                            </motion.div>
-                                          </div>
-                                        </motion.div>
-                                      </div>
-                                    ) : (
-                                      <motion.span 
-                                        className="text-[#F59E0B] font-light"
-                                        animate={{ 
-                                          fontSize: currentSubItem === 4 ? '48px' : '24px',
-                                          opacity: currentSubItem === 4 ? 1 : 0.4
-                                        }}
-                                      >
-                                        1.4
-                                      </motion.span>
-                                    )}
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <motion.span 
+                                      className="text-[#F59E0B] font-light"
+                                      animate={{ 
+                                        fontSize: currentSubItem === 4 ? '48px' : '24px',
+                                        opacity: currentSubItem === 4 ? 1 : 0.4
+                                      }}
+                                    >
+                                      1.4
+                                    </motion.span>
                                   </div>
                                 </motion.div>
                                 
