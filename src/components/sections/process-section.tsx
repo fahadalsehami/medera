@@ -901,28 +901,9 @@ export default function ProcessSection() {
                                           </motion.div>
                                         )}
                                         
-                                        {/* Number overlay - always visible but faint */}
-                                        <motion.span 
-                                          className="text-[#70a2bc] font-light absolute bottom-2 right-2 z-10"
-                                          animate={{ 
-                                            fontSize: '36px',
-                                            opacity: 0.2
-                                          }}
-                                          transition={{ duration: 0.6 }}
-                                        >
-                                          1.1
-                                        </motion.span>
                                       </>
                                     ) : (
-                                      <motion.span 
-                                        className="text-[#70a2bc] font-light"
-                                        animate={{ 
-                                          fontSize: '28px',
-                                          opacity: 0.3
-                                        }}
-                                      >
-                                        1.1
-                                      </motion.span>
+                                      <></>
                                     )}
                                   </div>
                                 </motion.div>
@@ -940,15 +921,7 @@ export default function ProcessSection() {
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
-                                    <motion.span 
-                                      className="text-[#10B981] font-light"
-                                      animate={{ 
-                                        fontSize: currentSubItem === 2 ? '72px' : '28px',
-                                        opacity: currentSubItem === 2 ? 1 : 0.3
-                                      }}
-                                    >
-                                      1.2
-                                    </motion.span>
+                                    {/* Debug number 1.2 removed */}
                                   </div>
                                 </motion.div>
                                 
@@ -965,15 +938,7 @@ export default function ProcessSection() {
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
-                                    <motion.span 
-                                      className="text-[#8B5CF6] font-light"
-                                      animate={{ 
-                                        fontSize: currentSubItem === 3 ? '72px' : '28px',
-                                        opacity: currentSubItem === 3 ? 1 : 0.3
-                                      }}
-                                    >
-                                      1.3
-                                    </motion.span>
+                                    {/* Debug number 1.3 removed */}
                                   </div>
                                 </motion.div>
                                 
@@ -990,15 +955,7 @@ export default function ProcessSection() {
                                   transition={{ duration: 0.8, ease: "easeInOut" }}
                                 >
                                   <div className="w-full h-full flex items-center justify-center">
-                                    <motion.span 
-                                      className="text-[#F59E0B] font-light"
-                                      animate={{ 
-                                        fontSize: currentSubItem === 4 ? '48px' : '24px',
-                                        opacity: currentSubItem === 4 ? 1 : 0.4
-                                      }}
-                                    >
-                                      1.4
-                                    </motion.span>
+                                    {/* Debug number 1.4 removed */}
                                   </div>
                                 </motion.div>
                                 
