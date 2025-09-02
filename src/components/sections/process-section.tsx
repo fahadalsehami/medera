@@ -8,21 +8,31 @@ import { CubeStepProgress } from "@/components/ui/cube-step-progress";
 const processSteps = [
   {
     id: "01",
-    title: "Care Fusion",
-    shortTitle: "Fusion",
-    subtitle: "Seamlessly connect conversations with insights from past encounters, system guidelines, and clinician preferences",
-    heading: "Comprehensive Medical & Behavioral Health Documentation",
-    description: "Seamlessly integrate behavioral health screening into routine medical visits. Generate unified clinical documentation that captures the complete patient picture",
+    title: "Care Agent",
+    shortTitle: "Agent",
+    subtitle: "Specialized virtual care agents across the patient care continuum",
+    heading: "Intelligent Clinical Care Coordination",
+    description: "Deploy specialized virtual care agents across the patient care continuum. Provide comprehensive mental health and primary care support from initial intake through ongoing management.",
     subItems: [
       {
         number: "1",
-        title: "Comprehensive Clinical Intelligence",
-        description: "Captures patient communication patterns, emotional indicators, and symptom presentations during natural conversations. Simultaneously documents medical histories, physical symptoms, and psychosocial factors. Produces structured clinical notes that integrate seamlessly with your EHR workflow"
+        title: "Virtual Care Agent",
+        description: "Comprehensive virtual clinician providing integrated mental health and primary care services. Conducts thorough clinical assessments, monitors patient progress, and delivers evidence-based interventions. Maintains continuity between medical and behavioral health care through coordinated treatment planning and real-time clinical decision support."
       },
       {
         number: "2",
-        title: "Evidence-Based Care Pathways",
-        description: "Automatically implements clinical practice guidelines when conditions are identified. Generates appropriate care plans, medication considerations, and referral recommendations based on established protocols and individual patient factors"
+        title: "Intake Agent",
+        description: "Streamlines patient onboarding with comprehensive clinical assessment capabilities. Conducts systematic intake interviews, gathers medical histories, and performs initial mental health screenings. Documents presenting concerns, establishes baseline measurements, and identifies immediate care needs to facilitate seamless provider handoff."
+      },
+      {
+        number: "3",
+        title: "Follow-up Agent",
+        description: "Ensures consistent patient engagement through structured follow-up protocols. Monitors treatment adherence, tracks symptom progression, and conducts periodic assessments between appointments. Identifies clinical changes requiring immediate attention and maintains therapeutic continuity through regular patient contact."
+      },
+      {
+        number: "4",
+        title: "Referral Agent",
+        description: "Facilitates seamless transitions between care levels and specialties. Coordinates psychiatric consultations, therapy referrals, and specialist appointments based on clinical indicators. Manages referral documentation, tracks appointment scheduling, and ensures comprehensive care coordination between providers."
       }
     ]
   },
@@ -123,8 +133,8 @@ export default function ProcessSection() {
   useEffect(() => {
     if (!isMounted) return () => {};
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      const totalSubItems = getTotalSubItems(); // 8 total sub-items across all steps (2+2+2+2)
-      const globalProgress = latest * totalSubItems; // 0-8 range across entire section
+      const totalSubItems = getTotalSubItems(); // 10 total sub-items across all steps (4+2+2+2)
+      const globalProgress = latest * totalSubItems; // 0-10 range across entire section
       
       let cumulativeSubItems = 0;
       let newActiveStep = 0;
@@ -139,17 +149,17 @@ export default function ProcessSection() {
           newActiveStep = i;
           const localStepProgress = globalProgress - cumulativeSubItems; // 0-stepSubItemCount range
           
-          // SPECIAL CASE: Step 1, Sub-item 1 (AI Care Agent 1.1) - MUST complete visual before advancing
+          // SPECIAL CASE: Step 1, Care Agent with 4 sub-items
           if (newActiveStep === 0) {
-            if (localStepProgress < 1.0) {
-              // We're in sub-item 1.1 territory (0.0 to exactly 1.0)
-              newCurrentSubItem = 1;
-              visualAnimationProgress = localStepProgress; // 0.0 to 1.0 = 0% to 100% animation
-              // STAY ON 1.1 - NO EARLY ADVANCEMENT
+            // Step 1 has 4 sub-items now (1.1, 1.2, 1.3, 1.4)
+            newCurrentSubItem = Math.floor(localStepProgress) + 1;
+            newCurrentSubItem = Math.max(1, Math.min(newCurrentSubItem, stepSubItemCount));
+            
+            // Special animation progress for sub-item 1.1
+            if (newCurrentSubItem === 1) {
+              visualAnimationProgress = localStepProgress; // 0.0 to 1.0 for sub-item 1.1 animation
             } else {
-              // Now we're in 1.2 territory - animation should be 100% complete
-              newCurrentSubItem = 2;
-              visualAnimationProgress = 1.0; // Animation fully complete
+              visualAnimationProgress = 1.0; // Animation fully complete for other sub-items
             }
           } else if (newActiveStep === 1) {
             // SPECIAL CASE: Step 2 (Smart Bundling) - needs full animation
@@ -399,7 +409,238 @@ export default function ProcessSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    {/* SVG Container for Clinical Note Interface */}
+                    {/* Minimalist Grid Animation for Step 1 - Care Agent */}
+                    {currentSubItem >= 1 && currentSubItem <= 4 && (
+                      <motion.div 
+                        className="relative w-full max-w-md h-[500px] mx-auto"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {/* Dynamic 4x4 Dashed Grid System with Animated Cells */}
+                        {(() => {
+                          // Calculate grid line positions based on active cell
+                          const getGridLines = (subItem: number) => {
+                            const basePositions = [0, 33.33, 66.66, 100];
+                            let verticalPos = [...basePositions];
+                            let horizontalPos = [...basePositions];
+                            
+                            // Adjust grid lines based on active sub-item
+                            if (subItem === 1) {
+                              // Cell 1.1 (r1c1) expands
+                              verticalPos = [0, 80, 90, 100];
+                              horizontalPos = [0, 80, 90, 100];
+                            } else if (subItem === 2) {
+                              // Cell 1.2 (r1c2) expands  
+                              verticalPos = [0, 10, 90, 100];
+                              horizontalPos = [0, 80, 90, 100];
+                            } else if (subItem === 3) {
+                              // Cell 1.3 (r1c3) expands
+                              verticalPos = [0, 10, 20, 100];
+                              horizontalPos = [0, 80, 90, 100];
+                            } else if (subItem === 4) {
+                              // Cell 1.4 (r2c1) expands
+                              verticalPos = [0, 80, 90, 100];
+                              horizontalPos = [0, 10, 90, 100];
+                            }
+                            
+                            return { verticalPos, horizontalPos };
+                          };
+                          
+                          const { verticalPos, horizontalPos } = getGridLines(currentSubItem);
+                          
+                          return (
+                            <>
+                              {/* Animated Vertical Lines */}
+                              {verticalPos.map((pos, index) => (
+                                <motion.div 
+                                  key={`v-line-${index}`}
+                                  className="absolute top-0 h-full pointer-events-none"
+                                  animate={{ left: `${pos}%` }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <svg 
+                                    className="h-full opacity-30" 
+                                    width="2" 
+                                    viewBox="0 0 2 1000" 
+                                    fill="none" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    preserveAspectRatio="none"
+                                  >
+                                    <path 
+                                      d="M1 0 V1000" 
+                                      stroke="#70a2bc" 
+                                      strokeWidth="1" 
+                                      strokeDasharray="6 6" 
+                                      vectorEffect="non-scaling-stroke" 
+                                    />
+                                  </svg>
+                                </motion.div>
+                              ))}
+                              
+                              {/* Animated Horizontal Lines */}
+                              {horizontalPos.map((pos, index) => (
+                                <motion.div 
+                                  key={`h-line-${index}`}
+                                  className="absolute left-0 w-full pointer-events-none"
+                                  animate={{ top: `${pos}%` }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <svg 
+                                    className="w-full opacity-30" 
+                                    height="2" 
+                                    viewBox="0 0 1000 2" 
+                                    fill="none" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    preserveAspectRatio="none"
+                                  >
+                                    <path 
+                                      d="M0 1 H1000" 
+                                      stroke="#70a2bc" 
+                                      strokeWidth="1" 
+                                      strokeDasharray="6 6" 
+                                      vectorEffect="non-scaling-stroke" 
+                                    />
+                                  </svg>
+                                </motion.div>
+                              ))}
+                              
+                              {/* Grid Cells with minimalist numbers only */}
+                              <div className="absolute inset-0">
+                                {/* Cell 1.1 - Virtual Care Agent (r1c1) */}
+                                <motion.div
+                                  className="absolute overflow-hidden"
+                                  animate={{
+                                    left: currentSubItem === 1 ? '0%' : '0%',
+                                    top: currentSubItem === 1 ? '0%' : '0%',
+                                    width: currentSubItem === 1 ? '80%' : '33.33%',
+                                    height: currentSubItem === 1 ? '80%' : '33.33%',
+                                    zIndex: currentSubItem === 1 ? 10 : 1
+                                  }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <motion.span 
+                                      className="text-[#70a2bc] font-light"
+                                      animate={{ 
+                                        fontSize: currentSubItem === 1 ? '48px' : '24px',
+                                        opacity: currentSubItem === 1 ? 1 : 0.4
+                                      }}
+                                    >
+                                      1.1
+                                    </motion.span>
+                                  </div>
+                                </motion.div>
+                                
+                                {/* Cell 1.2 - Intake Agent (r1c2) */}
+                                <motion.div
+                                  className="absolute"
+                                  animate={{
+                                    left: currentSubItem === 2 ? '10%' : '33.33%',
+                                    top: currentSubItem === 2 ? '0%' : '0%',
+                                    width: currentSubItem === 2 ? '80%' : '33.33%',
+                                    height: currentSubItem === 2 ? '80%' : '33.33%',
+                                    zIndex: currentSubItem === 2 ? 10 : 1
+                                  }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <motion.span 
+                                      className="text-[#10B981] font-light"
+                                      animate={{ 
+                                        fontSize: currentSubItem === 2 ? '48px' : '24px',
+                                        opacity: currentSubItem === 2 ? 1 : 0.4
+                                      }}
+                                    >
+                                      1.2
+                                    </motion.span>
+                                  </div>
+                                </motion.div>
+                                
+                                {/* Cell 1.3 - Follow-up Agent (r1c3) */}
+                                <motion.div
+                                  className="absolute"
+                                  animate={{
+                                    left: currentSubItem === 3 ? '20%' : '66.66%',
+                                    top: currentSubItem === 3 ? '0%' : '0%',
+                                    width: currentSubItem === 3 ? '80%' : '33.33%',
+                                    height: currentSubItem === 3 ? '80%' : '33.33%',
+                                    zIndex: currentSubItem === 3 ? 10 : 1
+                                  }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <motion.span 
+                                      className="text-[#8B5CF6] font-light"
+                                      animate={{ 
+                                        fontSize: currentSubItem === 3 ? '48px' : '24px',
+                                        opacity: currentSubItem === 3 ? 1 : 0.4
+                                      }}
+                                    >
+                                      1.3
+                                    </motion.span>
+                                  </div>
+                                </motion.div>
+                                
+                                {/* Cell 1.4 - Referral Agent (r2c1) */}
+                                <motion.div
+                                  className="absolute"
+                                  animate={{
+                                    left: currentSubItem === 4 ? '0%' : '0%',
+                                    top: currentSubItem === 4 ? '10%' : '33.33%',
+                                    width: currentSubItem === 4 ? '80%' : '33.33%',
+                                    height: currentSubItem === 4 ? '80%' : '33.33%',
+                                    zIndex: currentSubItem === 4 ? 10 : 1
+                                  }}
+                                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                                >
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <motion.span 
+                                      className="text-[#F59E0B] font-light"
+                                      animate={{ 
+                                        fontSize: currentSubItem === 4 ? '48px' : '24px',
+                                        opacity: currentSubItem === 4 ? 1 : 0.4
+                                      }}
+                                    >
+                                      1.4
+                                    </motion.span>
+                                  </div>
+                                </motion.div>
+                                
+                                {/* Remaining cells (inactive) - just dots */}
+                                {[
+                                  { row: 2, col: 2, label: '·' },
+                                  { row: 2, col: 3, label: '·' },
+                                  { row: 3, col: 1, label: '·' },
+                                  { row: 3, col: 2, label: '·' },
+                                  { row: 3, col: 3, label: '·' }
+                                ].map((cell) => (
+                                  <motion.div
+                                    key={`cell-${cell.row}-${cell.col}`}
+                                    className="absolute"
+                                    style={{
+                                      left: `${(cell.col - 1) * 33.33}%`,
+                                      top: `${(cell.row - 1) * 33.33}%`,
+                                      width: '33.33%',
+                                      height: '33.33%'
+                                    }}
+                                  >
+                                    <div className="w-full h-full flex items-center justify-center">
+                                      <span className="text-[#9aa0a6] text-2xl font-light opacity-20">
+                                        {cell.label}
+                                      </span>
+                                    </div>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </motion.div>
+                    )}
+
+                    {/* Original SVG visualization - hidden when showing grid */}
+                    {(currentSubItem < 1 || currentSubItem > 4) && (
                     <svg
                       className="w-full h-full"
                       viewBox="0 0 800 550"
@@ -920,6 +1161,7 @@ export default function ProcessSection() {
                       </filter>
                     </defs>
                     </svg>
+                    )}
                   </motion.div>
                 )}
                 
