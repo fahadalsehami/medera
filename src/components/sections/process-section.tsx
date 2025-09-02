@@ -584,39 +584,67 @@ export default function ProcessSection() {
                                         {/* Second Visual: Medical Conversation - show after 75% */}
                                         {scrollProgressValue >= 0.75 && (
                                           <motion.div 
-                                            className="absolute inset-0 p-4 overflow-hidden"
+                                            className="absolute inset-0 p-6 overflow-hidden perspective-distant"
                                             initial={{ opacity: 0 }}
                                             animate={{ 
                                               opacity: 1,
-                                              scale: 1 + (0.1 * ((scrollProgressValue - 0.75) / 0.25))
+                                              scale: 0.8 + (0.2 * ((scrollProgressValue - 0.75) / 0.25))
                                             }}
                                             transition={{ duration: 0.8 }}
+                                            style={{
+                                              transform: 'translate(0vw, 5vh) scale(0.9)',
+                                              perspective: '1000px'
+                                            }}
                                           >
-                                            {/* Modern Card Frame */}
+                                            {/* Transparent Card Frame with 3D */}
                                             <motion.div 
-                                              className="w-full h-full bg-white/95 backdrop-blur-sm rounded-xl border border-[#70a2bc]/20 shadow-lg overflow-hidden"
+                                              className="relative w-full h-full max-w-[400px] mx-auto select-none transform-3d"
                                               animate={{
-                                                borderColor: scrollProgressValue > 0.85 ? 'rgba(112, 162, 188, 0.3)' : 'rgba(112, 162, 188, 0.2)',
-                                                boxShadow: scrollProgressValue > 0.85 
-                                                  ? '0 20px 25px -5px rgba(112, 162, 188, 0.1), 0 10px 10px -5px rgba(112, 162, 188, 0.04)'
-                                                  : '0 10px 15px -3px rgba(112, 162, 188, 0.1), 0 4px 6px -2px rgba(112, 162, 188, 0.05)'
+                                                rotateX: 5 + (5 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
+                                                rotateY: -30 + (10 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
                                               }}
                                               transition={{ duration: 0.6 }}
+                                              style={{ 
+                                                transform: 'rotateX(5deg) rotateY(-30deg)',
+                                                transformStyle: 'preserve-3d'
+                                              }}
                                             >
                                               <div 
-                                                className="w-full h-full p-4 flex flex-col"
+                                                className="atlas-product-base break-words whitespace-pre-line transform-3d w-full h-full bg-transparent border border-[#70a2bc]/10 p-4 flex flex-col relative"
                                                 style={{ 
-                                                  perspective: '1000px',
-                                                  transformStyle: 'preserve-3d'
+                                                  transition: 'transform 2s cubic-bezier(0.16, 1, 0.3, 1)',
+                                                  transform: `rotateX(${1.36 + (scrollProgressValue - 0.75) * 4}deg) rotateY(${11.8 - (scrollProgressValue - 0.75) * 8}deg)`,
+                                                  transformStyle: 'preserve-3d',
+                                                  backgroundImage: 'repeating-linear-gradient(45deg, rgba(112, 162, 188, 0.02) 0px, rgba(112, 162, 188, 0.02) 1px, transparent 1px, transparent 5px)'
                                                 }}
                                               >
+                                                {/* Grid overlay lines */}
+                                                <div className="absolute right-0 left-0 flex flex-row justify-between pointer-events-none">
+                                                  <div className="relative -z-10 h-0 w-0">
+                                                    <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
+                                                      <path d="M1 0 V4000" stroke="#70a2bc" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"/>
+                                                    </svg>
+                                                  </div>
+                                                  <div className="relative -z-10 h-0 w-0">
+                                                    <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
+                                                      <path d="M1 0 V4000" stroke="#70a2bc" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"/>
+                                                    </svg>
+                                                  </div>
+                                                </div>
+                                                <div className="absolute top-0 bottom-0 flex flex-col justify-between pointer-events-none">
+                                                  <div className="relative h-0 w-full">
+                                                    <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
+                                                      <path d="M0 1 H4000" stroke="#70a2bc" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"/>
+                                                    </svg>
+                                                  </div>
+                                                  <div className="relative h-0 w-full">
+                                                    <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
+                                                      <path d="M0 1 H4000" stroke="#70a2bc" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"/>
+                                                    </svg>
+                                                  </div>
+                                                </div>
                                                 <motion.div 
                                                   className="relative flex-1 overflow-auto"
-                                                  animate={{
-                                                    rotateX: 1 + (2 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
-                                                    rotateY: -5 - (5 * Math.min((scrollProgressValue - 0.75) / 0.25, 1)),
-                                                  }}
-                                                  transition={{ duration: 0.6 }}
                                                   style={{ transformStyle: 'preserve-3d' }}
                                                 >
                                                 {/* Medical conversation content */}
@@ -640,9 +668,30 @@ export default function ProcessSection() {
                                                         }}
                                                       >
                                                         <span 
-                                                          className="text-[#70a2bc] bg-[#70a2bc]/10 px-0.5 rounded inline-block font-semibold"
+                                                          className="relative inline-block transform-3d"
+                                                        >
+                                                          <span 
+                                                            className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
+                                                            style={{ 
+                                                              opacity: scrollProgressValue > 0.79 ? 0.5 : 0,
+                                                              transform: 'translateZ(20px)'
+                                                            }}
+                                                          >
+                                                            <span className="bg-surface-tint-base">chest pain </span>
+                                                          </span>
+                                                          <span 
+                                                            className="absolute inset-0"
+                                                            style={{ 
+                                                              backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)',
+                                                              opacity: scrollProgressValue > 0.79 ? 0.5 : 0
+                                                            }}
+                                                          />
+                                                        </span>
+                                                        <span 
+                                                          className="text-[#70a2bc] bg-[#70a2bc]/10 inline-block h-[21px] px-1 font-semibold"
                                                           style={{ 
-                                                            transform: scrollProgressValue > 0.78 ? 'translateZ(30px)' : 'translateZ(0px)',
+                                                            opacity: 1,
+                                                            transform: scrollProgressValue > 0.78 ? 'translateZ(50px)' : 'translateZ(0px)',
                                                             transition: 'transform 0.4s ease-out'
                                                           }}
                                                         >
@@ -650,8 +699,8 @@ export default function ProcessSection() {
                                                         </span>
                                                         {scrollProgressValue > 0.79 && (
                                                           <span 
-                                                            className="absolute -top-4 left-0 text-[9px] text-[#70a2bc] bg-white/90 px-1 py-0.5 rounded shadow-sm border border-[#70a2bc]/20"
-                                                            style={{ transform: 'translateZ(50px)' }}
+                                                            className="absolute -top-4 left-0 text-[9px] text-[#70a2bc] bg-transparent px-1 py-0.5"
+                                                            style={{ transform: 'translateZ(60px)' }}
                                                           >
                                                             → Cardiovascular
                                                           </span>
@@ -820,17 +869,30 @@ export default function ProcessSection() {
                                               
                                               {/* Action Buttons - appear after conversation */}
                                               <motion.div 
-                                                className="flex gap-2 pt-3 border-t border-[#70a2bc]/10"
+                                                className="flex justify-center gap-3 pt-3 border-t border-[#70a2bc]/10"
                                                 animate={{
                                                   opacity: scrollProgressValue > 0.96 ? 1 : 0,
                                                   y: scrollProgressValue > 0.96 ? 0 : 10
                                                 }}
                                                 transition={{ duration: 0.5 }}
+                                                style={{ transformStyle: 'preserve-3d' }}
                                               >
-                                                <button className="flex-1 px-3 py-1.5 bg-[#70a2bc] text-white text-[10px] font-medium rounded-lg hover:bg-[#5a8ca6] transition-colors">
+                                                <button 
+                                                  className="px-4 py-2 bg-[#70a2bc] text-white text-[10px] font-medium hover:bg-[#5a8ca6] transition-all transform-3d"
+                                                  style={{
+                                                    transform: 'translateZ(30px)',
+                                                    boxShadow: '0 4px 8px rgba(112, 162, 188, 0.2)'
+                                                  }}
+                                                >
                                                   Generate Summary
                                                 </button>
-                                                <button className="flex-1 px-3 py-1.5 bg-[#a8998a]/20 text-[#a8998a] text-[10px] font-medium rounded-lg hover:bg-[#a8998a]/30 transition-colors">
+                                                <button 
+                                                  className="px-4 py-2 bg-transparent border border-[#a8998a]/40 text-[#a8998a] text-[10px] font-medium hover:bg-[#a8998a]/10 transition-all transform-3d"
+                                                  style={{
+                                                    transform: 'translateZ(20px)',
+                                                    boxShadow: '0 2px 4px rgba(168, 153, 138, 0.1)'
+                                                  }}
+                                                >
                                                   View Full Report
                                                 </button>
                                               </motion.div>
