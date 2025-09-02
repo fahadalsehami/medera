@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -40,7 +44,8 @@ export default function RootLayout({
       </head> */}
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        style={{ backgroundColor: '#f5f9fb' }}
       >
         <ThemeProvider
           attribute="class"

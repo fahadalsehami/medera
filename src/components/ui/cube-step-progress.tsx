@@ -1,12 +1,14 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 interface Step {
   id: string;
   title: string;
+  shortTitle?: string;
   subtitle?: string;
+  subItems?: any[];
 }
 
 interface CubeStepProgressProps {
@@ -94,9 +96,9 @@ function AnimatedCube({
       >
         <motion.path
           d="M125.778 164.304V306.866L7.5 235.845V93.2812L125.778 164.304ZM259.057 235.844L140.778 306.866V164.304L259.057 93.2812V235.844ZM251.986 80.0293L133.277 151.312L14.5693 80.0293L133.278 8.74707L251.986 80.0293Z"
-          fill={isActive ? "#000000" : "#000000"}
-          stroke="#FEFFFA"
-          strokeWidth="15"
+          fill={isActive ? "#70a2bc" : isCompleted ? "#70a2bc" : "transparent"}
+          stroke={isActive || isCompleted ? "#70a2bc" : "#e5e7eb"}
+          strokeWidth="8"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -108,8 +110,8 @@ function AnimatedCube({
           y="170"
           textAnchor="middle"
           dominantBaseline="middle"
-          className={`text-lg font-bold ${
-            isActive ? "fill-white" : isCompleted ? "fill-white" : "fill-gray-600"
+          className={`text-lg font-medium ${
+            isActive ? "fill-white" : isCompleted ? "fill-white" : "fill-gray-500"
           }`}
           animate={isRolling ? {
             opacity: [1, 0, 0, 1],
@@ -164,7 +166,8 @@ export function CubeStepProgress({
           return (
             <motion.button
               key={step.id}
-              className="border border-gray-200 bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-3 cursor-pointer hover:border-gray-400 transition-colors duration-200"
+              className="px-4 py-3 cursor-pointer transition-all duration-200 border border-transparent hover:border-[#70a2bc]/30 active:border-[#70a2bc]/50 hover:shadow-sm"
+              style={{ backgroundColor: '#f0f5f7' }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
@@ -191,11 +194,11 @@ export function CubeStepProgress({
                 >
                   {/* Title and numbers on same line */}
                   <div className="flex items-center gap-4">
-                    <span className="text-base font-medium text-black">
+                    <span className="text-base font-medium text-[#2f2f2f]">
                       {step.title}
                     </span>
                     <span className="text-sm text-gray-500">
-                      {currentSubItem || 1} / {steps[currentStep]?.id === "01" ? "4" : steps[currentStep]?.id === "04" ? "3" : "2"}
+                      {currentSubItem || 1} / {steps[currentStep]?.subItems?.length || 2}
                     </span>
                   </div>
                   
@@ -206,12 +209,12 @@ export function CubeStepProgress({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.4 }}
                   >
-                    {Array.from({ length: steps[currentStep]?.id === "01" ? 4 : steps[currentStep]?.id === "04" ? 3 : 2 }, (_, i) => i + 1).map((dotIndex) => (
+                    {Array.from({ length: steps[currentStep]?.subItems?.length || 2 }, (_, i) => i + 1).map((dotIndex) => (
                       <motion.div
                         key={dotIndex}
-                        className={`h-0.5 rounded-full transition-colors duration-300 ${
+                        className={`h-0.5 rounded-full transition-all duration-300 ${
                           dotIndex <= (currentSubItem || 1) 
-                            ? 'bg-black w-6' 
+                            ? 'bg-[#70a2bc] w-6' 
                             : 'bg-gray-200 w-4'
                         }`}
                         initial={{ scaleX: 0 }}
@@ -239,11 +242,12 @@ export function CubeStepProgress({
               whileHover={{ opacity: 1 }}
             >
               <motion.div
-                className={`transition-all duration-200 ${
+                className={`transition-all duration-200 border ${
                   isHovered 
-                    ? 'border border-gray-200 bg-white/80 backdrop-blur-sm rounded-3xl px-4 py-2 shadow-sm flex items-center gap-3' 
-                    : 'flex items-center gap-2'
+                    ? 'px-4 py-2 shadow-sm flex items-center gap-3 border-[#70a2bc]/30' 
+                    : 'flex items-center gap-2 border-transparent hover:border-[#70a2bc]/20 active:border-[#70a2bc]/40'
                 }`}
+                style={{ backgroundColor: isHovered ? '#f0f5f7' : 'transparent' }}
                 layout
               >
                 <AnimatedCube
@@ -255,14 +259,14 @@ export function CubeStepProgress({
                 />
                 
                 <motion.span
-                  className={`font-medium transition-all duration-200 whitespace-nowrap ${
+                  className={`font-normal transition-all duration-200 whitespace-nowrap ${
                     isHovered 
-                      ? 'text-sm text-gray-700' 
-                      : 'text-sm text-gray-500'
+                      ? 'text-sm text-[#2f2f2f]' 
+                      : 'text-sm text-gray-400'
                   }`}
                   layout
                 >
-                  {step.title}
+                  {isHovered ? step.title : (step.shortTitle || step.title)}
                 </motion.span>
               </motion.div>
             </motion.div>
@@ -304,7 +308,7 @@ export function CubeStepProgressDemo() {
   }, [isAutoPlay, steps.length]);
   
   return (
-    <div className="w-full max-w-6xl mx-auto p-8 bg-white rounded-2xl border border-gray-100">
+    <div className="w-full max-w-6xl mx-auto p-8 bg-white">
       <div className="space-y-8">
         <div className="text-center space-y-3">
           <h2 className="text-2xl font-light text-gray-900 tracking-tight">
@@ -329,7 +333,7 @@ export function CubeStepProgressDemo() {
             onClick={() => {
               setCurrentSubItem(prev => Math.max(1, prev - 1));
             }}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-xl bg-white hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-sm bg-white hover:bg-gray-50 transition-colors"
           >
             Previous Sub
           </button>
@@ -338,20 +342,20 @@ export function CubeStepProgressDemo() {
             onClick={() => {
               setCurrentSubItem(prev => Math.min(3, prev + 1));
             }}
-            className="px-4 py-2 text-sm bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 text-sm bg-gray-900 text-white hover:bg-gray-800 transition-colors"
           >
             Next Sub
           </button>
           
           <button
             onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-xl bg-white hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-sm bg-white hover:bg-gray-50 transition-colors"
           >
             {isAutoPlay ? "Pause" : "Play"} Auto
           </button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-600 bg-neutral-50 rounded-xl p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-600 bg-neutral-50 p-6">
           <div className="space-y-1">
             <div className="font-semibold text-gray-900">3D Cube Shape</div>
             <div>Isometric cube design with proper perspective</div>

@@ -1,16 +1,13 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-// Company logos for trust section
+// EMR company logos for trust section
 const companies = [
-  { name: "HubSpot", logo: "HUBSPOT" },
-  { name: "Databrook", logo: "DATABROOK" },
-  { name: "Carvana", logo: "CARVANA" },
-  { name: "Microsoft", logo: "MICROSOFT" },
-  { name: "OpenAI", logo: "OPENAI" },
-  { name: "Google", logo: "GOOGLE" },
+  { name: "Epic", logo: "/epic-logo.svg" },
+  { name: "Athenahealth", logo: "/athenahealth.png" },
+  { name: "Tebra", logo: "/tebra.png" },
 ];
 
 export function HeroSection() {
@@ -26,8 +23,14 @@ export function HeroSection() {
   // Control when the fixed section should hide
   const sectionOpacity = useTransform(
     scrollYProgress, 
-    [0, 0.99, 1], 
+    [0, 0.98, 1], 
     [1, 1, 0]
+  );
+  
+  const sectionPointerEvents = useTransform(
+    scrollYProgress,
+    [0, 0.98, 1],
+    ['auto', 'auto', 'none']
   );
 
   // PHASE 1: Background zoom in + title/trust fade out completely (0% -> 35%)
@@ -70,17 +73,17 @@ export function HeroSection() {
   );
 
 
-  // PHASE 3: Product animates - starts full screen, fits 100% perfect monitor screen
+  // PHASE 3: Product animates - starts full screen, fits monitor, then fades before next section
   const productImageOpacity = useTransform(
     scrollYProgress, 
-    [0.45, 0.55, 0.85, 1], 
-    [0, 1, 1, 1]
+    [0.45, 0.55, 0.85, 0.95, 1], 
+    [0, 1, 1, 0.3, 0]  // Fades out from 95% to 100% to avoid overlap
   );
   
   const productImageScale = useTransform(
     scrollYProgress, 
-    [0.45, 0.55, 0.70, 0.85, 1], 
-    [1.0, 0.8, 0.43, 0.43, 0.43]
+    [0.45, 0.55, 0.70, 0.85, 0.95, 1], 
+    [1.0, 0.8, 0.43, 0.43, 0.43, 0.4]  // Slight scale down at end
   );
   
   const productImageX = useTransform(
@@ -91,42 +94,23 @@ export function HeroSection() {
   
   const productImageY = useTransform(
     scrollYProgress, 
-    [0.45, 0.55, 0.70, 0.85, 1], 
-    ["0%", "0%", "5%", "5%", "5%"]
+    [0.45, 0.55, 0.70, 0.85, 0.95, 1], 
+    ["0%", "0%", "5%", "5%", "5%", "-10%"]  // Moves up slightly at end
   );
 
-  // Auto-animated scrolling logos state
-  const [visibleLogos, setVisibleLogos] = useState<Array<{company: typeof companies[0], id: number}>>([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisibleLogos(prev => {
-        const newLogos = [...prev];
-        
-        // Add new logo from right
-        if (Math.random() > 0.7) { // 30% chance to add new logo
-          const randomCompany = companies[Math.floor(Math.random() * companies.length)];
-          newLogos.push({
-            company: randomCompany,
-            id: Date.now() + Math.random()
-          });
-        }
-        
-        // Remove old logos that have moved off screen
-        return newLogos.filter((_, index) => index < 5);
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
       {/* True Sticky Hero Section - FIXED in place, only content animates */}
       <motion.section 
         ref={ref}
-        className="fixed top-0 left-0 h-screen w-screen bg-white overflow-hidden"
-        style={{ zIndex: 10, marginLeft: 0, marginRight: 0, opacity: sectionOpacity }}
+        className="fixed top-0 left-0 h-screen w-full overflow-hidden"
+        style={{ 
+          backgroundColor: '#f5f9fb', 
+          zIndex: 30, 
+          opacity: sectionOpacity,
+          pointerEvents: sectionPointerEvents as any
+        }}
       >
         {/* PHASE 1 & 2: Original Background with Zoom and Fade */}
         <motion.div 
@@ -197,10 +181,10 @@ export function HeroSection() {
             }}
             className="text-center w-full px-0 mb-16"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black leading-tight tracking-tight">
-              The single platform to iterate,{" "}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium text-[#2f2f2f] leading-tight tracking-tight">
+              Agentic AI Orchestration for{" "}
               <br />
-              evaluate, deploy, and monitor LLMs
+              Behavioral Health Assessment
             </h1>
           </motion.div>
 
@@ -212,61 +196,35 @@ export function HeroSection() {
             }}
             className="text-center w-full px-0"
           >
-            <p className="text-sm text-gray-600 mb-8 tracking-wide font-medium">
-              TRUSTED BY
+            <p className="text-sm text-[#6c757d] mb-4 tracking-wide font-medium uppercase">
+              CLINICIAN-BUILT. PROFESSIONAL-TRUSTED. WORKFLOW-READY.
             </p>
             
-            {/* Static Company Logos */}
-            <div className="flex justify-center items-center space-x-12 mb-12">
-              {companies.slice(0, 3).map((company, index) => (
+            {/* Static EMR Logos - Minimalistic and centered */}
+            <div className="flex items-center justify-center gap-4">
+              {companies.map((company, index) => (
                 <motion.div
                   key={company.name}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-gray-700 font-medium text-sm tracking-wider"
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex items-center"
                 >
-                  {company.logo}
+                  <img 
+                    src={company.logo} 
+                    alt={company.name}
+                    className={`w-auto object-contain opacity-70 hover:opacity-90 transition-opacity ${
+                      company.name === 'Epic' ? 'h-10' : 'h-20'
+                    }`}
+                    style={{ 
+                      filter: 'grayscale(100%) brightness(0.4) contrast(1.1)',
+                      maxHeight: company.name === 'Epic' ? '40px' : '80px'
+                    }}
+                  />
                 </motion.div>
               ))}
             </div>
 
-            {/* Auto-Animated Scrolling Icons */}
-            <div className="relative h-12 overflow-hidden">
-              <div className="absolute inset-0 flex items-center">
-                {visibleLogos.map((item, index) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ 
-                      x: "100vw", 
-                      opacity: 0 
-                    }}
-                    animate={{ 
-                      x: `-${100 + (index * 200)}px`, 
-                      opacity: [0, 1, 1, 0] 
-                    }}
-                    transition={{ 
-                      duration: 8,
-                      ease: "linear",
-                      opacity: {
-                        times: [0, 0.1, 0.9, 1],
-                        duration: 8
-                      }
-                    }}
-                    className="absolute whitespace-nowrap text-gray-500 font-medium text-xs tracking-widest"
-                    style={{
-                      left: `${index * 200}px`
-                    }}
-                  >
-                    {item.company.logo}
-                  </motion.div>
-                ))}
-              </div>
-              
-              {/* Fade gradients */}
-              <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
-            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -274,10 +232,9 @@ export function HeroSection() {
       {/* Scroll Container - This creates the scroll area that triggers animations */}
       <div 
         ref={scrollContainerRef}
-        className="h-[800vh] w-screen relative"
-        style={{ marginLeft: 0, marginRight: 0 }}
+        className="h-[800vh] w-full relative"
       >
-        {/* Invisible scroll trigger */}
+        {/* Invisible scroll trigger - this creates the actual scroll space */}
       </div>
 
       {/* Enhanced CSS for multi-phase animations */}

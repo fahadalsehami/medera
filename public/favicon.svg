@@ -1,0 +1,46 @@
+<svg width="32" height="32" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .cube-group {
+        animation: diceRoll 4s ease-in-out infinite;
+        transform-origin: 200px 200px;
+      }
+      
+      @keyframes diceRoll {
+        0%, 85%, 100% { 
+          transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+        }
+        20% { 
+          transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg); 
+        }
+        40% { 
+          transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg); 
+        }
+        60% { 
+          transform: rotateX(540deg) rotateY(270deg) rotateZ(135deg); 
+        }
+        80% { 
+          transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg); 
+        }
+      }
+    </style>
+  </defs>
+  
+  <g class="cube-group">
+    <!-- First Cube (Left) - Original Medera Logo -->
+    <path 
+      d="M125.778 244.185V386.748L7.5 315.726V173.163L125.778 244.185ZM259.057 315.725L140.778 386.748V244.185L259.057 173.163V315.725ZM251.986 159.911L133.277 231.193L14.5693 159.911L133.278 88.6284L251.986 159.911Z" 
+      fill="black" 
+      stroke="#FEFFFA" 
+      stroke-width="15"
+    />
+    
+    <!-- Second Cube (Right) - Original Medera Logo -->
+    <path 
+      d="M259.222 164.304V306.866L140.943 235.845V93.2812L259.222 164.304ZM392.5 235.844L274.222 306.866V164.304L392.5 93.2812V235.844ZM385.43 80.0293L266.721 151.312L148.013 80.0293L266.722 8.74707L385.43 80.0293Z" 
+      fill="black" 
+      stroke="#FEFFFA" 
+      stroke-width="15"
+    />
+  </g>
+</svg>

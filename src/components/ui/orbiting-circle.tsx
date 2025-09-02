@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { cubicBezier, HTMLMotionProps, motion, useInView } from "motion/react";
+import { cubicBezier, HTMLMotionProps, motion, useInView } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 export interface OrbitingCirclesProps extends HTMLMotionProps<"div"> {

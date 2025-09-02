@@ -1,3 +1,5 @@
+"use client";
+
 import { FirstBentoAnimation } from "@/components/first-bento-animation";
 import { FourthBentoAnimation } from "@/components/fourth-bento-animation";
 import { SecondBentoAnimation } from "@/components/second-bento-animation";
@@ -5,7 +7,7 @@ import { ThirdBentoAnimation } from "@/components/third-bento-animation";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { Globe } from "@/components/ui/globe";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export const Highlight = ({
   children,

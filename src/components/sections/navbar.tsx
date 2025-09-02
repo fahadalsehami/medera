@@ -5,7 +5,7 @@ import { NavMenu } from "@/components/nav-menu";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { AnimatePresence, motion, useScroll } from "motion/react";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -91,15 +91,16 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed top-0 z-50 w-full transition-all duration-300"
+      className="fixed top-0 z-[100] w-full transition-all duration-300"
     >
       <div
         className={cn(
           "w-full transition-all duration-300",
           hasScrolled
-            ? "backdrop-blur-lg bg-background/95"
-            : "bg-transparent",
+            ? "backdrop-blur-lg"
+            : "",
         )}
+        style={{ backgroundColor: hasScrolled ? '#f0f5f7ee' : 'transparent' }}
       >
           <div className="flex h-[56px] items-center px-6">
             <div className="flex-1">
@@ -114,23 +115,23 @@ export function Navbar() {
 
             <div className="flex-1 flex justify-end flex-row items-center gap-3 shrink-0">
               <div className="flex items-center space-x-3">
-                {/* WATCH DEMO Button - Light/White */}
+                {/* WATCH DEMO Button - #70a2bc on hover only */}
                 <Link
-                  className="h-10 hidden md:flex items-center justify-center text-sm font-medium tracking-wide rounded-full bg-white text-black border border-gray-200 hover:bg-gray-50 transition-colors duration-200 px-4 gap-2"
+                  className="h-10 hidden md:flex items-center justify-center text-sm font-medium tracking-wide  bg-transparent text-black hover:text-[#70a2bc] hover:border hover:border-[#70a2bc]/50 hover:bg-[#70a2bc]/5 transition-all duration-200 px-4 gap-2 group"
                   href="#watch-demo"
                 >
                   WATCH DEMO
-                  <span className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-gray border border-gray-200">
-                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="black">
-                      <circle cx="12" cy="12" r="12" fill="white"/>
-                      <polygon points="10,8 16,12 10,16" fill="black"/>
+                  <span className="ml-2 flex items-center justify-center w-8 h-8 bg-white/50 rounded-full">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="12" fill="transparent"/>
+                      <polygon points="10,8 16,12 10,16" className="fill-[#2f2f2f] group-hover:fill-[#70a2bc] transition-colors"/>
                     </svg>
                   </span>
                 </Link>
                 
-                {/* START FOR FREE Button - Black/Dark */}
+                {/* CONTACT US Button - Transparent with #70a2bc border */}
                 <Link
-                  className="h-10 hidden md:flex items-center justify-center text-sm font-medium tracking-wide rounded-full bg-black text-white hover:bg-gray-900 transition-colors duration-200 px-6"
+                  className="h-10 hidden md:flex items-center justify-center text-sm font-medium tracking-wide  bg-transparent text-[#70a2bc] border border-[#70a2bc] hover:bg-[#70a2bc] hover:text-white active:bg-[#70a2bc] active:text-white transition-all duration-200 px-6"
                   href="#start-free"
                 >
                   CONTACT US
@@ -206,9 +207,9 @@ export function Navbar() {
                             element?.scrollIntoView({ behavior: "smooth" });
                             setIsDrawerOpen(false);
                           }}
-                          className={`underline-offset-4 hover:text-primary/80 transition-colors ${
+                          className={`underline-offset-4 hover:text-[#70a2bc] transition-colors ${
                             activeSection === item.href.substring(1)
-                              ? "text-primary font-medium"
+                              ? "text-[#70a2bc] font-medium"
                               : "text-primary/60"
                           }`}
                         >
@@ -223,19 +224,19 @@ export function Navbar() {
                 <div className="flex flex-col gap-3">
                   <Link
                     href="#watch-demo"
-                    className="h-10 flex items-center justify-center text-sm font-medium tracking-wide rounded-full bg-white text-black border border-gray-200 hover:bg-gray-50 transition-colors duration-200 px-4 gap-2"
+                    className="h-10 flex items-center justify-center text-sm font-medium tracking-wide  bg-transparent text-black hover:text-[#70a2bc] hover:border hover:border-[#70a2bc]/50 hover:bg-[#70a2bc]/5 transition-all duration-200 px-4 gap-2 group"
                   >
                     WATCH DEMO
-                    <span className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white border border-gray-200">
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="black">
-                        <circle cx="12" cy="12" r="12" fill="white"/>
-                        <polygon points="10,8 16,12 10,16" fill="black"/>
+                    <span className="ml-2 flex items-center justify-center w-8 h-8 bg-transparent">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="12" fill="transparent"/>
+                        <polygon points="10,8 16,12 10,16" className="fill-[#2f2f2f] group-hover:fill-[#70a2bc] transition-colors"/>
                       </svg>
                     </span>
                   </Link>
                   <Link
                     href="#start-free"
-                    className="h-10 flex items-center justify-center text-sm font-medium tracking-wide rounded-full bg-black text-white hover:bg-gray-900 transition-colors duration-200 px-6"
+                    className="h-10 flex items-center justify-center text-sm font-medium tracking-wide  bg-transparent text-[#70a2bc] border border-[#70a2bc] hover:bg-[#70a2bc] hover:text-white active:bg-[#70a2bc] active:text-white transition-all duration-200 px-6"
                   >
                     CONTACT US
                   </Link>

@@ -1,8 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import { siteConfig } from "@/lib/config";
 
 export function QuoteSection() {
-  const { quoteSection } = siteConfig;
+  const quoteSection = {
+    quote: "Medera has transformed our behavioral health workflows. What used to take hours of manual documentation now happens automatically, allowing our clinicians to focus on patient care.",
+    author: {
+      name: "Dr. Sarah Chen",
+      role: "Chief Medical Officer, MindHealth",
+      image: "https://randomuser.me/api/portraits/women/44.jpg"
+    }
+  };
 
   return (
     <section

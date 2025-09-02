@@ -8,7 +8,33 @@ import { useEffect, useRef, useState } from "react";
 export function FooterSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [stars, setStars] = useState<Array<{
+    id: number;
+    x: number;
+    y: number;
+    size: number;
+    opacity: number;
+    delay: number;
+    duration: number;
+  }>>([]);
   const footerRef = useRef<HTMLElement>(null);
+
+  // Generate stars only on client side to avoid hydration mismatch
+  useEffect(() => {
+    const generateStars = (count: number) => {
+      return Array.from({ length: count }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 3 + 1,
+        opacity: Math.random() * 0.8 + 0.2,
+        delay: Math.random() * 2,
+        duration: 2 + Math.random() * 2,
+      }));
+    };
+    
+    setStars(generateStars(150));
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,20 +60,6 @@ export function FooterSection() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Generate stars for the background
-  const generateStars = (count: number) => {
-    return Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      opacity: Math.random() * 0.8 + 0.2,
-      delay: Math.random() * 2,
-    }));
-  };
-
-  const stars = generateStars(150);
-
   return (
     <footer ref={footerRef} className="relative min-h-screen overflow-hidden">
       {/* Animated starfield background */}
@@ -64,7 +76,7 @@ export function FooterSection() {
               height: `${star.size}px`,
               opacity: star.opacity,
               animationDelay: `${star.delay}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
+              animationDuration: `${star.duration}s`,
             }}
           />
         ))}

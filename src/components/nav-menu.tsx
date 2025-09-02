@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface ProductItem {
   name: string;
@@ -22,37 +22,39 @@ interface NavItem {
 
 const products: ProductItem[] = [
   {
-    name: "AI CO-THERAPY",
-    subtitle: "Sketch, test and refine",
-    href: "#ai-co-therapy",
-    description: "Advanced AI-powered co-therapy solutions for mental health professionals",
-    features: ["Therapy Editor", "Patient Analytics", "Session Reports"],
+    name: "CARE FUSION",
+    subtitle: "Unified Medical + Mental Health",
+    href: "#care-fusion",
+    description: "Seamlessly integrate behavioral health detection into routine medical visits",
+    features: ["Multi-Modal Clinical Intelligence", "Condition-Specific Protocols", "Real-time Voice Analysis"],
     icon: (
       <div className="relative w-full h-full flex items-center justify-center">
         <svg width="200" height="160" viewBox="0 0 200 160" fill="none" className="opacity-30 group-hover:opacity-100 transition-all duration-700">
-          {/* Large abstract interconnected circles representing therapy connections - scaled up */}
-          <circle cx="50" cy="55" r="35" fill="none" stroke="#1976D2" strokeWidth="3" className="animate-pulse"/>
-          <circle cx="120" cy="40" r="25" fill="none" stroke="#1976D2" strokeWidth="3"/>
-          <circle cx="150" cy="85" r="30" fill="none" stroke="#1976D2" strokeWidth="3"/>
-          <circle cx="80" cy="105" r="20" fill="none" stroke="#1976D2" strokeWidth="3"/>
-          <circle cx="40" cy="25" r="15" fill="none" stroke="#1976D2" strokeWidth="2"/>
-          <circle cx="170" cy="50" r="18" fill="none" stroke="#1976D2" strokeWidth="2"/>
+          {/* Medical cross merging with brain/mind circles */}
+          <g className="transform translate-x-2 translate-y-2">
+            {/* Medical cross */}
+            <rect x="85" y="40" width="30" height="80" rx="4" fill="none" stroke="#70a2bc" strokeWidth="3"/>
+            <rect x="60" y="65" width="80" height="30" rx="4" fill="none" stroke="#70a2bc" strokeWidth="3"/>
+            
+            {/* Mind/therapy circles overlapping */}
+            <circle cx="100" cy="80" r="35" fill="none" stroke="#5a8ca6" strokeWidth="2" opacity="0.6" className="animate-pulse"/>
+            <circle cx="85" cy="70" r="20" fill="none" stroke="#5a8ca6" strokeWidth="2" opacity="0.5"/>
+            <circle cx="115" cy="90" r="20" fill="none" stroke="#5a8ca6" strokeWidth="2" opacity="0.5"/>
+            
+            {/* Fusion energy lines */}
+            <path d="M100 45 L100 115" stroke="#9caf88" strokeWidth="2" opacity="0.7" strokeDasharray="4 4" className="animate-pulse"/>
+            <path d="M65 80 L135 80" stroke="#9caf88" strokeWidth="2" opacity="0.7" strokeDasharray="4 4" className="animate-pulse"/>
+            
+            {/* Central fusion point */}
+            <circle cx="100" cy="80" r="8" fill="#70a2bc" className="animate-bounce"/>
+          </g>
           
-          {/* Connection lines */}
-          <path d="M75 65 L98 50" stroke="#1976D2" strokeWidth="3" opacity="0.7"/>
-          <path d="M135 55 L138 70" stroke="#1976D2" strokeWidth="3" opacity="0.7"/>
-          <path d="M100 90 L130 95" stroke="#1976D2" strokeWidth="3" opacity="0.7"/>
-          <path d="M55 45 L45 35" stroke="#1976D2" strokeWidth="2" opacity="0.5"/>
-          <path d="M155 60 L165 55" stroke="#1976D2" strokeWidth="2" opacity="0.5"/>
-          
-          {/* Central node */}
-          <circle cx="100" cy="75" r="12" fill="#1976D2" className="animate-bounce"/>
-          
-          {/* Plus signs for growth/healing */}
-          <g className="opacity-70">
-            <path d="M40 50 L40 60 M35 55 L45 55" stroke="#1976D2" strokeWidth="3" strokeLinecap="round"/>
-            <path d="M140 75 L140 85 M135 80 L145 80" stroke="#1976D2" strokeWidth="3" strokeLinecap="round"/>
-            <path d="M170 30 L170 40 M165 35 L175 35" stroke="#1976D2" strokeWidth="2" strokeLinecap="round"/>
+          {/* Floating data points */}
+          <g className="opacity-60">
+            <circle cx="40" cy="40" r="3" fill="#70a2bc"/>
+            <circle cx="160" cy="120" r="3" fill="#70a2bc"/>
+            <circle cx="30" cy="100" r="3" fill="#5a8ca6"/>
+            <circle cx="170" cy="50" r="3" fill="#5a8ca6"/>
           </g>
         </svg>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
@@ -60,47 +62,140 @@ const products: ProductItem[] = [
     ),
   },
   {
-    name: "INTELLIGENT DOCUMENTS",
-    subtitle: "Reflect and measure",
-    href: "#intelligent-documents",
-    description: "Extract and process documents with AI-powered intelligence",
-    features: ["Document Parser", "Smart Extraction", "Data Analytics"],
+    name: "SMART BUNDLING",
+    subtitle: "Cross-Condition Code Optimization",
+    href: "#smart-bundling",
+    description: "Bundle mental health with medical diagnoses for maximum reimbursement",
+    features: ["Medical + Mental Health Codes", "Risk-Stratified Clustering", "Automated Billing Optimization"],
     icon: (
       <div className="relative w-full h-full flex items-center justify-center">
         <svg width="200" height="160" viewBox="0 0 200 160" fill="none" className="opacity-30 group-hover:opacity-100 transition-all duration-700">
-          {/* Large abstract document layers - scaled up */}
-          <rect x="30" y="30" width="90" height="75" rx="8" fill="none" stroke="#7B1FA2" strokeWidth="3" transform="rotate(-8 75 67)"/>
-          <rect x="40" y="40" width="90" height="75" rx="8" fill="none" stroke="#7B1FA2" strokeWidth="3" transform="rotate(3 85 77)"/>
-          <rect x="50" y="50" width="90" height="75" rx="8" fill="none" stroke="#7B1FA2" strokeWidth="3"/>
-          
-          {/* Data extraction lines */}
-          <g className="opacity-80">
-            <rect x="60" y="70" width="30" height="3" rx="1.5" fill="#7B1FA2"/>
-            <rect x="60" y="78" width="35" height="3" rx="1.5" fill="#7B1FA2"/>
-            <rect x="60" y="86" width="25" height="3" rx="1.5" fill="#7B1FA2"/>
-            <rect x="60" y="94" width="32" height="3" rx="1.5" fill="#7B1FA2"/>
-            <rect x="60" y="102" width="28" height="3" rx="1.5" fill="#7B1FA2"/>
+          {/* Bundled cubes representing code grouping */}
+          <g className="transform translate-x-5">
+            {/* Main bundle group */}
+            <rect x="50" y="50" width="40" height="40" rx="4" fill="none" stroke="#7B1FA2" strokeWidth="3"/>
+            <rect x="60" y="60" width="40" height="40" rx="4" fill="none" stroke="#7B1FA2" strokeWidth="3"/>
+            <rect x="70" y="70" width="40" height="40" rx="4" fill="none" stroke="#7B1FA2" strokeWidth="3"/>
+            
+            {/* Secondary bundle */}
+            <rect x="100" y="45" width="35" height="35" rx="4" fill="none" stroke="#9c27b0" strokeWidth="2" opacity="0.7"/>
+            <rect x="110" y="55" width="35" height="35" rx="4" fill="none" stroke="#9c27b0" strokeWidth="2" opacity="0.7"/>
+            
+            {/* Connection links */}
+            <path d="M90 80 L100 75" stroke="#7B1FA2" strokeWidth="2" opacity="0.6"/>
+            <path d="M110 90 L120 85" stroke="#7B1FA2" strokeWidth="2" opacity="0.6"/>
+            
+            {/* Dollar signs for billing */}
+            <text x="75" y="85" fill="#9caf88" fontSize="16" fontWeight="bold" opacity="0.8">$</text>
+            <text x="115" y="75" fill="#9caf88" fontSize="14" fontWeight="bold" opacity="0.7">$</text>
+            
+            {/* Optimization arrows */}
+            <path d="M130 100 L145 85 L145 100 Z" fill="#7B1FA2" opacity="0.6" className="animate-pulse"/>
           </g>
           
-          {/* AI processing indicator - larger */}
-          <circle cx="140" cy="55" r="20" fill="none" stroke="#7B1FA2" strokeWidth="3" className="animate-spin" style={{animationDuration: '4s'}}/>
-          <circle cx="140" cy="55" r="10" fill="#7B1FA2" opacity="0.4"/>
-          <circle cx="140" cy="55" r="5" fill="#7B1FA2" className="animate-pulse"/>
-          
-          {/* Data flow arrows */}
-          <g className="opacity-70">
-            <path d="M100 75 L110 65 L110 85 Z" fill="#7B1FA2"/>
-            <path d="M115 72 L125 62 L125 82 Z" fill="#7B1FA2"/>
-            <path d="M130 70 L140 60 L140 80 Z" fill="#7B1FA2"/>
-          </g>
-          
-          {/* Additional geometric elements */}
+          {/* Floating optimization indicators */}
           <g className="opacity-50">
-            <circle cx="35" cy="40" r="8" fill="none" stroke="#7B1FA2" strokeWidth="2"/>
-            <circle cx="155" cy="95" r="12" fill="none" stroke="#7B1FA2" strokeWidth="2"/>
+            <circle cx="35" cy="45" r="4" fill="#7B1FA2"/>
+            <circle cx="165" cy="105" r="4" fill="#9c27b0"/>
+            <rect x="150" y="40" width="8" height="8" rx="2" fill="#7B1FA2"/>
           </g>
         </svg>
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+      </div>
+    ),
+  },
+  {
+    name: "AUTO ACTIONS",
+    subtitle: "One-Click Behavioral Orders",
+    href: "#auto-actions",
+    description: "Instantly generate referrals and safety protocols when mental health flags detected",
+    features: ["AI-Generated Treatment Orders", "Automated Safety Protocols", "Crisis Intervention Workflows"],
+    icon: (
+      <div className="relative w-full h-full flex items-center justify-center">
+        <svg width="200" height="160" viewBox="0 0 200 160" fill="none" className="opacity-30 group-hover:opacity-100 transition-all duration-700">
+          {/* Lightning bolt for instant actions */}
+          <g className="transform translate-x-10">
+            <path d="M90 30 L70 70 L85 70 L75 110 L120 60 L95 60 L110 30 Z" 
+                  fill="none" stroke="#f57c00" strokeWidth="3" className="animate-pulse"/>
+            <path d="M90 30 L70 70 L85 70 L75 110 L120 60 L95 60 L110 30 Z" 
+                  fill="#f57c00" opacity="0.2"/>
+            
+            {/* Action ripples */}
+            <circle cx="95" cy="70" r="25" fill="none" stroke="#ff9800" strokeWidth="2" opacity="0.4" className="animate-ping"/>
+            <circle cx="95" cy="70" r="35" fill="none" stroke="#ff9800" strokeWidth="1" opacity="0.3" className="animate-ping" style={{animationDelay: '0.5s'}}/>
+            <circle cx="95" cy="70" r="45" fill="none" stroke="#ff9800" strokeWidth="1" opacity="0.2" className="animate-ping" style={{animationDelay: '1s'}}/>
+            
+            {/* Quick action indicators */}
+            <g className="opacity-70">
+              <rect x="130" y="55" width="25" height="3" rx="1.5" fill="#f57c00"/>
+              <rect x="130" y="62" width="30" height="3" rx="1.5" fill="#f57c00"/>
+              <rect x="130" y="69" width="20" height="3" rx="1.5" fill="#f57c00"/>
+            </g>
+          </g>
+          
+          {/* Speed lines */}
+          <g className="opacity-40">
+            <rect x="30" y="65" width="15" height="2" rx="1" fill="#ff9800"/>
+            <rect x="25" y="72" width="12" height="2" rx="1" fill="#ff9800"/>
+            <rect x="35" y="79" width="10" height="2" rx="1" fill="#ff9800"/>
+          </g>
+        </svg>
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+      </div>
+    ),
+  },
+  {
+    name: "CLEAR EVIDENCE",
+    subtitle: "Explainable AI Detection",
+    href: "#clear-evidence",
+    description: "Visual evidence showing exactly why AI flagged mental health concerns",
+    features: ["Source-Linked Clinical Insights", "Provider-Friendly Explanations", "Timestamped Evidence"],
+    icon: (
+      <div className="relative w-full h-full flex items-center justify-center">
+        <svg width="200" height="160" viewBox="0 0 200 160" fill="none" className="opacity-30 group-hover:opacity-100 transition-all duration-700">
+          {/* Magnifying glass examining data */}
+          <g className="transform translate-x-5 translate-y-5">
+            {/* Magnifying glass */}
+            <circle cx="80" cy="70" r="30" fill="none" stroke="#4caf50" strokeWidth="3"/>
+            <line x1="100" y1="90" x2="125" y2="115" stroke="#4caf50" strokeWidth="4" strokeLinecap="round"/>
+            
+            {/* Evidence points inside magnifying glass */}
+            <g className="opacity-80">
+              <circle cx="70" cy="65" r="3" fill="#66bb6a"/>
+              <circle cx="80" cy="70" r="3" fill="#66bb6a"/>
+              <circle cx="85" cy="75" r="3" fill="#66bb6a"/>
+              <line x1="70" y1="65" x2="80" y2="70" stroke="#66bb6a" strokeWidth="1" opacity="0.5"/>
+              <line x1="80" y1="70" x2="85" y2="75" stroke="#66bb6a" strokeWidth="1" opacity="0.5"/>
+            </g>
+            
+            {/* Document with evidence markers */}
+            <rect x="110" y="40" width="50" height="65" rx="3" fill="none" stroke="#4caf50" strokeWidth="2" opacity="0.6"/>
+            <g className="opacity-70">
+              <rect x="118" y="50" width="20" height="2" rx="1" fill="#4caf50"/>
+              <rect x="118" y="56" width="25" height="2" rx="1" fill="#4caf50"/>
+              <rect x="118" y="62" width="15" height="2" rx="1" fill="#81c784"/>
+              <rect x="118" y="68" width="22" height="2" rx="1" fill="#4caf50"/>
+              <rect x="118" y="74" width="18" height="2" rx="1" fill="#81c784"/>
+              
+              {/* Highlight box */}
+              <rect x="115" y="60" width="35" height="8" rx="1" fill="#4caf50" opacity="0.2"/>
+            </g>
+            
+            {/* Check marks for validation */}
+            <g className="opacity-60">
+              <path d="M145 85 L148 88 L153 83" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M145 93 L148 96 L153 91" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </g>
+          </g>
+          
+          {/* Floating evidence particles */}
+          <g className="opacity-50">
+            <circle cx="35" cy="35" r="2" fill="#66bb6a" className="animate-pulse"/>
+            <circle cx="165" cy="100" r="2" fill="#66bb6a" className="animate-pulse" style={{animationDelay: '0.5s'}}/>
+            <circle cx="30" cy="95" r="2" fill="#81c784" className="animate-pulse" style={{animationDelay: '1s'}}/>
+          </g>
+        </svg>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
       </div>
     ),
   },
@@ -125,31 +220,38 @@ const navs: NavItem[] = [
 export function NavMenu() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (itemName: string) => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    
     if (navs.find(nav => nav.name === itemName)?.hasDropdown) {
       setActiveDropdown(itemName);
-      setIsHovering(true);
     }
   };
 
   const handleMouseLeave = () => {
-    setIsHovering(false);
-    setTimeout(() => {
-      if (!isHovering) {
-        setActiveDropdown(null);
-        setHoveredProduct(null);
-      }
-    }, 150);
+    // Set a timeout to close the dropdown
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+      setHoveredProduct(null);
+    }, 100);
   };
 
   const handleDropdownMouseEnter = () => {
-    setIsHovering(true);
+    // Clear timeout when entering dropdown
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
   };
 
   const handleDropdownMouseLeave = () => {
-    setIsHovering(false);
     setActiveDropdown(null);
     setHoveredProduct(null);
   };
@@ -172,7 +274,20 @@ export function NavMenu() {
             onMouseEnter={() => handleMouseEnter(item.name)}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="flex items-center space-x-1 cursor-pointer text-sm font-medium text-primary/80 hover:text-primary transition-colors duration-200">
+            <div 
+              className={`flex items-center space-x-1 cursor-pointer text-sm font-medium transition-colors duration-200 ${
+                activeItem === item.name 
+                  ? 'text-[#70a2bc]' 
+                  : 'text-primary/80 hover:text-[#70a2bc]'
+              }`}
+              onClick={() => {
+                if (item.href) {
+                  setActiveItem(item.name);
+                  const element = document.getElementById(item.href.substring(1));
+                  element?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
               <span>{item.name}</span>
               {item.hasDropdown && (
                 <ChevronDown 
@@ -213,45 +328,45 @@ export function NavMenu() {
                     </div>
                     
                     {/* Products Grid */}
-                    <div className="relative z-10 py-16 px-8">
+                    <div className="relative z-10 py-12 px-8">
                       <div className="max-w-7xl mx-auto">
-                        <div className="grid grid-cols-2 gap-16">
+                        <div className="grid grid-cols-2 gap-8">
                         {item.products?.map((product, index) => (
                           <motion.a
                             key={product.name}
                             href={product.href}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            className={`group relative p-8 rounded-2xl transition-all duration-500 border border-transparent hover:border-border/30 hover:bg-accent/10 ${
+                            transition={{ delay: index * 0.05 }}
+                            className={`group relative p-6 rounded-xl transition-all duration-500 border border-transparent hover:border-border/30 hover:bg-accent/10 ${
                               hoveredProduct && hoveredProduct !== product.name ? 'opacity-40' : 'opacity-100'
                             }`}
                             onMouseEnter={() => handleProductHover(product.name)}
                             onMouseLeave={handleProductLeave}
                           >
                             {/* Abstract illustration area */}
-                            <div className="mb-8 relative overflow-hidden rounded-xl h-48 flex items-center justify-center">
+                            <div className="mb-6 relative overflow-hidden rounded-lg h-32 flex items-center justify-center bg-gradient-to-br from-gray-50 to-transparent">
                               {product.icon}
                             </div>
                             
                             {/* Content */}
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                               <div className="space-y-1">
-                                <div className="text-xs font-medium text-primary/40 uppercase tracking-wider">
+                                <div className="text-[10px] font-medium text-primary/40 uppercase tracking-wider">
                                   {product.subtitle}
                                 </div>
-                                <h3 className="text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
+                                <h3 className="text-lg font-bold text-primary group-hover:text-[#70a2bc] transition-colors">
                                   {product.name}
                                 </h3>
-                                <p className="text-base text-primary/60 leading-relaxed">
+                                <p className="text-sm text-primary/60 leading-relaxed line-clamp-2">
                                   {product.description}
                                 </p>
                               </div>
                               
-                              {/* Features list */}
-                              <div className="space-y-1">
-                                {product.features.map((feature, idx) => (
-                                  <div key={idx} className="text-xs text-primary/50">
+                              {/* Features list - compact */}
+                              <div className="flex flex-wrap gap-2 pt-2">
+                                {product.features.slice(0, 2).map((feature, idx) => (
+                                  <div key={idx} className="text-[10px] text-primary/50 bg-gray-50 px-2 py-1 rounded">
                                     {feature}
                                   </div>
                                 ))}

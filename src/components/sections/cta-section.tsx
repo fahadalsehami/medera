@@ -1,9 +1,16 @@
 import Image from "next/image";
-import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 
 export function CTASection() {
-  const { ctaSection } = siteConfig;
+  const ctaSection = {
+    title: "Transform Behavioral Health Today",
+    backgroundImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
+    button: {
+      text: "Start Free Trial",
+      href: "#"
+    },
+    subtext: "No credit card required • 30-day free trial"
+  };
 
   return (
     <section
@@ -14,7 +21,7 @@ export function CTASection() {
         <div className="h-[400px] md:h-[400px] overflow-hidden shadow-xl w-full border border-border rounded-xl bg-secondary relative z-20">
           <Image
             src={ctaSection.backgroundImage}
-            alt="Agent CTA Background"
+            alt="Medera CTA Background"
             className="absolute inset-0 w-full h-full object-cover object-right md:object-center"
             fill
             priority
