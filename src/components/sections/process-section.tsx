@@ -58,21 +58,21 @@ const processSteps = [
   },
   {
     id: "03",
-    title: "Auto Actions",
-    shortTitle: "Actions",
-    subtitle: "One-Click Behavioral Health Orders",
+    title: "Automation",
+    shortTitle: "Automation",
+    subtitle: "EHR Integration & Clinical Enrichment",
     heading: "Intelligent Care Coordination",
     description: "Automatically initiate appropriate referrals, assessments, and safety protocols when behavioral health concerns are identified during clinical encounters.",
     subItems: [
       {
         number: "1",
-        title: "Clinical Decision Support",
-        description: "Generates evidence-based treatment recommendations including psychiatric consultations, medication evaluations, and therapeutic interventions when clinical indicators warrant attention. Initiates standardized assessments (PHQ-9, GAD-7) with relevant clinical context pre-populated for provider review."
+        title: "Seamless EHR Integration & Workflow Automation",
+        description: "Automatically populates structured clinical data directly into existing EHR systems without disrupting provider workflow. Translates complex patient interactions into standardized clinical documentation, ICD-10 codes, and billable encounters. Integrates with Epic, Cerner, and other major EHR platforms through native APIs, ensuring real-time data synchronization and comprehensive clinical record maintenance."
       },
       {
         number: "2",
-        title: "Patient Safety Protocols",
-        description: "Activates comprehensive safety assessment workflows for patients at elevated risk. Implements safety planning procedures, emergency contact protocols, and structured follow-up scheduling based on clinical risk stratification. Ensures continuity of care through systematic monitoring"
+        title: "Automated Medical Translation & Clinical Enrichment",
+        description: "Converts patient communications into precise medical terminology with comprehensive clinical context. Transforms lay descriptions like 'feeling down and tired' into structured clinical language: 'Patient reports persistent depressed mood with associated fatigue, consistent with major depressive episode criteria.' Enriches documentation with relevant clinical correlations, differential diagnoses, and evidence-based assessment recommendations."
       }
     ]
   },
@@ -3221,9 +3221,9 @@ Integrated Care Action Plan:
                                       <div 
                                         className="h-full flex items-center justify-center p-4"
                                         style={{
-                                          background: 'white',
-                                          border: '1px solid #e5e7eb',
-                                          boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+                                          background: 'transparent',
+                                          border: 'none',
+                                          boxShadow: 'none'
                                         }}
                                       >
                                         {/* Actual Logo Image */}
@@ -3262,9 +3262,9 @@ Integrated Care Action Plan:
                                     fontSize: '0.875rem',
                                     lineHeight: '1.25rem',
                                     borderRadius: '4px',
-                                    border: '1px solid #7c3aed',
+                                    border: '1px solid #9caf88',
                                     backgroundColor: '#f3f4f6',
-                                    color: '#7c3aed'
+                                    color: '#9caf88'
                                   }}
                                 >
                                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -3282,10 +3282,137 @@ Integrated Care Action Plan:
 
                     </div>
                     ) : (
-                      <div className="relative w-full h-full flex items-center justify-center">
-                        <div className="text-center">
-                          <h3 className="text-2xl font-semibold text-[#1a202c] mb-4">Medical Translation</h3>
-                          <p className="text-lg text-gray-600">Automated translation of medical reports</p>
+                      <div className="relative w-full h-full flex items-center justify-center" style={{ minHeight: '100vh' }}>
+                        <div 
+                          className="relative"
+                          style={{ 
+                            transform: `translate(0vw, 10vh) scale(0.8)`,
+                            maxWidth: '569px',
+                            width: '100%'
+                          }}
+                        >
+                          {/* Grid Background */}
+                          <div className="absolute inset-0 flex justify-between" style={{ opacity: 0.5, transform: 'scale(0.95)' }}>
+                            <div className="absolute right-0 left-0 flex flex-row justify-between">
+                              <div className="relative -z-10 h-0 w-0">
+                                <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" style={{ opacity: 0.2 }}>
+                                  <path d="M1 0 V4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
+                                </svg>
+                              </div>
+                              <div className="relative -z-10 h-0 w-0">
+                                <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" style={{ opacity: 0.2 }}>
+                                  <path d="M1 0 V4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
+                                </svg>
+                              </div>
+                            </div>
+                            <div className="absolute top-0 bottom-0 flex flex-col justify-between">
+                              <div className="relative h-0 w-full">
+                                <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" style={{ opacity: 0.2 }}>
+                                  <path d="M0 1 H4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
+                                </svg>
+                              </div>
+                              <div className="relative h-0 w-full">
+                                <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" style={{ opacity: 0.2 }}>
+                                  <path d="M0 1 H4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Translation Card */}
+                          <div 
+                            className="bg-white border border-gray-200 z-30 flex flex-col rounded-lg shadow-lg absolute w-full"
+                            style={{ 
+                              top: '27.5%',
+                              opacity: 1,
+                              padding: '16px'
+                            }}
+                          >
+                            {/* Header with Icons */}
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center gap-2">
+                                <div className="bg-purple-100 flex h-6 w-6 items-center justify-center rounded-md">
+                                  <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4" />
+                                  </svg>
+                                </div>
+                                <span className="text-sm font-medium text-gray-700">Medical Translation Engine</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span className="px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded">Active</span>
+                              </div>
+                            </div>
+
+                            {/* Patient Input Section */}
+                            <div className="mb-4">
+                              <div className="flex items-start gap-3">
+                                <div className="flex-shrink-0">
+                                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div className="flex-1">
+                                  <p className="text-sm text-gray-600 italic">
+                                    "I&apos;ve been feeling really down and tired all the time. Can&apos;t focus at work and nothing seems fun anymore."
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Translation Process Indicator */}
+                            <div className="flex items-center justify-center py-2">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-purple-600 rounded-full animate-pulse"></div>
+                                <span className="text-xs text-purple-600 font-medium">Processing Natural Language</span>
+                                <div className="w-2 h-2 bg-purple-600 rounded-full animate-pulse"></div>
+                              </div>
+                            </div>
+
+                            {/* Clinical Output Section */}
+                            <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+                              <div className="flex items-start gap-3">
+                                <div className="flex-shrink-0">
+                                  <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
+                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div className="flex-1">
+                                  <h5 className="text-sm font-semibold text-gray-900 mb-1">Clinical Documentation</h5>
+                                  <p className="text-sm text-gray-700 leading-relaxed">
+                                    Patient reports persistent depressed mood, anergia, anhedonia, and concentration difficulties. 
+                                    Symptoms consistent with major depressive disorder criteria.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Bottom Actions and Tags */}
+                            <div className="mt-4 flex items-center justify-between">
+                              <div className="flex flex-wrap gap-2">
+                                <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 rounded text-xs font-medium text-purple-700">
+                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
+                                  </svg>
+                                  ICD-10: F32.1
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-50 rounded text-xs font-medium text-blue-700">
+                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                  </svg>
+                                  PHQ-9 Indicated
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <button className="px-3 py-1 bg-[#9caf88] text-white text-xs font-medium rounded shadow-sm hover:bg-opacity-90 transition-colors">
+                                  Save to EHR
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     )}
