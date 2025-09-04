@@ -58,21 +58,21 @@ const processSteps = [
   },
   {
     id: "03",
-    title: "Auto Actions",
-    shortTitle: "Actions",
-    subtitle: "One-Click Behavioral Health Orders",
+    title: "AUTOMATED CLINICAL WORKFLOWS",
+    shortTitle: "Workflows",
+    subtitle: "Intelligent Care Coordination",
     heading: "Intelligent Care Coordination",
     description: "Automatically initiate appropriate referrals, assessments, and safety protocols when behavioral health concerns are identified during clinical encounters.",
     subItems: [
       {
         number: "1",
-        title: "Clinical Decision Support",
-        description: "Generates evidence-based treatment recommendations including psychiatric consultations, medication evaluations, and therapeutic interventions when clinical indicators warrant attention. Initiates standardized assessments (PHQ-9, GAD-7) with relevant clinical context pre-populated for provider review."
+        title: "Seamless EHR Integration & Workflow Automation",
+        description: "Automatically populates structured clinical data directly into existing EHR systems without disrupting provider workflow. Translates complex patient interactions into standardized clinical documentation, ICD-10 codes, and billable encounters. Integrates with Epic, Cerner, and other major EHR platforms through native APIs, ensuring real-time data synchronization and comprehensive clinical record maintenance."
       },
       {
         number: "2",
-        title: "Patient Safety Protocols",
-        description: "Activates comprehensive safety assessment workflows for patients at elevated risk. Implements safety planning procedures, emergency contact protocols, and structured follow-up scheduling based on clinical risk stratification. Ensures continuity of care through systematic monitoring"
+        title: "Automated Medical Translation & Clinical Enrichment",
+        description: "Converts patient communications into precise medical terminology with comprehensive clinical context. Transforms lay descriptions like 'feeling down and tired' into structured clinical language: 'Patient reports persistent depressed mood with associated fatigue, consistent with major depressive episode criteria.' Enriches documentation with relevant clinical correlations, differential diagnoses, and evidence-based assessment recommendations."
       }
     ]
   },
@@ -3027,157 +3027,289 @@ Integrated Care Action Plan:
                   </motion.div>
                 )}
                 
-                {/* Auto Actions Visualization - Step 3 - Medical Prescription Interface */}
+                {/* AUTOMATED CLINICAL WORKFLOWS - Step 3 */}
                 {activeStep === 2 && (
                   <motion.div
-                    className="w-full h-[550px] max-w-[95%]"
+                    className="w-full h-[550px] max-w-[95%] flex items-center justify-center"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <svg
-                      className="w-full h-full"
-                      viewBox="0 0 800 550"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Definitions with warm colors from Bundling */}
-                      <defs>
-                        <linearGradient id="warmCardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#ffffff" />
-                          <stop offset="50%" stopColor="#fff8f0" />
-                          <stop offset="100%" stopColor="#fef3e8" />
-                        </linearGradient>
-                        <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#70a2bc" />
-                          <stop offset="50%" stopColor="#a8998a" />
-                          <stop offset="100%" stopColor="#c0b4a8" />
-                        </linearGradient>
-                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#70a2bc" opacity="0.2" />
-                          <stop offset="50%" stopColor="#a8998a" opacity="0.5" />
-                          <stop offset="100%" stopColor="#70a2bc" opacity="0.2" />
-                        </linearGradient>
-                        <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
-                          <feDropShadow dx="0" dy="8" stdDeviation="12" floodOpacity="0.12"/>
-                        </filter>
-                      </defs>
-                      
-                      {/* Main Prescription Card - Smaller and Left-aligned */}
-                      <motion.g
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: activeStep === 2 ? 1 : 0, y: activeStep === 2 ? 0 : 20 }}
-                        transition={{ duration: 0.5 }}
+                    {/* Step 3.1 - EHR Integration (0-50% scroll) */}
+                    {scrollProgressValue <= 0.5 ? (
+                      <motion.div
+                        className="w-full h-full flex items-center justify-center p-8"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
                       >
-                        {/* Card Background with modern gradient and enhanced shadow */}
-                        <rect x="30" y="50" width="550" height="100" fill="url(#warmCardGradient)" stroke="none" rx="12" filter="url(#cardShadow)" />
-                        <rect x="30" y="50" width="550" height="100" fill="none" stroke="url(#borderGradient)" strokeWidth="1.5" rx="12" opacity="0.6" />
-                        
-                        {/* Modern Header with Icon */}
-                        <g transform="translate(60, 75)">
-                          <circle cx="0" cy="0" r="18" fill="#70a2bc" opacity="0.1" />
-                          <path d="M -8 0 L -3 0 M 3 0 L 8 0 M 0 -8 L 0 -3 M 0 3 L 0 8" stroke="#70a2bc" strokeWidth="2" strokeLinecap="round" />
-                        </g>
-                        <text x="100" y="82" fill="#1e293b" fontSize="22" fontWeight="700">
-                          Automated Treatment Protocol
-                        </text>
-                        <rect x="150" y="95" width="310" height="2" fill="url(#lineGradient)" rx="1" />
-                        
-                        {/* Status Pills */}
-                        <g transform="translate(480, 65)">
-                          <rect x="0" y="0" width="80" height="24" fill="#70a2bc" opacity="0.1" rx="12" />
-                          <circle cx="18" cy="12" r="3" fill="#70a2bc" />
-                          <text x="28" y="16" fill="#70a2bc" fontSize="11" fontWeight="600">ACTIVE</text>
-                        </g>
-                        <g transform="translate(480, 95)">
-                          <rect x="0" y="0" width="80" height="24" fill="#5a8ca6" opacity="0.1" rx="12" />
-                          <circle cx="18" cy="12" r="3" fill="#5a8ca6" className="animate-pulse" />
-                          <text x="28" y="16" fill="#5a8ca6" fontSize="11" fontWeight="600">LIVE</text>
-                        </g>
-                      </motion.g>
-                      
-                      {/* Linked Evidence Section */}
-                      <motion.g
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: activeStep === 2 && scrollProgressValue > 0.2 ? 1 : 0, scale: activeStep === 2 && scrollProgressValue > 0.2 ? 1 : 0.95 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        <div className="relative w-full max-w-[800px] h-full flex flex-col gap-6">
+                          {/* Header */}
+                          <div className="text-center mb-4">
+                            <h3 className="text-[14px] font-semibold text-[#2f2f2f] mb-2">
+                              Seamless EHR Integration & Workflow Automation
+                            </h3>
+                            <p className="text-[11px] text-[#6c757d]">
+                              Real-time synchronization with Epic, Cerner, and major EHR platforms
+                            </p>
+                          </div>
+
+                          {/* Main Integration Flow */}
+                          <div className="flex-1 relative flex items-center justify-between gap-4">
+                            
+                            {/* Left: Patient Interaction */}
+                            <motion.div 
+                              className="flex-1 bg-white/80 backdrop-blur-sm rounded-lg border border-[#70a2bc]/20 p-4"
+                              initial={{ x: -20, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ delay: 0.2 }}
+                            >
+                              <div className="flex items-center gap-2 mb-3">
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <span className="text-[10px] font-medium text-[#6c757d]">Live Session</span>
+                              </div>
+                              
+                              <div className="space-y-2">
+                                <div className="text-[11px] text-[#2f2f2f]">
+                                  <span className="font-semibold">Patient:</span> "I've been having chest pain for 3 weeks"
+                                </div>
+                                <motion.div 
+                                  className="text-[11px] text-[#6c757d]"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: scrollProgressValue > 0.1 ? 1 : 0 }}
+                                >
+                                  <span className="font-semibold">AI Processing:</span> Extracting clinical data...
+                                </motion.div>
+                              </div>
+                              
+                              <motion.div 
+                                className="mt-3 space-y-1"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: scrollProgressValue > 0.15 ? 1 : 0 }}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[10px] px-2 py-0.5 bg-[#70a2bc]/10 text-[#70a2bc] rounded font-medium">
+                                    ICD-10: R07.9
+                                  </span>
+                                  <span className="text-[10px] px-2 py-0.5 bg-[#a8998a]/10 text-[#a8998a] rounded font-medium">
+                                    CPT: 99213
+                                  </span>
+                                </div>
+                              </motion.div>
+                            </motion.div>
+
+                            {/* Center: Data Flow Arrows */}
+                            <div className="flex flex-col items-center justify-center gap-2">
+                              <motion.div
+                                className="flex items-center gap-2"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: scrollProgressValue > 0.2 ? 1 : 0 }}
+                                transition={{ type: "spring" }}
+                              >
+                                <div className="w-12 h-[2px] bg-gradient-to-r from-[#70a2bc] to-transparent" />
+                                <svg className="w-4 h-4 text-[#70a2bc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </motion.div>
+                              <span className="text-[9px] text-[#6c757d] font-medium">FHIR/HL7</span>
+                            </div>
+
+                            {/* Right: EHR System */}
+                            <motion.div 
+                              className="flex-1 bg-gradient-to-br from-[#f8fafb] to-[#ffffff] rounded-lg border border-[#a8998a]/20 p-4"
+                              initial={{ x: 20, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ delay: 0.4 }}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <span className="text-[10px] font-bold text-[#2f2f2f]">Epic MyChart</span>
+                                <motion.div 
+                                  className="flex items-center gap-1"
+                                  animate={{ opacity: scrollProgressValue > 0.25 ? [0.5, 1, 0.5] : 1 }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                >
+                                  <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                                  <span className="text-[9px] text-green-600">Synced</span>
+                                </motion.div>
+                              </div>
+                              
+                              <motion.div 
+                                className="space-y-2"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: scrollProgressValue > 0.25 ? 1 : 0 }}
+                              >
+                                <div className="bg-white rounded p-2 space-y-1">
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-[10px] font-medium text-[#6c757d]">Chief Complaint:</span>
+                                    <span className="text-[10px] text-[#2f2f2f]">Chest pain, unspecified</span>
+                                  </div>
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-[10px] font-medium text-[#6c757d]">Duration:</span>
+                                    <span className="text-[10px] text-[#2f2f2f]">3 weeks</span>
+                                  </div>
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-[10px] font-medium text-[#6c757d]">Billing Code:</span>
+                                    <span className="text-[10px] font-mono text-[#70a2bc]">99213-25</span>
+                                  </div>
+                                </div>
+                                
+                                <motion.div 
+                                  className="pt-2 border-t border-[#e5e7eb]"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: scrollProgressValue > 0.35 ? 1 : 0 }}
+                                >
+                                  <button className="w-full py-1.5 bg-[#70a2bc] text-white text-[10px] font-medium rounded hover:bg-[#5a8ca6] transition-colors">
+                                    Auto-Submit to EHR
+                                  </button>
+                                </motion.div>
+                              </motion.div>
+                            </motion.div>
+                          </div>
+
+                          {/* Bottom: Supported Systems */}
+                          <motion.div 
+                            className="flex items-center justify-center gap-6 pt-4 border-t border-[#e5e7eb]"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: scrollProgressValue > 0.4 ? 1 : 0, y: scrollProgressValue > 0.4 ? 0 : 10 }}
+                          >
+                            <span className="text-[9px] text-[#6c757d]">Integrated with:</span>
+                            <span className="text-[10px] font-medium text-[#70a2bc]">Epic</span>
+                            <span className="text-[10px] font-medium text-[#a8998a]">Cerner</span>
+                            <span className="text-[10px] font-medium text-[#5a8ca6]">Athena</span>
+                            <span className="text-[10px] font-medium text-[#c0b4a8]">AllScripts</span>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      /* Step 3.2 - Medical Translation (50-100% scroll) */
+                      <motion.div
+                        className="w-full h-full flex items-center justify-center p-8"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
                       >
-                        {/* Evidence Card Container */}
-                        <rect x="100" y="190" width="600" height="320" fill="#ffffff" stroke="#a8998a" strokeWidth="2" rx="4" filter="url(#cardShadow)" />
-                        
-                        {/* Evidence Header with Modern Icon */}
-                        <g>
-                          {/* Modern AI Icon */}
-                          <g transform="translate(130, 215)">
-                            {/* Brain/AI icon */}
-                            <rect x="8" y="8" width="24" height="24" fill="none" stroke="#70a2bc" strokeWidth="2" rx="4" />
-                            <circle cx="20" cy="20" r="3" fill="#70a2bc" />
-                            <path d="M 8 20 L 14 20 M 26 20 L 32 20 M 20 8 L 20 14 M 20 26 L 20 32" stroke="#70a2bc" strokeWidth="1.5" strokeLinecap="round" />
-                          </g>
-                          <text x="175" y="235" fill="#1e293b" fontSize="20" fontWeight="600">
-                            AI-Analyzed Evidence
-                          </text>
-                        </g>
-                        
-                        {/* Evidence Content Box 1 */}
-                        <motion.g
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: activeStep === 2 && scrollProgressValue > 0.3 ? 1 : 0, x: activeStep === 2 && scrollProgressValue > 0.3 ? 0 : -10 }}
-                          transition={{ duration: 0.4, delay: 0.1 }}
-                        >
-                          <rect x="160" y="270" width="480" height="80" fill="#fff8f0" stroke="none" rx="4" />
-                          
-                          {/* Evidence bars representing text */}
-                          <rect x="180" y="285" width="350" height="8" fill="#c0b4a8" rx="2" />
-                          <rect x="180" y="300" width="420" height="8" fill="#c0b4a8" rx="2" />
-                          <rect x="180" y="315" width="280" height="8" fill="#c0b4a8" rx="2" />
-                          <line x1="160" y1="340" x2="640" y2="340" stroke="#c0b4a8" strokeWidth="1" />
-                        </motion.g>
-                        
-                        {/* Evidence Content Box 2 */}
-                        <motion.g
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: activeStep === 2 && scrollProgressValue > 0.4 ? 1 : 0, x: activeStep === 2 && scrollProgressValue > 0.4 ? 0 : -10 }}
-                          transition={{ duration: 0.4, delay: 0.2 }}
-                        >
-                          <rect x="140" y="370" width="440" height="100" fill="#ece4dc" stroke="none" rx="4" />
-                          
-                          {/* Chat bubble pointer */}
-                          <path d="M 140 420 L 120 430 L 140 440" fill="#ece4dc" />
-                          
-                          {/* Evidence content lines */}
-                          <rect x="160" y="385" width="300" height="6" fill="#a8998a" rx="2" />
-                          <rect x="160" y="398" width="380" height="6" fill="#a8998a" rx="2" />
-                          <rect x="160" y="411" width="240" height="6" fill="#a8998a" rx="2" />
-                          <rect x="160" y="424" width="340" height="6" fill="#a8998a" rx="2" />
-                          <rect x="160" y="437" width="200" height="6" fill="#a8998a" rx="2" />
-                        </motion.g>
-                      </motion.g>
-                      
-                      {/* Dosage Information Box - No Border */}
-                      <motion.g
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: activeStep === 2 && scrollProgressValue > 0.5 ? 1 : 0, scale: activeStep === 2 && scrollProgressValue > 0.5 ? 1 : 0.9 }}
-                        transition={{ duration: 0.4, delay: 0.3 }}
-                      >
-                        <rect x="550" y="400" width="180" height="100" fill="#fff8f0" stroke="none" rx="4" />
-                        
-                        <text x="640" y="430" fill="#1e293b" fontSize="20" fontWeight="600" textAnchor="middle">
-                          Auto-Execute
-                        </text>
-                        <text x="640" y="455" fill="#70a2bc" fontSize="14" fontWeight="500" textAnchor="middle">
-                          ON DETECTION
-                        </text>
-                        
-                        {/* Small indicator lines */}
-                        <line x1="570" y1="470" x2="710" y2="470" stroke="#c0b4a8" strokeWidth="0.5" opacity="0.5" />
-                        <rect x="620" y="480" width="40" height="3" fill="#70a2bc" rx="1" />
-                      </motion.g>
-                      
-                    </svg>
+                        <div className="relative w-full max-w-[800px] h-full flex flex-col gap-4">
+                          {/* Header */}
+                          <div className="text-center mb-2">
+                            <h3 className="text-[14px] font-semibold text-[#2f2f2f] mb-2">
+                              Automated Medical Translation & Clinical Enrichment
+                            </h3>
+                            <p className="text-[11px] text-[#6c757d]">
+                              Converting patient language into precise medical terminology
+                            </p>
+                          </div>
+
+                          {/* Translation Examples */}
+                          <div className="flex-1 space-y-4 overflow-auto">
+                            
+                            {/* Example 1 */}
+                            <motion.div 
+                              className="bg-white/90 backdrop-blur-sm rounded-lg border border-[#70a2bc]/20 p-4"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 }}
+                            >
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <div className="text-[9px] font-medium text-[#6c757d] mb-2">Patient Language</div>
+                                  <div className="bg-[#f8fafb] rounded p-3">
+                                    <p className="text-[11px] text-[#2f2f2f] italic">
+                                      "I feel down and tired all the time"
+                                    </p>
+                                  </div>
+                                </div>
+                                <motion.div
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: scrollProgressValue > 0.55 ? 1 : 0, x: scrollProgressValue > 0.55 ? 0 : 20 }}
+                                  transition={{ delay: 0.2 }}
+                                >
+                                  <div className="text-[9px] font-medium text-[#6c757d] mb-2">Medical Translation</div>
+                                  <div className="bg-gradient-to-r from-[#70a2bc]/5 to-transparent rounded p-3">
+                                    <p className="text-[11px] text-[#2f2f2f] font-medium">
+                                      Patient reports persistent depressed mood with associated fatigue, consistent with major depressive episode criteria
+                                    </p>
+                                    <div className="mt-2 flex gap-2">
+                                      <span className="text-[9px] px-2 py-0.5 bg-[#70a2bc] text-white rounded">ICD-10: F32.9</span>
+                                      <span className="text-[9px] px-2 py-0.5 bg-[#a8998a] text-white rounded">PHQ-9 indicated</span>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </div>
+                            </motion.div>
+
+                            {/* Example 2 */}
+                            <motion.div 
+                              className="bg-white/90 backdrop-blur-sm rounded-lg border border-[#a8998a]/20 p-4"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: scrollProgressValue > 0.65 ? 1 : 0, y: scrollProgressValue > 0.65 ? 0 : 20 }}
+                              transition={{ delay: 0.3 }}
+                            >
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <div className="text-[9px] font-medium text-[#6c757d] mb-2">Patient Language</div>
+                                  <div className="bg-[#f8fafb] rounded p-3">
+                                    <p className="text-[11px] text-[#2f2f2f] italic">
+                                      "My heart races and I can't breathe when I'm in crowds"
+                                    </p>
+                                  </div>
+                                </div>
+                                <motion.div
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: scrollProgressValue > 0.7 ? 1 : 0, x: scrollProgressValue > 0.7 ? 0 : 20 }}
+                                  transition={{ delay: 0.4 }}
+                                >
+                                  <div className="text-[9px] font-medium text-[#6c757d] mb-2">Medical Translation</div>
+                                  <div className="bg-gradient-to-r from-[#a8998a]/5 to-transparent rounded p-3">
+                                    <p className="text-[11px] text-[#2f2f2f] font-medium">
+                                      Patient experiences palpitations and dyspnea in crowded spaces, suggestive of panic disorder with agoraphobia
+                                    </p>
+                                    <div className="mt-2 flex gap-2">
+                                      <span className="text-[9px] px-2 py-0.5 bg-[#a8998a] text-white rounded">ICD-10: F40.01</span>
+                                      <span className="text-[9px] px-2 py-0.5 bg-[#70a2bc] text-white rounded">GAD-7 indicated</span>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </div>
+                            </motion.div>
+                            {/* Clinical Enrichment Section */}
+                            <motion.div 
+                              className="bg-gradient-to-br from-[#fff8f0] to-white rounded-lg border border-[#c0b4a8]/20 p-4"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: scrollProgressValue > 0.8 ? 1 : 0, y: scrollProgressValue > 0.8 ? 0 : 20 }}
+                              transition={{ delay: 0.5 }}
+                            >
+                              <div className="flex items-center gap-2 mb-3">
+                                <div className="w-6 h-6 rounded-full bg-[#70a2bc]/10 flex items-center justify-center">
+                                  <svg className="w-3 h-3 text-[#70a2bc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                  </svg>
+                                </div>
+                                <span className="text-[11px] font-semibold text-[#2f2f2f]">Clinical Enrichment Added</span>
+                              </div>
+                              
+                              <div className="grid grid-cols-3 gap-3">
+                                <div className="text-center p-2 bg-white rounded">
+                                  <div className="text-[9px] text-[#6c757d] mb-1">Differential Dx</div>
+                                  <div className="text-[10px] font-medium text-[#2f2f2f]">3 conditions</div>
+                                </div>
+                                <div className="text-center p-2 bg-white rounded">
+                                  <div className="text-[9px] text-[#6c757d] mb-1">Evidence Links</div>
+                                  <div className="text-[10px] font-medium text-[#70a2bc]">5 references</div>
+                                </div>
+                                <div className="text-center p-2 bg-white rounded">
+                                  <div className="text-[9px] text-[#6c757d] mb-1">Assessments</div>
+                                  <div className="text-[10px] font-medium text-[#a8998a]">Auto-ordered</div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
                 
+                {/* Clear Evidence Visualization - Step 4 */}
                 {/* Clear Evidence Visualization - Step 4 - 3D Clinical Evidence Transformation */}
                 {activeStep === 3 && (
                   <motion.div
