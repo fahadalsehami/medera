@@ -3311,46 +3311,46 @@ Integrated Care Action Plan:
                                 </div>
                               </div>
                             </div>
-                            <div className="bg-surface-highest border-outline z-30 flex h-fit flex-col items-start justify-start rounded-lg border py-2 shadow-lg absolute top-[27.5%] w-full" style={{ opacity: 1, transform: 'none' }}>
+                            <div className="bg-white border border-gray-200 z-30 flex h-fit flex-col items-start justify-start rounded-lg py-2 shadow-lg absolute top-[27.5%] w-full opacity-30" style={{ opacity: 1, transform: 'none' }}>
                               <div className="flex h-fit w-full flex-col items-end justify-start gap-2 px-2">
                                 <div className="flex h-fit w-full flex-row items-start justify-start gap-1">
                                   <div className="flex h-fit w-fit flex-row items-center justify-start">
-                                    <div className="bg-primary-container flex h-6 w-6 flex-row items-center justify-center rounded-md">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-up text-on-primary-container size-4">
+                                    <div className="bg-green-100 flex h-6 w-6 flex-row items-center justify-center rounded-md">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600 size-4">
                                         <path d="M7 10v12"></path>
                                         <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path>
                                       </svg>
                                     </div>
                                     <div className="flex h-6 w-6 flex-row items-center justify-center rounded-md">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-down text-on-surface-highest-subtle size-4">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 size-4">
                                         <path d="M17 14V2"></path>
                                         <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"></path>
                                       </svg>
                                     </div>
                                   </div>
                                   <div className="flex h-fit w-full flex-row items-center justify-start">
-                                    <span className="atlas-product-base text-on-surface-highest block">
+                                    <span className="text-sm text-gray-800 block">
                                       The response correctly identified the user&apos;s intent.
-                                      <span className="border-r-primary border-r-2" style={{ opacity: 0.778998 }}></span>
+                                      <span className="border-r-green-500 border-r-2" style={{ opacity: 0.778998 }}></span>
                                     </span>
                                   </div>
                                 </div>
                                 <div className="flex h-fit w-full flex-row items-center justify-between gap-2 pl-1.5">
-                                  <span className="atlas-product-sm text-on-surface-highest-subtle block">Press &quot;esc&quot; to dismiss</span>
+                                  <span className="text-xs text-gray-500 block">Press &quot;esc&quot; to dismiss</span>
                                   <div className="flex h-fit w-fit flex-row items-center justify-start gap-2">
                                     <div className="flex h-fit w-fit flex-col items-start justify-start gap-1">
-                                      <div className="bg-surface-tint-base flex h-6 w-fit flex-row items-center justify-start gap-1 rounded-md px-2 py-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-database text-secondary size-3.5">
+                                      <div className="bg-gray-100 flex h-6 w-fit flex-row items-center justify-start gap-1 rounded-md px-2 py-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600 size-3.5">
                                           <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                                           <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
                                           <path d="M3 12A9 3 0 0 0 21 12"></path>
                                         </svg>
-                                        <span className="atlas-product-xs text-on-surface-highest-subtle block font-bold tracking-wider">Test Cases</span>
+                                        <span className="text-xs text-gray-700 block font-bold tracking-wider">Test Cases</span>
                                       </div>
                                     </div>
-                                    <div className="bg-primary flex h-6 w-fit flex-row items-center justify-center gap-1 rounded-md px-1.5 shadow-md">
-                                      <span className="atlas-product-sm text-on-primary block font-bold">Save</span>
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-corner-down-left text-on-primary size-3.5">
+                                    <div className="bg-[#9caf88] flex h-6 w-fit flex-row items-center justify-center gap-1 rounded-md px-1.5 shadow-md">
+                                      <span className="text-sm text-white block font-bold">Save</span>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white size-3.5">
                                         <polyline points="9 10 4 15 9 20"></polyline>
                                         <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
                                       </svg>
