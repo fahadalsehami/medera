@@ -3283,133 +3283,80 @@ Integrated Care Action Plan:
                     </div>
                     ) : (
                       <div className="relative w-full h-full flex items-center justify-center" style={{ minHeight: '100vh' }}>
-                        <div 
-                          className="relative"
-                          style={{ 
-                            transform: `translate(0vw, 10vh) scale(0.8)`,
-                            maxWidth: '569px',
-                            width: '100%'
-                          }}
-                        >
-                          {/* Grid Background */}
-                          <div className="absolute inset-0 flex justify-between" style={{ opacity: 0.5, transform: 'scale(0.95)' }}>
-                            <div className="absolute right-0 left-0 flex flex-row justify-between">
-                              <div className="relative -z-10 h-0 w-0">
-                                <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" style={{ opacity: 0.2 }}>
-                                  <path d="M1 0 V4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
-                                </svg>
-                              </div>
-                              <div className="relative -z-10 h-0 w-0">
-                                <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" style={{ opacity: 0.2 }}>
-                                  <path d="M1 0 V4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
-                                </svg>
-                              </div>
-                            </div>
-                            <div className="absolute top-0 bottom-0 flex flex-col justify-between">
-                              <div className="relative h-0 w-full">
-                                <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" style={{ opacity: 0.2 }}>
-                                  <path d="M0 1 H4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
-                                </svg>
-                              </div>
-                              <div className="relative h-0 w-full">
-                                <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" style={{ opacity: 0.2 }}>
-                                  <path d="M0 1 H4000" stroke="#9caf88" strokeWidth="1" strokeDasharray="4 4" />
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Translation Card */}
-                          <div 
-                            className="bg-white border border-gray-200 z-30 flex flex-col rounded-lg shadow-lg absolute w-full"
-                            style={{ 
-                              top: '27.5%',
-                              opacity: 1,
-                              padding: '16px'
-                            }}
-                          >
-                            {/* Header with Icons */}
-                            <div className="flex items-center justify-between mb-4">
-                              <div className="flex items-center gap-2">
-                                <div className="bg-purple-100 flex h-6 w-6 items-center justify-center rounded-md">
-                                  <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4" />
+                        <div style={{ translate: '0vw 10vh', transform: 'scale(0.8)' }}>
+                          <div className="text-on-surface-base atlas-product-sm relative w-full" style={{ maxWidth: '569px', opacity: 1, transform: 'none' }}>
+                            <div className="left flex w-full justify-stretch" style={{ opacity: 0.5, transform: 'scale(0.95)' }}>
+                              <div className="absolute right-0 left-0 flex flex-row justify-between">
+                                <div className="relative -z-10 h-0 w-0">
+                                  <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.2 }}>
+                                    <path d="M1 0 V4000" stroke="#264013" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"></path>
                                   </svg>
                                 </div>
-                                <span className="text-sm font-medium text-gray-700">Medical Translation Engine</span>
+                                <div className="relative -z-10 h-0 w-0">
+                                  <svg className="absolute top-1/2 h-[200vh] -translate-y-1/2" width="2" viewBox="0 0 2 4000" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.2 }}>
+                                    <path d="M1 0 V4000" stroke="#264013" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"></path>
+                                  </svg>
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <span className="px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded">Active</span>
+                              <div className="absolute top-0 bottom-0 flex flex-col justify-between">
+                                <div className="relative h-0 w-full">
+                                  <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.2 }}>
+                                    <path d="M0 1 H4000" stroke="#264013" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"></path>
+                                  </svg>
+                                </div>
+                                <div className="relative h-0 w-full">
+                                  <svg className="absolute left-1/2 w-[200vw] min-w-[4000px] -translate-x-1/2" height="2" viewBox="0 0 4000 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.2 }}>
+                                    <path d="M0 1 H4000" stroke="#264013" strokeWidth="1" strokeDasharray="4 4" vectorEffect="non-scaling-stroke"></path>
+                                  </svg>
+                                </div>
                               </div>
                             </div>
-
-                            {/* Patient Input Section */}
-                            <div className="mb-4">
-                              <div className="flex items-start gap-3">
-                                <div className="flex-shrink-0">
-                                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
+                            <div className="bg-surface-highest border-outline z-30 flex h-fit flex-col items-start justify-start rounded-lg border py-2 shadow-lg absolute top-[27.5%] w-full" style={{ opacity: 1, transform: 'none' }}>
+                              <div className="flex h-fit w-full flex-col items-end justify-start gap-2 px-2">
+                                <div className="flex h-fit w-full flex-row items-start justify-start gap-1">
+                                  <div className="flex h-fit w-fit flex-row items-center justify-start">
+                                    <div className="bg-primary-container flex h-6 w-6 flex-row items-center justify-center rounded-md">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-up text-on-primary-container size-4">
+                                        <path d="M7 10v12"></path>
+                                        <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path>
+                                      </svg>
+                                    </div>
+                                    <div className="flex h-6 w-6 flex-row items-center justify-center rounded-md">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thumbs-down text-on-surface-highest-subtle size-4">
+                                        <path d="M17 14V2"></path>
+                                        <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                  <div className="flex h-fit w-full flex-row items-center justify-start">
+                                    <span className="atlas-product-base text-on-surface-highest block">
+                                      The response correctly identified the user&apos;s intent.
+                                      <span className="border-r-primary border-r-2" style={{ opacity: 0.778998 }}></span>
+                                    </span>
                                   </div>
                                 </div>
-                                <div className="flex-1">
-                                  <p className="text-sm text-gray-600 italic">
-                                    "I&apos;ve been feeling really down and tired all the time. Can&apos;t focus at work and nothing seems fun anymore."
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Translation Process Indicator */}
-                            <div className="flex items-center justify-center py-2">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-purple-600 rounded-full animate-pulse"></div>
-                                <span className="text-xs text-purple-600 font-medium">Processing Natural Language</span>
-                                <div className="w-2 h-2 bg-purple-600 rounded-full animate-pulse"></div>
-                              </div>
-                            </div>
-
-                            {/* Clinical Output Section */}
-                            <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
-                              <div className="flex items-start gap-3">
-                                <div className="flex-shrink-0">
-                                  <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
-                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
+                                <div className="flex h-fit w-full flex-row items-center justify-between gap-2 pl-1.5">
+                                  <span className="atlas-product-sm text-on-surface-highest-subtle block">Press &quot;esc&quot; to dismiss</span>
+                                  <div className="flex h-fit w-fit flex-row items-center justify-start gap-2">
+                                    <div className="flex h-fit w-fit flex-col items-start justify-start gap-1">
+                                      <div className="bg-surface-tint-base flex h-6 w-fit flex-row items-center justify-start gap-1 rounded-md px-2 py-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-database text-secondary size-3.5">
+                                          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                          <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+                                          <path d="M3 12A9 3 0 0 0 21 12"></path>
+                                        </svg>
+                                        <span className="atlas-product-xs text-on-surface-highest-subtle block font-bold tracking-wider">Test Cases</span>
+                                      </div>
+                                    </div>
+                                    <div className="bg-primary flex h-6 w-fit flex-row items-center justify-center gap-1 rounded-md px-1.5 shadow-md">
+                                      <span className="atlas-product-sm text-on-primary block font-bold">Save</span>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-corner-down-left text-on-primary size-3.5">
+                                        <polyline points="9 10 4 15 9 20"></polyline>
+                                        <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                                      </svg>
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="flex-1">
-                                  <h5 className="text-sm font-semibold text-gray-900 mb-1">Clinical Documentation</h5>
-                                  <p className="text-sm text-gray-700 leading-relaxed">
-                                    Patient reports persistent depressed mood, anergia, anhedonia, and concentration difficulties. 
-                                    Symptoms consistent with major depressive disorder criteria.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Bottom Actions and Tags */}
-                            <div className="mt-4 flex items-center justify-between">
-                              <div className="flex flex-wrap gap-2">
-                                <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 rounded text-xs font-medium text-purple-700">
-                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
-                                  </svg>
-                                  ICD-10: F32.1
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-50 rounded text-xs font-medium text-blue-700">
-                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                  </svg>
-                                  PHQ-9 Indicated
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <button className="px-3 py-1 bg-[#9caf88] text-white text-xs font-medium rounded shadow-sm hover:bg-opacity-90 transition-colors">
-                                  Save to EHR
-                                </button>
                               </div>
                             </div>
                           </div>
