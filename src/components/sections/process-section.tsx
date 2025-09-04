@@ -607,7 +607,7 @@ export default function ProcessSection() {
                                             }}
                                             transition={{ duration: 0.8 }}
                                             style={{
-                                              transform: 'translate(0vw, 5vh) scale(0.9)',
+                                              transform: 'translate(0vw, 5vh) scale(1.1)',
                                               perspective: '1000px'
                                             }}
                                           >
@@ -1798,7 +1798,7 @@ export default function ProcessSection() {
                                         }}
                                         transition={{ duration: 1.2, ease: "easeInOut" }}
                                         style={{
-                                          transform: 'translate(0vw, 10vh) scale(0.8)'
+                                          transform: 'translate(0vw, 0vh) scale(1.1)'
                                         }}
                                       >
                                         <div 
@@ -1808,15 +1808,29 @@ export default function ProcessSection() {
                                           }}
                                         >
                                           <motion.div 
-                                            className="atlas-product-base -rotate-x-6 -rotate-y-12 break-words whitespace-pre-line transform-3d"
+                                            className="atlas-product-base break-words whitespace-pre-line transform-3d text-[11px] leading-relaxed text-[#6c757d]"
                                             style={{ 
                                               transition: 'transform 2s cubic-bezier(0.16, 1, 0.3, 1)',
                                               transform: `rotateX(${1.38386 + scrollProgressValue * 2}deg) rotateY(${11.9425 - scrollProgressValue * 5}deg)`,
                                               transformStyle: 'preserve-3d'
                                             }}
                                           >
-                                            {/* Opening text */}
-                                            <span style={{ opacity: 0.5 }}>Patient symptoms analyzed for </span>
+                                            {/* Opening text with typing effect */}
+                                            {(() => {
+                                              const fullText = "Clinical AI analyzing patient symptoms for diagnostic extraction:";
+                                              const typingProgress = Math.min(scrollProgressValue * 3, 1);
+                                              const charsToShow = Math.floor(fullText.length * typingProgress);
+                                              const currentText = fullText.slice(0, charsToShow);
+                                              return (
+                                                <>
+                                                  <span className="font-semibold text-[#2f2f2f] block">
+                                                    {currentText}
+                                                    {typingProgress < 1 && <span className="inline-block w-0.5 h-4 bg-[#70a2bc] animate-pulse" />}
+                                                  </span>
+                                                  {'\n\n'}
+                                                </>
+                                              );
+                                            })()}
                                             
                                             {/* Line 1 - Chest Pain → CARDIAC */}
                                             <motion.span
@@ -1827,31 +1841,38 @@ export default function ProcessSection() {
                                               <span className="relative inline-block transform-3d">
                                                 <span 
                                                   className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
-                                                  style={{ opacity: 0.6, transform: 'translateZ(20px)' }}
+                                                  style={{ 
+                                                    opacity: 0.6, 
+                                                    transform: 'translateZ(20px)',
+                                                    background: 'linear-gradient(90deg, rgba(255,200,200,0.3), rgba(255,200,200,0.1))',
+                                                    padding: '0 4px',
+                                                    borderRadius: '2px'
+                                                  }}
                                                 >
                                                   <span className="bg-surface-tint-base">chest pain </span>
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
+                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68, 0.3) 0px, rgb(239, 68, 68, 0.3) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span style={{ opacity: 0.5 }}> </span>
-                                              <span className="inline-block transform-3d">
+                                              <span> → </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
                                                     opacity: 1, 
                                                     transform: 'translateZ(50px)',
-                                                    background: '#ef4444',
+                                                    background: '#70a2bc',
                                                     color: 'white',
                                                     padding: '0 6px',
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  CARDIAC
+                                                  Cardiology
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68) 0px, rgb(239, 68, 68) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span style={{ opacity: 0.5 }}> testing, </span>
+                                              <span>referral: EKG + troponin </span>
                                             </motion.span>
+                                            
+                                            {'\n'}
                                             
                                             {/* Line 2 - PTSD → TRAUMA */}
                                             <motion.span
@@ -1862,32 +1883,47 @@ export default function ProcessSection() {
                                               <span className="relative inline-block transform-3d">
                                                 <span 
                                                   className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
-                                                  style={{ opacity: 0.6, transform: 'translateZ(20px)' }}
+                                                  style={{ 
+                                                    opacity: 0.6, 
+                                                    transform: 'translateZ(20px)',
+                                                    background: 'linear-gradient(90deg, rgba(200,220,255,0.3), rgba(200,220,255,0.1))',
+                                                    padding: '0 4px',
+                                                    borderRadius: '2px'
+                                                  }}
                                                 >
-                                                  <span className="bg-surface-tint-base">nightmares </span>
+                                                  <span className="text-blue-400">nightmares </span>
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
+                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(112, 162, 188, 0.3) 0px, rgb(112, 162, 188, 0.3) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
                                               <span className="relative inline-block transform-3d">
                                                 <span 
                                                   className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
-                                                  style={{ opacity: 0.6, transform: 'translateZ(20px)' }}
+                                                  style={{ 
+                                                    opacity: 0.6, 
+                                                    transform: 'translateZ(20px)',
+                                                    padding: '0 2px'
+                                                  }}
                                                 >
-                                                  <span className="bg-surface-tint-base">and </span>
+                                                  <span className="text-gray-400">and </span>
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
                                               <span className="relative inline-block transform-3d">
                                                 <span 
                                                   className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
-                                                  style={{ opacity: 0.6, transform: 'translateZ(20px)' }}
+                                                  style={{ 
+                                                    opacity: 0.6, 
+                                                    transform: 'translateZ(20px)',
+                                                    background: 'linear-gradient(90deg, rgba(200,220,255,0.3), rgba(200,220,255,0.1))',
+                                                    padding: '0 4px',
+                                                    borderRadius: '2px'
+                                                  }}
                                                 >
-                                                  <span className="bg-surface-tint-base">anxiety </span>
+                                                  <span className="text-blue-400">anxiety </span>
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
+                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(112, 162, 188, 0.3) 0px, rgb(112, 162, 188, 0.3) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span style={{ opacity: 0.5 }}> </span>
-                                              <span className="inline-block transform-3d">
+                                              <span> → </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
@@ -1899,11 +1935,11 @@ export default function ProcessSection() {
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  TRAUMA
+                                                  PTSD
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(112, 162, 188) 0px, rgb(112, 162, 188) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span className="inline-block transform-3d">
+                                              <span>screening + </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
@@ -1915,12 +1951,13 @@ export default function ProcessSection() {
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  COUNSELING
+                                                  CBT
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(112, 162, 188) 0px, rgb(112, 162, 188) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span style={{ opacity: 0.5 }}>, </span>
+                                              <span>therapy referral </span>
                                             </motion.span>
+                                            
+                                            {'\n'}
                                             
                                             {/* Line 3 - Blood Sugar → DIABETES */}
                                             <motion.span
@@ -1946,8 +1983,8 @@ export default function ProcessSection() {
                                                 </span>
                                                 <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span style={{ opacity: 0.5 }}> </span>
-                                              <span className="inline-block transform-3d">
+                                              <span> → </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
@@ -1959,29 +1996,11 @@ export default function ProcessSection() {
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  DIABETES
+                                                  Type 2 DM
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(168, 153, 138) 0px, rgb(168, 153, 138) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span className="inline-block transform-3d">
-                                                <span 
-                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
-                                                  style={{ 
-                                                    opacity: 1, 
-                                                    transform: 'translateZ(40px)',
-                                                    background: '#a8998a',
-                                                    color: 'white',
-                                                    padding: '0 6px',
-                                                    fontWeight: 600
-                                                  }}
-                                                >
-                                                  MANAGEMENT
-                                                </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(168, 153, 138) 0px, rgb(168, 153, 138) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
-                                              </span>
-                                              <span style={{ opacity: 0.5 }}>
-{'\n'}
-                                              </span>
+                                              <span>monitoring: HbA1c + glucose log </span>
+                                              {'\n\n'}
                                             </motion.span>
                                             
                                             {/* Treatment Plan Header */}
@@ -1990,9 +2009,10 @@ export default function ProcessSection() {
                                               animate={{ opacity: scrollProgressValue > 0.45 ? 1 : 0 }}
                                               transition={{ duration: 0.8, delay: 0.4 }}
                                             >
-                                              <span style={{ opacity: 0.5 }}>
-{'\n'}Treatment Plan:
+                                              <span className="font-semibold text-[#2f2f2f] block mt-2">
+Integrated Care Action Plan:
                                               </span>
+                                              {'\n'}
                                             </motion.span>
                                             
                                             {/* Treatment Items */}
@@ -2001,9 +2021,25 @@ export default function ProcessSection() {
                                               animate={{ opacity: scrollProgressValue > 0.5 ? 1 : 0 }}
                                               transition={{ duration: 0.8, delay: 0.5 }}
                                             >
-                                              <span style={{ opacity: 0.5 }}>
-{'\n'}- </span>
+                                              <span className="block mt-1">
+• Priority 1: </span>
                                               <span className="inline-block transform-3d">
+                                                <span 
+                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
+                                                  style={{ 
+                                                    opacity: 1, 
+                                                    transform: 'translateZ(35px)',
+                                                    background: '#70a2bc',
+                                                    color: 'white',
+                                                    padding: '0 4px',
+                                                    fontWeight: 600,
+                                                  }}
+                                                >
+                                                  STAT
+                                                </span>
+                                              </span>
+                                              <span>cardiac workup - </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
@@ -2015,58 +2051,10 @@ export default function ProcessSection() {
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  Immediate
+                                                  12-lead EKG
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68) 0px, rgb(239, 68, 68) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span className="inline-block transform-3d">
-                                                <span 
-                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
-                                                  style={{ 
-                                                    opacity: 1, 
-                                                    transform: 'translateZ(35px)',
-                                                    background: '#ef4444',
-                                                    color: 'white',
-                                                    padding: '0 6px',
-                                                    fontWeight: 600
-                                                  }}
-                                                >
-                                                  EKG
-                                                </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68) 0px, rgb(239, 68, 68) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
-                                              </span>
-                                              <span className="inline-block transform-3d">
-                                                <span 
-                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
-                                                  style={{ 
-                                                    opacity: 1, 
-                                                    transform: 'translateZ(35px)',
-                                                    background: '#ef4444',
-                                                    color: 'white',
-                                                    padding: '0 6px',
-                                                    fontWeight: 600
-                                                  }}
-                                                >
-                                                  &
-                                                </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68) 0px, rgb(239, 68, 68) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
-                                              </span>
-                                              <span className="inline-block transform-3d">
-                                                <span 
-                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
-                                                  style={{ 
-                                                    opacity: 1, 
-                                                    transform: 'translateZ(35px)',
-                                                    background: '#ef4444',
-                                                    color: 'white',
-                                                    padding: '0 6px',
-                                                    fontWeight: 600
-                                                  }}
-                                                >
-                                                  labs
-                                                </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(239, 68, 68) 0px, rgb(239, 68, 68) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
-                                              </span>
+                                              <span>+ troponin, BNP, D-dimer</span>
                                             </motion.span>
                                             
                                             <motion.span
@@ -2074,12 +2062,15 @@ export default function ProcessSection() {
                                               animate={{ opacity: scrollProgressValue > 0.6 ? 1 : 0 }}
                                               transition={{ duration: 0.8, delay: 0.6 }}
                                             >
-                                              <span style={{ opacity: 0.5 }}>
-{'\n'}- </span>
+                                              <span className="block mt-1">
+• Priority 1: </span>
                                               <span className="relative inline-block transform-3d">
                                                 <span 
                                                   className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
-                                                  style={{ opacity: 0.6, transform: 'translateZ(20px)' }}
+                                                  style={{ 
+                                                    opacity: 0.5, 
+                                                    transform: 'translateZ(20px)'
+                                                  }}
                                                 >
                                                   <span className="bg-surface-tint-base">Follow-up </span>
                                                 </span>
@@ -2093,15 +2084,15 @@ export default function ProcessSection() {
                                                     transform: 'translateZ(50px)',
                                                     background: '#f59e0b',
                                                     color: 'white',
-                                                    padding: '0 6px',
-                                                    fontWeight: 600
+                                                    padding: '0 4px',
+                                                    fontWeight: 600,
                                                   }}
                                                 >
-                                                  ONE-WEEK
+                                                  7-DAY
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(245, 158, 11) 0px, rgb(245, 158, 11) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
-                                              <span className="inline-block transform-3d">
+                                              <span>follow-up - </span>
+                                              <span className="inline-block transform-3d mx-1">
                                                 <span 
                                                   className="text-on-primary-container bg-primary-container inline-block h-[21px]"
                                                   style={{ 
@@ -2113,10 +2104,65 @@ export default function ProcessSection() {
                                                     fontWeight: 600
                                                   }}
                                                 >
-                                                  REVIEW
+                                                  PHQ-9
                                                 </span>
-                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(245, 158, 11) 0px, rgb(245, 158, 11) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
                                               </span>
+                                              <span>+ GAD-7 assessment</span>
+                                            </motion.span>
+                                            
+                                            {/* Line 3 - Chronic Management */}
+                                            <motion.span
+                                              initial={{ opacity: 0 }}
+                                              animate={{ opacity: scrollProgressValue > 0.7 ? 1 : 0 }}
+                                              transition={{ duration: 0.8, delay: 0.7 }}
+                                            >
+                                              <span className="block mt-1">
+• Priority 3: </span>
+                                              <span className="relative inline-block transform-3d">
+                                                <span 
+                                                  className="bg-surface-base text-on-surface-base-disabled inline-block h-[21px] line-through"
+                                                  style={{ 
+                                                    opacity: 0.5, 
+                                                    transform: 'translateZ(20px)'
+                                                  }}
+                                                >
+                                                  <span className="bg-surface-tint-base">Ongoing care </span>
+                                                </span>
+                                                <span className="absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgb(153, 153, 153) 0px, rgb(153, 153, 153) 1px, transparent 1px, transparent 5px)', opacity: 0.5 }}></span>
+                                              </span>
+                                              <span> → </span>
+                                              <span className="inline-block transform-3d mx-1">
+                                                <span 
+                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
+                                                  style={{ 
+                                                    opacity: 1, 
+                                                    transform: 'translateZ(50px)',
+                                                    background: '#5a8ca6',
+                                                    color: 'white',
+                                                    padding: '0 6px',
+                                                    fontWeight: 600
+                                                  }}
+                                                >
+                                                  MONTHLY
+                                                </span>
+                                              </span>
+                                              <span>integrated care - </span>
+                                              <span className="inline-block transform-3d mx-1">
+                                                <span 
+                                                  className="text-on-primary-container bg-primary-container inline-block h-[21px]"
+                                                  style={{ 
+                                                    opacity: 1, 
+                                                    transform: 'translateZ(50px)',
+                                                    background: '#5a8ca6',
+                                                    color: 'white',
+                                                    padding: '0 6px',
+                                                    fontWeight: 600
+                                                  }}
+                                                >
+                                                  DM care plan
+                                                </span>
+                                              </span>
+                                              <span>+ medication reconciliation</span>
                                             </motion.span>
                                           </motion.div>
                                         </div>
